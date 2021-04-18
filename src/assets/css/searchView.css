@@ -1,0 +1,13 @@
+.searchview-row {
+    display:flex;
+    flex-direction:row;
+    position:relative;
+}
+
+.searchview-button {
+    display:inline-block;
+    background: transparent; 
+    color:#999; 
+    font-size:12px;
+    width:100%;
+}

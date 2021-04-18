@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Beauty</title>  
+
+  <!-- To Load custom Static files. Use this: --> 
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" /> 
+
+</head>
+
+<body>
+
+<h2><a href="{% url 'landing_page' %}">The most beautiful web page</a><h3>
+<br>
+{% if user.is_authenticated %}
+    <li><a href="{% url 'user_dashboard' %}">User Dashboard</a> </li>
+    <li><a href="{% url 'view_episodes' %}">Episodes</a> </li>
+    <li><a href="{% url 'logout' %}">Logout</a> </li>
+{% else %}
+    <li><a href="{% url 'register' %}">Create Account</a> </li>
+    <li><a href="{% url 'login' %}">Login</a> </li>
+{% endif %}
+
+{% block main_content %}
+{% endblock %}
+</body>
+
+
+</html>

@@ -1,0 +1,8 @@
+.searchview-row {
+	display:flex;
+	flex-direction:row;
+}
+
+.searchview-button {
+	width:100%;
+}

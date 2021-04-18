@@ -1,0 +1,170 @@
+.episode-wrapper {
+    font-size:13px;
+}
+
+.comment-link {
+    font-size:14px;
+    font-weight:bold;
+    margin:20px;
+}
+
+.comment-link:hover {
+    text-decoration:underline;
+}
+
+.comment-main-title {
+  font-size: 25px;
+  position:relative;
+  font-weight:bold;
+  margin:10px;
+  color:#999;
+}
+
+.episode-comment-right {
+    margin-left:auto;
+}
+
+.episode-comment {
+    background:#FFF;
+    position:relative;
+    padding:15px;
+    margin:5px;
+    max-width:100%;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+    top:0;
+}
+
+.episode-reply {
+    background:#FFF;
+    margin-left:10%;
+    margin-bottom:5px;
+    padding:10px;
+    max-width:88%;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+}
+
+.episode-reply-margin-wrapper{
+    display:flex;
+    flex-direction:row;
+    position:relative;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.episode-reply-wrapper {
+    display:flex;
+    flex-direction:row;
+    position:relative;
+    flex-wrap:wrap;
+}
+
+.reply-box{
+    padding:5px;
+}
+
+.episode-comment-wrapper {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    position:relative;
+}
+
+.episode-comment-wrapper-reverse{
+    display:flex;
+    flex-direction:row-reverse;
+    flex-wrap:wrap;
+    position:relative;
+}
+
+.episode-comment-bottom-bottons {
+    display:flex;
+    flex-direction:row;
+    margin:5px;
+    font-size:15px;
+}
+
+.episode-comment-reply-button {
+    margin-top:10px;
+    left:0px;
+}
+
+.episode-comment-text {
+    font-size:15px;
+    padding-left:10px;
+}
+.episode-comment-text-small {
+    font-size:13px;
+    padding-left:10px;
+}
+
+.episode-reply-text {
+    font-size:14px;
+    margin-top:5px;
+}
+
+.episode-reply-text-small {
+    font-size: 12px;
+     margin-top:5px;
+}
+
+.episode-comment-count {
+    font-size:15px;
+    font-weight:bold;
+    color:#999
+}
+
+.episode-reply-count {
+    font-size:13px;
+    font-weight:bold;
+    color:#999;
+    margin-left:auto;
+    margin-top:10px;
+}
+
+.episode-comment-row{
+    width:100%;
+}
+
+
+.episode-reply-row{
+    width:100%;
+}
+
+.episode-reply-right{
+    margin-left:auto;
+}
+
+.episode-comment-name {
+    font-size: 13px;
+    font-weight:bold;
+
+}
+
+.episode-reply-name{
+    font-size: 13px;
+    font-weight:bold;
+}
+
+.episode-comment-time-stamp {
+    font-size: 10px;
+    font-weight:bold;
+
+}
+
+.episode-comment-date {
+    font-size:10px;
+    margin-left:auto;
+}
+
+.episode-reply-date {
+    font-size:9px;
+    margin-left:auto;
+}
+
+.episode-comment-small{
+    font-size:8px;
+}
+

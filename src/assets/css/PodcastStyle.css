@@ -1,0 +1,35 @@
+
+.podcast-description-wrapper {
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+    width:100%;
+    font-size:15px;
+    padding:5px;
+
+}
+
+.podcast-row {
+    display:flex;
+    flex-direction:row;
+    position:relative;
+}
+
+.podcast-pull-right {
+    position:absolute;
+    right:0px;
+}
+
+.podcast-right {
+    margin-left: auto;
+}
+
+.podcast-column {
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    position:relative;
+}
+.podcast-rss {
+    flex:1;
+    bottom:0;
+}

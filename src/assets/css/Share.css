@@ -1,0 +1,22 @@
+.share-icons-container-left {
+	display:flex;
+	flex-direction:row;
+	position:relative;
+	flex-wrap:wrap;
+}
+
+.share-icons-container-right {
+    display:flex;
+    flex-direction:row-reverse;
+    position:relative;
+    
+    width:100%;
+    flex-wrap:wrap;
+
+}
+
+.share-small{
+    font-size:10px;
+    color:inherit;
+    top:0px;
+}
