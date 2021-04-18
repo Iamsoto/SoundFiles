@@ -1,6 +1,7 @@
 from django.db import models 
-from userfeatures.models import EpisodeComment
+from userfeatures.models import EpisodeComment, Playlist
 from users.models import SoundFileUser
+
 
 """
 class Mention(models.Model):
@@ -9,7 +10,9 @@ class Mention(models.Model):
 
 class EpisodeCommentNotification(models.Model):
     episodeComment = models.ForeignKey(EpisodeComment, 
-        on_delete=models.CASCADE) # Parent episode comment
+        on_delete=models.CASCADE, blank =True, null=True) # Parent episode comment
+
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, blank=True, null=True) # TODO... this should really be in its own models
     
     seen = models.BooleanField(default=False)
     

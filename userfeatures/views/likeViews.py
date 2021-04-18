@@ -66,6 +66,7 @@ class PlaylistLikeSubmit(APIView):
         response_data={}
         sponge= forms.IntegerField(required = False)
         playlist = None
+        ecn = None
 
         if "playlist_pk" not in request.data:
             response_data["detail"] = "Bad Request"
@@ -89,10 +90,32 @@ class PlaylistLikeSubmit(APIView):
             try:
                 like = PlaylistLike(playlist=playlist, user=request.user).save()
             except Exception as e:
-                print(e)
                 response_data["detail"] = "Something happened"
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
             else:
+
+                if request.user.pk != playlist.user:  
+                    # User didn't like this themselves
+                    
+                    ecn = EpisodeCommentNotification.objects.filter(user_notified=playlist.user, playlist= playlist, notify_type="playlist-like").first()
+
+                    if ecn is not None:
+                        ecn.seen = False;
+                        ecn.update_time = timezone.now();
+                        ecn.count += 1
+
+                    else:
+
+                        ecn = EpisodeCommentNotification(user_notified=playlist.user, 
+                            playlist=playlist,
+                            notify_type="playlist-like",
+                            count=1)
+
+                    try:
+                        ecn.save()
+                    except Exception as e:
+                        pass # ??
+
                 response_data["success"] = "liked"
                 return Response(response_data, status=status.HTTP_201_CREATED)
         else:
@@ -212,7 +235,7 @@ class EpisodeCommentLikeSubmit(APIView):
                     # Person didn't just reply to him/herself
                     notification = EpisodeCommentNotification.objects.filter(episodeComment=comment, user_notified=poster, notify_type="like").first()
                     if notification is not None:
-                        notification.seen = False;
+                        notification.seen = False
                         notification.count += 1
                         notification.update_time = timezone.now()
                     else:

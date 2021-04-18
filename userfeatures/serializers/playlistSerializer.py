@@ -15,6 +15,12 @@ class EpisodePlaylistSerializer(serializers.ModelSerializer):
         fields = ['episode','time']
 
 
+class PlaylistSerializerSmall(serializers.ModelSerializer):
+    class Meta:
+        model = Playlist
+        fields= ['name', 'pk', 'user']
+
+
 class PlaylistSerializer(serializers.ModelSerializer):
     episodes = EpisodePlaylistSerializer(many=True)
     user = UserSerializerTokenized()
