@@ -18,12 +18,16 @@ import { PlaylistContext } from "views/PlaylistPage/PlaylistContext.js";
 import { AudioPlayerContext } from "components/AudioPlayer/AudioPlayerContext.js";
 import Badge from '@material-ui/core/Badge';
 import PlaylistLike from "components/Likes/PlaylistLike.js";
+import Button from '@material-ui/core/Button';
 
+import { convertSeconds } from 'utils/Utils.js';
+import Image from "views/PlaylistPage/Image.js";
 import Share from 'components/Share/Share.js'
 import axios from "axios"
 
 import { useParams } from "react-router";
 import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import 'assets/css/PlaylistsPage.css';
 
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme)=>({
 export default function PlaylistPage(){
   const classes = useStyles()
   const [error, setError] = useState("")
-  
+  let history = useHistory()
   const [success, setSuccess] = useState("");
   const [render, setRender] = useState(false)
   const [playlistObj, setPlaylistObj] = useState({name:"",episodes:[],public:false, user:{}, num_likes:0, cur_user_liked:false});
@@ -113,7 +117,6 @@ export default function PlaylistPage(){
                setRedirect(true);
             })      
       }).catch((msg)=>{
-        console.log(msg)
         // Auth error, Try anonymously
           axios({
               method: 'get',
@@ -263,6 +266,11 @@ export default function PlaylistPage(){
       })
   }
   
+  const goEpisode = (e, episode_pk) =>{
+    e.preventDefault()
+    history.push(`/episode/${episode_pk}`)
+  }
+
   return(
     <>
       {error !== "" ? <Alert severity="error"> {error} </Alert> : null}
@@ -323,18 +331,16 @@ export default function PlaylistPage(){
           <React.Fragment key={episode.episode.pk}>
             <Paper style= {{"maxWidth":"100%"}} elevation={0}>
               <div className="playlist-container-row">
-                <img
-                  className="playlist-img"
-                  src={episode.episode.podcast.image_url}
-                  />
+                <Image image={episode.episode.podcast.image_url}/>
+
                   <div className="playlist-wrapper">
                     {onMobile 
-                      ? <div className="playlist-title-small"><h6>{episode.episode.name}</h6></div>
-                      : <div className="playlist-title"><h6>{episode.episode.name}</h6></div>
+                      ? <div className="playlist-title-small"><Button color= "inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
+                      : <div className="playlist-title"><Button color="inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
                     }
                     {onMobile 
-                      ? <div className="playlist-subtitle-small">Current Location: {episode.time}</div>
-                      : <div className="playlist-subtitle">Current Location: {episode.time}</div>
+                      ? <div className="playlist-subtitle-small">Current Location: {convertSeconds(episode.time)}</div>
+                      : <div className="playlist-subtitle">Current Location: {convertSeconds(episode.time)}</div>
                     }
                     
                     { ( curPlaylist.length > 0  && curPlaylist[trackIndex] &&

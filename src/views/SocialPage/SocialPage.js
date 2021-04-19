@@ -3,7 +3,8 @@ import Alert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ECnotification from 'views/SocialPage/ECNotification.js'
+import ECnotification from 'views/SocialPage/ECNotification.js';
+import Profile from 'components/Profile/Profile.js';
 
 import GetValidToken from "auth/GetValidToken.js";
 import GetAuthHeader from "auth/GetAuthHeader.js";
@@ -12,6 +13,7 @@ import { Redirect } from "react-router-dom";
 
 import axios from 'axios'
 import 'assets/css/Notifications.css'
+
 export default function SocialPage(){
     const [error, setError] = useState("")
     const [redirect, setRedirect] = useState(false)
@@ -20,7 +22,6 @@ export default function SocialPage(){
     const [page, setPage] = useState(1)
 
     const episode_comment_notifications_get = localStorage.getItem("__APIROOT_URL__").concat('userfeatures/episode_comment_notifications')
-
 
     useEffect(()=>{
         GetValidToken().then(()=>{
@@ -78,8 +79,8 @@ export default function SocialPage(){
             </Grid>
 
             <Grid item xs={12} md ={5}>
-                <div className="notifications-title-main">
-                    Profile
+                <div className="notifications-wrapper">
+                    <Profile/>
                 </div>
             </Grid>
 

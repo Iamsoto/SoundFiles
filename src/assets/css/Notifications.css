@@ -11,6 +11,29 @@
     transition: transform 0.2s;
 }
 
+.notifications-wrapper {
+  word-break:break-word;
+}
+
+.notification-score {
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: 15px;
+  margin-bottom:5px;
+
+}
+
+.notifications-score {
+  font-size:30px;
+}
+
+.notifications-row { 
+  width:100%;
+}
 .notifications-box:hover {
     transform: scale(1.05);
     z-index: 3;

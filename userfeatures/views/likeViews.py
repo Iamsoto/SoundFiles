@@ -94,7 +94,7 @@ class PlaylistLikeSubmit(APIView):
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
             else:
 
-                if request.user.pk != playlist.user:  
+                if request.user.pk != playlist.user.pk:  
                     # User didn't like this themselves
                     
                     ecn = EpisodeCommentNotification.objects.filter(user_notified=playlist.user, playlist= playlist, notify_type="playlist-like").first()

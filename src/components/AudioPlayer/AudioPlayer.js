@@ -58,6 +58,13 @@ export default function AudioPlayer({close}){
   
   let history = useHistory()
 
+  const shortenTitle = (title) =>{
+    if(title.length > 35){
+      return title.substring(0, 32).concat("...");
+    }else{
+      return title
+    }
+  }
 
   const updateSavedLocation = (time) => {
     savedLocationRef.current = time;
@@ -353,10 +360,11 @@ export default function AudioPlayer({close}){
         {(!onMobile && audioRef.current != null && !isNaN(audioRef.current.duration)) 
           ? <>
             <div className={onMobile ?'audio-column-mobile' : 'audio-column'}>
-              <div className="audio-title" onClick={e => history.push(`/episode/${pk}`)}>{title}</div> 
               <div className="audio-sub-title">
                 {secondsToTime(trackProgress)}/<b>{secondsToTime(audioRef.current.duration)}</b>
-              </div>
+              </div>              
+              <div className="audio-title" onClick={e => history.push(`/episode/${pk}`)}>{shortenTitle(title)}</div> 
+
             </div>
             </>
           : null

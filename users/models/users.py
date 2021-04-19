@@ -48,7 +48,7 @@ class SoundFileUser(AbstractBaseUser):
     valid_email = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)  
     news_letter = models.BooleanField(default=False)
-
+    score = models.IntegerField(default =0)
     objects = SoundFileUserManager()
 
     USERNAME_FIELD = 'email' # Email must be unique

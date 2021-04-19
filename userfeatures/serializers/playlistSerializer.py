@@ -3,17 +3,26 @@ from django.conf import settings
 from users.models import SoundFileUser
 from podcasts.models import Episode
 from users.serializers import UserSerializerTokenized
-from userfeatures.models import Playlist, EpisodePlaylist, PlaylistLike
+from userfeatures.models import Playlist, EpisodePlaylist, PlaylistLike, EpisodeSavePoint
 from podcasts.serializers import EpisodeSerializerSmall, PodcastSerializerTiny
 
 from django.contrib.auth.models import AnonymousUser
 
 class EpisodePlaylistSerializer(serializers.ModelSerializer):
     episode = EpisodeSerializerSmall()
+    time = serializers.SerializerMethodField(method_name='calculate_time')
     class Meta:
         model = EpisodePlaylist
         fields = ['episode','time']
-
+    
+    def calculate_time(self, instance):
+        request = self.context.get('request')
+        user = request.user
+        save = EpisodeSavePoint.objects.filter(user = user, episode=instance.episode).first()
+        if save is None: 
+            return 0
+        else:
+            return save.time
 
 class PlaylistSerializerSmall(serializers.ModelSerializer):
     class Meta:

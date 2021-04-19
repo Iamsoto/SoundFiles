@@ -1,7 +1,7 @@
 from django.db import models 
 from userfeatures.models import EpisodeComment, Playlist
 from users.models import SoundFileUser
-
+import random
 
 """
 class Mention(models.Model):
@@ -28,8 +28,25 @@ class EpisodeCommentNotification(models.Model):
     def __str__(self):
         return f"{self.user_notified.email}-{self.notify_type}-{self.update_time}"
 
+
+    def save(self, *args, **kwargs):
+        """
+            Naieve way of doing this
+        """
+        self.user_notified.score += random.randint(1, 4)
+
+        try:
+            self.user_notified.save()
+        except Exception as e:
+            pass
+        
+        super(EpisodeCommentNotification, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ['-update_time']
+    
+
+    
 
 
 

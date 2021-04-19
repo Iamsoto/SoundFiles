@@ -31,8 +31,6 @@ export default function EpisodeCard({episode, image_url, podcast_pk}) {
     const { setCurPlaylist, curPlaylist, trackIndex, setTrackIndex } = useContext(AudioPlayerContext)
     const [disabled, setDisabled] = useState(false)
     const [onMobile, setOnMobile] = useState(false)
-    const [discussionNum, setDiscussionNum] = useState(0)
-    const [goDiscussion, setGoDiscussion ] = useState(false)
     const [numLikes, setNumLikes] = useState(0)
     const [userLiked, setUserLiked] = useState(false)
 
@@ -102,13 +100,10 @@ export default function EpisodeCard({episode, image_url, podcast_pk}) {
 
     const clickViewDiscussion = (event, episode_pk) => {
         event.preventDefault()
-        setDiscussionNum(episode_pk);
-        setGoDiscussion(true);
+        history.push(`/episode/${episode_pk}`);
     }
 
-    if(goDiscussion){ // User wants to view a discussion
-        history.push(`/episode/${discussionNum}`);
-    }
+
 
     return (
 

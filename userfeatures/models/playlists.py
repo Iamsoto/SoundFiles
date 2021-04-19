@@ -6,7 +6,8 @@ from users.models import SoundFileUser
 
 class Playlist(models.Model):
     user = models.ForeignKey(SoundFileUser, 
-        on_delete=models.CASCADE, blank=False, null=False)
+        on_delete=models.CASCADE,
+        blank=False, null=False)
     name = models.CharField(max_length=125)
     public = models.BooleanField(default=False)
 

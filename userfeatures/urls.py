@@ -18,6 +18,6 @@ urlpatterns = [
    path('podcast_like', views.PodcastLikeSubmit.as_view(), name="podcast-like"),
    path('episode_save_point', views.EpisodeSavePointView.as_view(), name="episode-save-point"),
    path('episode_comment_notifications', views.EpisodeCommentNotifications.as_view(), name="episode-comment-notifications"),
-   path('episode_comment_notifications_unseen', views.UnseenNotifications.as_view(), name="episode-comment-notifications-unseen")
-   
+   path('episode_comment_notifications_unseen', views.UnseenNotifications.as_view(), name="episode-comment-notifications-unseen"),
+   path('user_profile', views.UserProfileView.as_view(), name="user-profile")
 ]   
