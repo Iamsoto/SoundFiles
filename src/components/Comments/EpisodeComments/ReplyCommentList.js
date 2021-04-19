@@ -109,6 +109,7 @@ export default function ReplyCommentList({comment_pk, render, setReplyCount}){
                     text={reply.text}
                     post_date={reply.post_date}
                     username={reply.user.username}
+                    user_pk={reply.user.pk}
                     comment_pk={reply.pk}
                     num_likes={reply.num_likes}
                     cur_user_liked={reply.cur_user_liked}

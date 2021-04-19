@@ -4,13 +4,19 @@ from django.http import Http404
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions, status
+from rest_framework import permissions, status, throttling
 from CustomPermissions import ValidEmail
 from datetime import datetime
 from podcasts.models import Episode, Podcast
 from userfeatures.models import (EpisodeCommentLike, EpisodeComment, EpisodeLike, 
     Playlist, PlaylistLike, PodcastLike, EpisodeCommentNotification)
 from django.utils import timezone
+
+
+
+class LikeThrottle(throttling.UserRateThrottle):
+    rate ='2/minute'
+
 
 class PodcastLikeSubmit(APIView):
 
@@ -184,7 +190,7 @@ class EpisodeCommentLikeSubmit(APIView):
         Post a like to a comment
     """
     permission_classes = [permissions.IsAuthenticated, ValidEmail]
-
+    throttle_classes = [LikeThrottle]
     def post(self, request, format=None):
         response_data={}
         sponge = forms.IntegerField(required=False)
@@ -233,13 +239,18 @@ class EpisodeCommentLikeSubmit(APIView):
                 poster = comment.user
                 if poster.pk != request.user.pk:
                     # Person didn't just reply to him/herself
-                    notification = EpisodeCommentNotification.objects.filter(episodeComment=comment, user_notified=poster, notify_type="like").first()
+                    notification = EpisodeCommentNotification.objects.filter(episodeComment=comment, 
+                        user_notified=poster, notify_type="like").first()
                     if notification is not None:
                         notification.seen = False
                         notification.count += 1
                         notification.update_time = timezone.now()
                     else:
-                        notification = EpisodeCommentNotification(episodeComment=comment, user_notified=poster, notify_type="like", seen=False, count=1)
+                        notification = EpisodeCommentNotification(episodeComment=comment, 
+                            user_notified=poster, notify_type="like", seen=False, count=1)
+                
+                # check for spamming
+                #notifications.objects.filter(episodeComment=comment, user_notified=poster)
                 try:
                     notification.save()
                 except Exception as e:

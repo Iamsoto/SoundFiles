@@ -9,7 +9,7 @@ class UserSerializerTokenized(serializers.HyperlinkedModelSerializer):
     """
     class Meta:
         model = SoundFileUser
-        fields = ['username']
+        fields = ['username', 'pk']
 
 
 class ListUsersSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,7 +18,7 @@ class ListUsersSerializer(serializers.HyperlinkedModelSerializer):
 
         """
         model = SoundFileUser
-        fields = ['username', 'email','join_date']
+        fields = ['username', 'email','join_date','pk']
 
 
 class DetailUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -28,7 +28,7 @@ class DetailUserSerializer(serializers.HyperlinkedModelSerializer):
         """
         model = SoundFileUser
         fields = ['username', 'email','password', 'first_name',
-        'last_name','join_date']
+        'last_name','join_date','pk']
 
 
 class CreateUserSerializer(serializers.HyperlinkedModelSerializer):

@@ -10,11 +10,6 @@ export default function EpisodeCommentLike({numLikes, setNumLikes, userLiked, se
     const [error, setError] = useState("")
     const episode_comment_like_url = localStorage.getItem("__APIROOT_URL__").concat(`userfeatures/episode_comment_like`)
     
-    useEffect(()=>{
-        var mounted = true
-        return () => mounted = false;
-
-    },[numLikes])
 
     const onClick = (e)=> {
         e.preventDefault()
@@ -39,24 +34,27 @@ export default function EpisodeCommentLike({numLikes, setNumLikes, userLiked, se
                     setNumLikes(numLikes -1)
                 }
             }).catch((error)=>{
-                console.log(error)
-                if(error.response && error.response.data){
-                   setError(error.response.data.detail) 
+                   
+                if(error.response.status === 429 ){
+                    setError("Calm down with the likes!") 
                 }else{
+
                     setError("Something went wrong :(")
                 }
+                
                 
             })
 
         }).catch((msg)=>{ // Validation error
-            setError(msg)
+            //console.log(msg)
+            setError("Please login")
         })
     }
 
     return (
             <>
             {error != "" 
-                ? <Alert severity="error">Please login to like this</Alert>
+                ? <Alert severity="error">{error}</Alert>
                 : null
             }
             <Likes numLikes={numLikes} userLiked={userLiked} onClick={onClick} />

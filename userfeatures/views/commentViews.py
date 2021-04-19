@@ -117,13 +117,15 @@ class EpisodeCommentReplyCreate(APIView):
         poster = comment.user
         if poster.pk != request.user.pk:
             # Person didn't just reply to him/herself
-            notification = EpisodeCommentNotification.objects.filter(episodeComment=comment, user_notified=poster, notify_type="reply").first()
+            notification = EpisodeCommentNotification.objects.filter(episodeComment=comment, 
+                user_notified=poster, notify_type="reply").first()
             if notification is not None:
                 notification.seen = False;
                 notification.count += 1
                 notification.update_time = timezone.now()
             else:
-                notification = EpisodeCommentNotification(episodeComment=comment, user_notified=poster, notify_type="reply", seen=False, count=1)
+                notification = EpisodeCommentNotification(episodeComment=comment, user_notified=poster, 
+                    notify_type="reply", seen=False, count=1)
 
         try:
             notification.save()

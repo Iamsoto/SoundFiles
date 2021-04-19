@@ -29,6 +29,9 @@
 
 .notifications-score {
   font-size:30px;
+  font-weight: bold;
+  color: #999;
+  position: relative;
 }
 
 .notifications-row { 

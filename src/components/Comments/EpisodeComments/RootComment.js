@@ -5,9 +5,10 @@ import { convertDate } from "utils/Utils.js";
 import ReplyCommentList from "components/Comments/EpisodeComments/ReplyCommentList.js";
 import CreateReply from "components/Comments/EpisodeComments/CreateReply.js";
 import Flag from "components/Flag/Flag.js"
+import Username from "components/Profile/Username.js"
 
 
-export default function RootComment({username, postDate, timeStamp, text, pk, num_likes, user_liked, user_flagged}){
+export default function RootComment({username, user_pk, postDate, timeStamp, text, pk, num_likes, user_liked, user_flagged}){
     const [renderReplies, setRenderReplies] = useState(false);
     const [replyCount, setReplyCount] = useState(0)
     const [onMobile, setOnMobile] = useState(0)
@@ -54,7 +55,9 @@ export default function RootComment({username, postDate, timeStamp, text, pk, nu
         <>
             <div className= "episode-comment" >
                 <div className="episode-comment-wrapper">
-                    <div className="episode-comment-name">{ username == null? "Hacker" : username}</div>
+                    
+                      <Username text={ username == null ? "Hacker" : username} pk={user_pk} />
+                    
                     
                     <div className="episode-comment-right">
                       <div className="episode-comment-date">

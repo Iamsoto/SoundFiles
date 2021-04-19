@@ -5,10 +5,12 @@ import { convertDate } from "utils/Utils.js";
 
 import Flag from "components/Flag/Flag.js";
 
+import Username from "components/Profile/Username.js";
+
 import "assets/css/EpisodePage.css";
 import "assets/css/Comments.css";
 
-export default function ReplyCommentList({text, post_date, username, num_likes, cur_user_liked, cur_user_flagged, comment_pk}){
+export default function ReplyCommentList({text, post_date, username, user_pk, num_likes, cur_user_liked, cur_user_flagged, comment_pk}){
     const [onMobile, setOnMobile] = useState(false)
     const [numLikes, setNumLikes] = useState(num_likes)
     const [userLiked, setUserLiked] = useState(cur_user_liked)
@@ -40,12 +42,15 @@ export default function ReplyCommentList({text, post_date, username, num_likes, 
     return (
             <div className="episode-reply">
                 <div className="episode-reply-wrapper">
-                    <div className="episode-reply-name">
-                        {username != undefined 
+                    <Username 
+                      text={username != undefined 
                             ? <>{username}</> 
                             : <>Hacker</> 
                             }
-                    </div>
+                      pk ={user_pk}
+                      small={true}
+                    />
+
                     <div className="episode-reply-date">{convertDate(post_date)}</div>
                 </div>
                 <div className="episode-reply-row">

@@ -17,8 +17,11 @@ class EpisodeCommentNotification(models.Model):
     seen = models.BooleanField(default=False)
     
     update_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    
     notify_type= models.CharField(max_length =40) # One of 'reply' or 'like'
     
+    #user_giver = models.ForeignKey(SoundFileUser, on_delete=models.SET_NULL, null=True, blank=True)
+
     user_notified = models.ForeignKey(SoundFileUser, 
         on_delete=models.CASCADE,
         related_name="episode_comment_reply_notifications")
@@ -33,6 +36,7 @@ class EpisodeCommentNotification(models.Model):
         """
             Naieve way of doing this
         """
+
         self.user_notified.score += random.randint(1, 4)
 
         try:

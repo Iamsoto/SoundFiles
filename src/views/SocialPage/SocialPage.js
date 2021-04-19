@@ -73,14 +73,14 @@ export default function SocialPage(){
                 ))}
 
                     {totalPages > 1?
-                    <Pagination count={totalPages} page={page} onChange={changePage}/>
+                        <Pagination count={totalPages} page={page} onChange={changePage}/>
                     : null
                     }
             </Grid>
 
             <Grid item xs={12} md ={5}>
                 <div className="notifications-wrapper">
-                    <Profile/>
+                    <Profile />
                 </div>
             </Grid>
 

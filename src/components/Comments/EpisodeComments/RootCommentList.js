@@ -98,6 +98,7 @@ export default function RootCommentList({render, setRender}){
                 <React.Fragment key = {`episode-comment-${comment.pk}`}>
                     <RootComment 
                         username={comment.user.username}
+                        user_pk={comment.user.pk}
                         postDate={comment.post_date}
                         timeStamp={comment.time_stamp}
                         text={comment.text}
