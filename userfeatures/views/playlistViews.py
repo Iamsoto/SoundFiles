@@ -294,6 +294,12 @@ class Playlists(APIView):
             else:
                 cleaned_bool = False
             
+
+            numPlaylists = Playlist.objects.filter(user=request.user)
+            if len(numPlaylists) >= 3:
+                response_data["detail"] = "Only 3 playlists allowed... for now"
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)     
+
             new_playlist = Playlist(user = request.user, name=cleaned_name, public=cleaned_bool)
 
         try:
