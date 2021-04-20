@@ -8,10 +8,21 @@
 
 }
 
+.podcast-sub-count{
+    font-weight:bold;
+    font-size:15px;
+    color:#999;
+    margin:10px;
+}
+
+
 .podcast-row {
     display:flex;
     flex-direction:row;
     position:relative;
+}
+.podcast-row-slim {
+    width:100%
 }
 
 .podcast-pull-right {

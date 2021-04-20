@@ -227,15 +227,14 @@ export default function Episodes({image_url}){
             <Grid container className={classes.container}>
                 <Grid item xs={12}>
                     {episodes.map((episode, i) => (
-                      <div key={episode.guid}>
+                      <div key={episode.pk}>
                         <Box m={2}/>
-                            <Grow in ={true} style={{ transformOrigin: `0, ${Number(i) * 5}, 0` }}>
-                                <EpisodeCard episode={episode} 
-                                    image_url={image_url}
-                                    podcast_pk={pk}
-                                />
-                            </Grow>
-                      </div>             
+                            <EpisodeCard episode={episode} 
+                                image_url={image_url}
+                                podcast_pk={pk}
+                            />
+
+                        </div>             
                     ))}
                 </Grid>
                 <Box m={2}/>

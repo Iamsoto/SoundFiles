@@ -36,6 +36,7 @@ class UserProfileView(APIView):
 
         response_data["score"] = user.score
         response_data["username"] = user.username
+        response_data["email"] = user.email
         playlist_objects = Playlist.objects.filter(user=user, public=True)
         playlists_serial = PlaylistSerializerSmall(playlist_objects, many=True)
         response_data["playlists"] = playlists_serial.data

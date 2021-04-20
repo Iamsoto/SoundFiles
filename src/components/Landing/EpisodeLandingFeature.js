@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import "assets/css/Landing.css"
 
-export default function EpisodeLandingFeature({title, time, pk}){
+export default function EpisodeLandingFeature({title, time, num_likes, pk}){
     const [onMobile, setOnMobile] = useState(true)
     let history = useHistory()
 
@@ -51,11 +51,6 @@ export default function EpisodeLandingFeature({title, time, pk}){
                 </div>
             </div>
 
-            <div className="landing-feature-row">
-                <div className={onMobile ? "landing-feature-text-mobile" : "landing-feature-text"}>
-                    Placeholder
-                </div>
-            </div>
             <div className="landing-feature-row">
                 <div className="landing-feature-go">
                     <Button 

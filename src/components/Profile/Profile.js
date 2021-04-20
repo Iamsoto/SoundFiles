@@ -16,6 +16,7 @@ export default function Profile(){
     const [score, setScore] = useState(0)
     const [playlists, setPlaylists] = useState([])
     const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
 
     let history = useHistory()
 
@@ -34,6 +35,7 @@ export default function Profile(){
                     setScore(response.data.score)
                     setPlaylists(response.data.playlists)
                     setUsername(response.data.username)
+                    setEmail(response.data.email)
                 }else{  
                     setError("Something went wrong. Please try again later")
                 }
@@ -65,7 +67,7 @@ export default function Profile(){
 
             <div className="notifications-row">
                 <div className="notifications-title-main">{username}</div>
-            </div>
+            </div>           
 
             <div className="notifications-row">
                 <div className="notifications-title-main">Score: </div>
@@ -80,12 +82,16 @@ export default function Profile(){
             </div>
 
             {playlists.map(playlist => (
-                <div className="notifications-row">
-                    <Button color="inherit" style={{fontSize:"12px"}} onClick={(e)=>goPlaylist(e, playlist.pk)}>
-                        <PlaylistPlayIcon/>{playlist.name}
-                    </Button>
-                </div>
-                ))}
+                <React.Fragment key={`profile-playlist-${playlist.pk}`}>
+                    <div className="notifications-row">
+                        <Button color="inherit" style={{fontSize:"12px"}} onClick={(e)=>goPlaylist(e, playlist.pk)}>
+                            <PlaylistPlayIcon/>{playlist.name}
+                        </Button>
+                    </div>
+                </React.Fragment>
+                )
+            )}
+
         </>
         )
 }

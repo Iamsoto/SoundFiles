@@ -60,9 +60,9 @@ class EpisodeList(generics.ListAPIView):
         if order_by == 'likes':
             queryset = queryset.annotate(num_likes=Count('likes'))
             if asc == 'False' or asc == 'false':
-                queryset = queryset.order_by('-likes')
+                queryset = queryset.order_by('-num_likes')
             else: # ascending
-                queryset = queryset.order_by('likes')
+                queryset = queryset.order_by('num_likes')
 
         else: # time
             if asc == 'False' or asc =='false':

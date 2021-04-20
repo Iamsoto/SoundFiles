@@ -79,7 +79,10 @@ export default function EpisodeCard({episode}){
                                 onLoad={handleImageLoaded}
                             />
                         {!onMobile || showFeature
-                            ? <EpisodeLandingFeature title ={episode.name} time={convertSeconds(episode.time)}  pk={episode.pk}/>
+                            ? <EpisodeLandingFeature 
+                                title ={episode.name}
+                                time={convertSeconds(episode.time)}
+                                pk={episode.pk}/>
                             : null
                         }
                     </div>

@@ -18,6 +18,16 @@ const SoundhubViewStyle = {
     }
   },
 
+  podcastColumn:{
+    display: "flex",
+    flexDirection:"column",
+  },
+
+  podcastSubscribe:{
+    
+  },
+
+
   episodeButtonsSpan:{
     display:"flex",
     justify:"end",

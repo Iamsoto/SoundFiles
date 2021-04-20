@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import "assets/css/Landing.css"
 
-export default function PodcastLandingFeature({title, num_likes, author, pk}){
+export default function PodcastLandingFeature({title, num_likes, author, num_subs, pk}){
     const [onMobile, setOnMobile] = useState(true)
     let history = useHistory()
 
@@ -57,7 +57,7 @@ export default function PodcastLandingFeature({title, num_likes, author, pk}){
             </div>
             <div className="landing-feature-row">
                 <div className={onMobile ? "landing-feature-text-mobile" : "landing-feature-text"}>
-                    Placeholder
+                    Subscribers: {num_subs}
                 </div>
             </div>
             <div className="landing-feature-row">

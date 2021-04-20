@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Slide from '@material-ui/core/Slide';
 import { LoginContext } from 'auth/LoginContext.js';
 
+
 import Share from "components/Share/Share.js";
 import Flag from "components/Flag/Flag.js";
 import GetValidToken from 'auth/GetValidToken';
@@ -22,6 +23,7 @@ import ShowMoreText from 'react-show-more-text';
 import classNames from "classnames";
 import axios from 'axios';
 
+import SubscribeButton from "components/Subscribe/SubscribeButton.js"
 import PodcastLike from "components/Likes/PodcastLike.js"
 import Episodes from "views/Podcast/Episodes.js"
 
@@ -41,6 +43,7 @@ export default function PodcastView(props) {
     const { pk } = useParams();
     const [error, setError] = useState('');
     const [podcast, setPodcast] = useState({});
+    const [userSubbed, setUserSubbed] = useState(false)
 
     const [redirect, setRedirect] = useState(false);
     const [activeGrid, setActiveGrid] = useState(0);
@@ -49,7 +52,7 @@ export default function PodcastView(props) {
     const [userLiked, setUserLiked] = useState(false);
     const [userFlagged, setUserFlagged] = useState(false);
     const { loggedIn,  setLoggedIn } = useContext(LoginContext);
-    const soundhub_url = localStorage.getItem("__APIROOT_URL__") + "podcasts/" + pk;
+    const soundhub_url = localStorage.getItem("__APIROOT_URL__").concat(`podcasts/${pk}`);
 
     const toggleGridList = (active) => {
       // Toggle the grid list to display
@@ -67,7 +70,7 @@ export default function PodcastView(props) {
     }
 
     useEffect(() => {
-      let mounted = true;
+
       GetValidToken().then(() => {
         axios({
           method: 'get',
@@ -79,19 +82,20 @@ export default function PodcastView(props) {
           },   
         }).then((response) => {
          // populate podcast object
-            if(response.data && mounted){
+            if(response.data){
                 setItem(response.data);
                 setNumLikes(response.data.num_likes)
                 setUserLiked(response.data.cur_user_liked)
                 setUserFlagged(response.data.cur_user_flagged)
+                setUserSubbed(response.data.cur_user_sub)
             }
 
         }).catch((error) => {
             // Something happened...
-            if(mounted){
+
               setError("Nothing to see here");
               setRedirect(true);        
-            }
+
         });
       }).catch(msg => {
         // Authentication error. Anonymous request
@@ -104,23 +108,20 @@ export default function PodcastView(props) {
           },   
         }).then((response) => {
          // populate podcast object
-            if(mounted){
-                setItem(response.data);
-                setNumLikes(response.data.num_likes)
-                setUserLiked(response.data.cur_user_liked)
-                setUserFlagged(response.data.cur_user_flagged)
-            }
+
+            setItem(response.data);
+            setNumLikes(response.data.num_likes)
+            setUserLiked(response.data.cur_user_liked)
+            setUserFlagged(response.data.cur_user_flagged)
+            setUserSubbed(response.data.cur_user_sub)
 
         }).catch((error) => {
             // Something happened...
-            if(mounted){
               setError("Nothing to see here");
               setRedirect(true);        
-            }
         });
       })
 
-        return () => {mounted = false};
 
     }, []);
 
@@ -173,10 +174,15 @@ export default function PodcastView(props) {
                   : null
                   }
                   </div>
-                  <div className={classes.profile}>
-                    <img src={podcast.image_url} alt="..." className={imageClasses} />
-                  </div>
-                
+                      <div className={classes.profile}>
+                        <img src={podcast.image_url} alt="..." className={imageClasses} />
+                        <SubscribeButton 
+                          userSubbed={userSubbed}
+                          setUserSubbed={setUserSubbed}
+                          numSubs={podcast.num_subs}
+                          podcast_pk={pk}/>
+                    </div>
+                    
 
                 <div className="podcast-row">
                   <div className={classes.title}>

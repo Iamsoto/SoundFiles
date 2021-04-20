@@ -14,6 +14,8 @@ class EpisodeCommentNotification(models.Model):
 
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, blank=True, null=True) # TODO... this should really be in its own models
     
+    #subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, blank=True, null=True)
+
     seen = models.BooleanField(default=False)
     
     update_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)

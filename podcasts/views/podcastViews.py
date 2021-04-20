@@ -102,6 +102,7 @@ class PodcastByGenre(generics.ListAPIView):
         else:
             return Podcast.objects.filter(inReview=False, category_links__category__name=genre).annotate(num_likes=Count('likes')).order_by('-num_likes', '-indexPopularityScore')
 
+
 class PopularPodcasts(generics.ListAPIView):
     
     serializer_class = PodcastSerializerSmall

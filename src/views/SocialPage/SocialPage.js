@@ -8,6 +8,8 @@ import Profile from 'components/Profile/Profile.js';
 
 import GetValidToken from "auth/GetValidToken.js";
 import GetAuthHeader from "auth/GetAuthHeader.js";
+import Grow from '@material-ui/core/Grow';
+
 
 import { Redirect } from "react-router-dom";
 
@@ -66,9 +68,11 @@ export default function SocialPage(){
                 <div className="notifications-title-main">
                     Notifications
                 </div>
-                {ECNotifications.map((notification)=>(
+                {ECNotifications.map((notification, i)=>(
                     <React.Fragment key={`episode-comment-notification-${notification.pk}`}>
-                        <ECnotification notification={notification} />
+                        <Grow in={true} style={{ transformOrigin: `0 ${i * 10 * -1} 0` }}>
+                            <ECnotification notification={notification} />
+                        </Grow>
                     </React.Fragment>
                 ))}
 
