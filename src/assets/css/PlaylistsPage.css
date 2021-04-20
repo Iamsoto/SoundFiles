@@ -83,6 +83,13 @@
   margin-right:50px;
 }
 
+.playlist-subscribe{
+  margin:10px;
+}
+
+.playlist-row {
+  width:100%;
+}
 .playlist-wrapper {
    
 }

@@ -68,6 +68,11 @@ export default function HeaderLinks({playlists, onClose, notificationCount}) {
     //console.log(playlists)
   })
 
+  const clickPlaylist = (e, pk) => {
+    e.preventDefault()
+    history.push("/playlist/".concat(pk))
+  }
+
   const userLinks = () => {
     return (
       <>
@@ -95,8 +100,14 @@ export default function HeaderLinks({playlists, onClose, notificationCount}) {
           dropdownList={playlists.map(x=>{
             return (
               (curPlaylist.length > 0 && curPlaylist[0].playlist_pk == x.pk) 
-              ? <> <SurroundSoundIcon style={{color:"green"}}/> <Link to={"/playlist/".concat(x.pk)}>{x.name} </Link></>
-              : <Link style={{color:"inherit"}} to={"/playlist/".concat(x.pk)}>{x.name} </Link>
+              ? <> 
+                    <Button style={{background:"transparent", color:"#000", width:"100%"}} onClick={e=>clickPlaylist(e, x.pk)}>
+                    <SurroundSoundIcon style={{color:"green"}}/> {x.name}
+                    </Button>
+                </>
+              : <Button style={{background:"transparent", color:"#000", width:"100%"}} onClick={e=>clickPlaylist(e, x.pk)}>
+                  {x.name}
+                </Button>
               )
             })}
         />
