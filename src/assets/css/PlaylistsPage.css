@@ -77,6 +77,12 @@
     position:absolute;
 }
 
+.playlist-padded-right{
+  margin-left:auto;
+  position:relative;
+  margin-right:50px;
+}
+
 .playlist-wrapper {
    
 }

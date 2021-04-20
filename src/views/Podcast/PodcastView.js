@@ -180,7 +180,9 @@ export default function PodcastView(props) {
                           userSubbed={userSubbed}
                           setUserSubbed={setUserSubbed}
                           numSubs={podcast.num_subs}
-                          podcast_pk={pk}/>
+                          pk={pk}
+                          type='podcast'
+                        />
                     </div>
                     
 

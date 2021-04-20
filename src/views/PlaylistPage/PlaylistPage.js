@@ -21,6 +21,7 @@ import PlaylistLike from "components/Likes/PlaylistLike.js";
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 
+import SubscribeButton from 'components/Subscribe/SubscribeButton.js'
 import { convertSeconds } from 'utils/Utils.js';
 import Image from "views/PlaylistPage/Image.js";
 import Share from 'components/Share/Share.js'
@@ -55,6 +56,8 @@ export default function PlaylistPage(){
   const [userLiked, setUserLiked] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [menuPodcast, setMenuPodcast] = useState(0)
+  const [userSub, setUserSub] = useState(false);
+  const [numSubs, setNumSubs] = useState(0)
 
   const { pk } = useParams();
 
@@ -113,8 +116,13 @@ export default function PlaylistPage(){
             }).then((response) => {
               if(response.data){
                 setPlaylistObj(response.data);
-                setNumLikes(response.data.num_likes);
-                setUserLiked(response.data.cur_user_liked);
+
+                if(response.data.public){
+                  setNumLikes(response.data.num_likes);
+                  setUserLiked(response.data.cur_user_liked);
+                  setUserSub(response.data.cur_user_sub)
+                  setNumSubs(response.data.num_subs)
+                }
               }
             }).catch((error) => {
                setRedirect(true);
@@ -131,9 +139,13 @@ export default function PlaylistPage(){
           }).then((response) => {
             if(response.data){
               setPlaylistObj(response.data);
-              console.log(response.data)
-              setNumLikes(response.data.num_likes);
-              setUserLiked(response.data.cur_user_liked);
+
+              if(response.data.public){
+                setNumLikes(response.data.num_likes);
+                setUserLiked(response.data.cur_user_liked);
+                setUserSub(response.data.cur_user_sub)
+                setNumSubs(response.data.num_subs)
+              }
             }
           }).catch((error) => {
              setRedirect(true);
@@ -294,12 +306,26 @@ export default function PlaylistPage(){
       {error !== "" ? <Alert severity="error"> {error} </Alert> : null}
       {success !== "" ? <Alert severity="success"> {success} </Alert> : null}
       <Grid container className="playlist-container">
-        <Grid item xs={12} className="playlist-container-row">
+        <Grid item md={7}>
          <Tooltip title={playlistObj.public == true ? "Playlist is public to the world wide web" : "Only you can see this playlist"}>
            <Badge badgeContent={playlistObj.public == true ? "Public" : "Private"} color={playlistObj.public == true ? "primary" : "error"}>
               <h3>{playlistObj.name}</h3>
             </Badge>          
           </Tooltip>
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          {(!isOwner) && (playlistObj.public)
+            ? <div className="playlist-subscribe">                        
+                <SubscribeButton 
+                  userSubbed={userSub}
+                  setUserSubbed={setUserSub}
+                  numSubs={numSubs}
+                  pk={playlistObj.pk}
+                  type='playlist'
+                />
+              </div>
+            : null
+          }
         </Grid>
         <Grid item xs={7}>
           <div className="playlist-container-row">

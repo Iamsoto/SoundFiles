@@ -6,13 +6,18 @@
     flex-wrap:wrap;
     padding:5px;
     border-radius: 25px;
-
+    width:100%;
     background-color: rgba(255,255,255,0.6);
     transition: transform 0.2s;
 }
 
 .notifications-wrapper {
   word-break:break-word;
+}
+
+.notification-right {
+  margin-left:auto;
+  position:relative;
 }
 
 .notification-score {

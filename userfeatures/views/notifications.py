@@ -29,6 +29,7 @@ class EpisodeCommentNotificationPagination(pagination.PageNumberPagination):
 class UnseenNotifications(APIView):
 
     permission_classes = [permissions.IsAuthenticated, ValidEmail]
+    
     def get(self, request, format=None):
         response_data = {}
         response_data["count"] =  EpisodeCommentNotification.objects.filter(user_notified=request.user, seen=False).count()
@@ -60,6 +61,42 @@ class UnseenNotifications(APIView):
 
         try:
             ec_notification.save()
+        except Exception as e:
+            response_data["detail"] = "Something went really wrong"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+        response_data["success"] = "true"
+        return Response(response_data, status=status.HTTP_200_OK)
+
+    
+    def delete(self, request, format=None):
+        """
+            Delete de notification!
+        """
+        response_data = {}
+        sponge=forms.CharField(required=False)
+        if 'ecNotification_pk' not in request.data:
+            response_data["detail"] = "malformed payload"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Get notification
+            ec_notification = EpisodeCommentNotification.objects.get(pk=sponge.clean(request.data.get("ecNotification_pk")))
+        except EpisodeCommentNotification.DoesNotExist as e:
+            response_data["detail"] = "Could not find notification"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            #print(e)
+            response_data["detail"] = "Something went kinda wrong"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)                
+
+        if ec_notification.user_notified != request.user:
+            response_data["detail"] = "Nope!"
+            return Response(response_data, status=HTTP_405_NOT_ALLOWED)
+
+        try:
+            ec_notification.delete()
         except Exception as e:
             response_data["detail"] = "Something went really wrong"
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)

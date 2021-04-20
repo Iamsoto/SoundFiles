@@ -22,6 +22,7 @@ export default function SocialPage(){
     const [ECNotifications, setECNotifications] = useState([])
     const [totalPages, setTotalPages] = useState(1)
     const [page, setPage] = useState(1)
+    const [render, setRender] = useState(false)
 
     const episode_comment_notifications_get = localStorage.getItem("__APIROOT_URL__").concat('userfeatures/episode_comment_notifications')
 
@@ -50,7 +51,7 @@ export default function SocialPage(){
         // Authentication error
         setRedirect(true) 
     })
-    },[page])
+    },[page, render])
 
     if(redirect) {
         return (<Redirect to="/"/>); 
@@ -68,10 +69,12 @@ export default function SocialPage(){
                 <div className="notifications-title-main">
                     Notifications
                 </div>
+                {ECNotifications.length === 0 ? <h6>No notifications yet!</h6>: null}
+                
                 {ECNotifications.map((notification, i)=>(
                     <React.Fragment key={`episode-comment-notification-${notification.pk}`}>
                         <Grow in={true} style={{ transformOrigin: `0 ${i * 10 * -1} 0` }}>
-                            <ECnotification notification={notification} />
+                            <ECnotification notification={notification} render={render} setRender={setRender}/>
                         </Grow>
                     </React.Fragment>
                 ))}
