@@ -8,7 +8,6 @@ import { LandingContext } from "views/Landing/LandingContext.js";
 import PodcastCardRows from "views/Landing/PodcastCardRows.js";
 
 import "assets/css/SearchView.css"
-import axios from 'axios'
 
 
 export default function SearchView({input, searchBy}){
@@ -32,7 +31,7 @@ export default function SearchView({input, searchBy}){
             <PodcastCardRows 
                 url={finalURL} 
                 name="search_results"
-                display_title={searchBy == 'title' ? `Titles like: ${input}` : `Authors like: ${input}`}/>
+                display_title={searchBy === 'title' ? `Titles like: ${input}` : `Authors like: ${input}`}/>
             <div className="searchview-button">
                <p> Didn't find what you were looking for?
                <Button size="small" onClick={goPodcast}> Request it!</Button></p>
