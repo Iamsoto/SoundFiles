@@ -35,7 +35,7 @@ export default function SearchView({input, searchBy}){
                 display_title={searchBy == 'title' ? `Titles like: ${input}` : `Authors like: ${input}`}/>
             <div className="searchview-button">
                <p> Didn't find what you were looking for?
-               <Button size="small" onClick={goPodcast}> Request to Add it!</Button></p>
+               <Button size="small" onClick={goPodcast}> Request it!</Button></p>
             </div>
         
         </Grid>

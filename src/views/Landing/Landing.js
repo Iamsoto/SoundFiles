@@ -84,9 +84,9 @@ export default function Landing(props) {
                         value={page} 
                         onChange={handleTabChange }
                         aria-label="styled tabs">
-                      <StyledTab label="Popular" />
+                      <StyledTab label="Main" />
                       <StyledTab label="Genres" />
-                      <StyledTab label="Add a Podcast" />
+                      <StyledTab label="Request a Podcast" />
                     </StyledTabs>  
                 </Grid>
                 

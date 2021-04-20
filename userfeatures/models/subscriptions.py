@@ -10,6 +10,11 @@ class Subscription(models.Model):
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(SoundFileUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    count = models.IntegerField(default=0)
+    update_time= models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-update_time']
     
     def __str__(self):
         return f"{self.sub_type}-{self.user}"

@@ -251,7 +251,7 @@ export default function EpisodePage(){
                             onClick={goPodcast}
                             color="primary"
                             >
-                          More Episodes
+                          To Podcast
                         </Button>
                       </div>
                     <Menu
@@ -268,7 +268,7 @@ export default function EpisodePage(){
                                 onClick={goPodcast}
                                 color="primary"
                                 >
-                                More Episodes
+                                To Podcast
                             </Button>
                         </div>
                     </Menu>

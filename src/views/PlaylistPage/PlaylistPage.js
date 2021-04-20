@@ -19,6 +19,7 @@ import { AudioPlayerContext } from "components/AudioPlayer/AudioPlayerContext.js
 import Badge from '@material-ui/core/Badge';
 import PlaylistLike from "components/Likes/PlaylistLike.js";
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
 
 import { convertSeconds } from 'utils/Utils.js';
 import Image from "views/PlaylistPage/Image.js";
@@ -52,6 +53,8 @@ export default function PlaylistPage(){
   const [isOwner, setIsOwner] = useState(false);
   const [numLikes, setNumLikes] = useState(0);
   const [userLiked, setUserLiked] = useState(false);
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const [menuPodcast, setMenuPodcast] = useState(0)
 
   const { pk } = useParams();
 
@@ -271,6 +274,21 @@ export default function PlaylistPage(){
     history.push(`/episode/${episode_pk}`)
   }
 
+  const clickMenuPodcast = (e) => {
+    e.preventDefault()
+    history.push(`/podcast/${menuPodcast}`)
+  }
+
+  const clickMenu = (e, podcast_pk) =>{
+    e.preventDefault()
+    setMenuAnchor(e.currentTarget)
+    setMenuPodcast(podcast_pk)
+  }
+
+  const handleMenuClose = () => {
+    setMenuAnchor(null)
+  }
+
   return(
     <>
       {error !== "" ? <Alert severity="error"> {error} </Alert> : null}
@@ -327,42 +345,62 @@ export default function PlaylistPage(){
         </Grid>        
       </Grid>
 
-        {playlistObj.episodes.map((episode, i) =>(
-          <React.Fragment key={episode.episode.pk}>
-            <Paper style= {{"maxWidth":"100%"}} elevation={0}>
-              <div className="playlist-container-row">
-                <Image image={episode.episode.podcast.image_url}/>
+    {playlistObj.episodes.map((episode, i) =>(
+      <React.Fragment key={episode.episode.pk}>
+        <Paper style= {{"maxWidth":"100%"}} elevation={0}>
+          <div className="playlist-container-row">
+            <Button onClick={e => clickMenu(e, episode.episode.podcast.pk)} size="small" >
+              <Image image={episode.episode.podcast.image_url}/>
+            </Button>            
+            <Menu
+                id= {`playlist-page-menu-${episode.episode.pk}`}
+                anchorEl={menuAnchor}
+                keepMounted
+                open={Boolean(menuAnchor)}
+                onClose={handleMenuClose}
+                style={{maxWidth:"100%"}}                      
+                >
+                <div className="episode-page-container">
+                    <Button
+                        variant="outlined"
+                        onClick={clickMenuPodcast}
+                        color="primary"
+                        >
+                        To Podcast
+                    </Button>
+                </div>
+            </Menu>            
 
-                  <div className="playlist-wrapper">
-                    {onMobile 
-                      ? <div className="playlist-title-small"><Button color= "inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
-                      : <div className="playlist-title"><Button color="inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
-                    }
-                    {onMobile 
-                      ? <div className="playlist-subtitle-small">Current Location: {convertSeconds(episode.time)}</div>
-                      : <div className="playlist-subtitle">Current Location: {convertSeconds(episode.time)}</div>
-                    }
-                    
-                    { ( curPlaylist.length > 0  && curPlaylist[trackIndex] &&
-                      curPlaylist[trackIndex].playlist_pk == pk && 
-                      curPlaylist[trackIndex].pk == episode.episode.pk) 
-                      ? <Tooltip title="Now playing"><IconButton> <SurroundSoundIcon style={{color:"green"}}/></IconButton></Tooltip> 
-                      : <IconButton onClick={playPlaylistFromIndex} value={i}> <PlayCircleOutlineIcon/> </IconButton>
-                    }
-                                                
-                  </div>
-                  <div className="playlist-container-right">
-                    {isOwner 
-                      ? <IconButton onClick={()=>removeEpisodeFromPlaylist(episode.episode.pk, episode.episode.name)}>
-                          <CloseIcon className={classes.root}/>
-                        </IconButton>  
-                      : null
-                    }
-                  </div>
+              <div className="playlist-wrapper">
+                {onMobile 
+                  ? <div className="playlist-title-small"><Button color= "inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
+                  : <div className="playlist-title"><Button color="inherit" onClick={(e)=>goEpisode(e, episode.episode.pk)}>{episode.episode.name}</Button></div>
+                }
+                {onMobile 
+                  ? <div className="playlist-subtitle-small">Current Location: {convertSeconds(episode.time)}</div>
+                  : <div className="playlist-subtitle">Current Location: {convertSeconds(episode.time)}</div>
+                }
+                
+                { ( curPlaylist.length > 0  && curPlaylist[trackIndex] &&
+                  curPlaylist[trackIndex].playlist_pk == pk && 
+                  curPlaylist[trackIndex].pk == episode.episode.pk) 
+                  ? <Tooltip title="Now playing"><IconButton> <SurroundSoundIcon style={{color:"green"}}/></IconButton></Tooltip> 
+                  : <IconButton onClick={playPlaylistFromIndex} value={i}> <PlayCircleOutlineIcon/> </IconButton>
+                }
+                                            
               </div>
-            </Paper>
-          </React.Fragment>
-          ))}
+              <div className="playlist-container-right">
+                {isOwner 
+                  ? <IconButton onClick={()=>removeEpisodeFromPlaylist(episode.episode.pk, episode.episode.name)}>
+                      <CloseIcon className={classes.root}/>
+                    </IconButton>  
+                  : null
+                }
+              </div>
+          </div>
+        </Paper>
+      </React.Fragment>
+      ))}
      
     </>
     )

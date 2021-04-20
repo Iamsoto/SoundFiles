@@ -83,62 +83,57 @@ class XMLHandler:
         cleaned_data = []
         charSponge = forms.CharField(required=False)
 
-        if not parser.is_valid():
-            # Parse says this xml is invalid...
+
+        # Parse says xml is valid
+        try:
+            
+            title = charSponge.clean(parser.get_channel_title())
+            #print("title: {}".format(title))
+            url = charSponge.clean(parser.get_channel_url())
+            #print("url: {}".format(url))
+            image = charSponge.clean(parser.get_channel_image())
+            #print("image: {}".format(image))
+            descr = charSponge.clean(parser.get_channel_description())
+            #print()
+
+            cleaned_data.append(title)
+            cleaned_data.append(url)
+            cleaned_data.append(image)
+            cleaned_data.append(descr)
+        
+        except ValidationError as e:
+            response_data["detail"] = "Invalid!"
+            return Response(response_data, 
+                status=status.HTTP_400_BAD_REQUEST)               
+
+        except Exception as e:
+            # Unforseen parsing error
             response_data["detail"] = "I could not parse that rss"
+            #print(e)
             return Response(response_data, 
                 status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # We already have this object
+            existing_podcast = Podcast.objects.get(rss_feed = cleaned_data[1])
+        except Podcast.DoesNotExist as e:
+            # Good!
+            pass
         else:
-            # Parse says xml is valid
-            try:
-                
-                title = charSponge.clean(parser.get_channel_title())
-                #print("title: {}".format(title))
-                url = charSponge.clean(parser.get_channel_url())
-                #print("url: {}".format(url))
-                image = charSponge.clean(parser.get_channel_image())
-                #print("image: {}".format(image))
-                descr = charSponge.clean(parser.get_channel_description())
-                #print()
-
-                cleaned_data.append(title)
-                cleaned_data.append(url)
-                cleaned_data.append(image)
-                cleaned_data.append(descr)
-            
-            except ValidationError as e:
-                response_data["detail"] = "Invalid!"
-                return Response(response_data, 
-                    status=status.HTTP_400_BAD_REQUEST)               
-
-            except Exception as e:
-                # Unforseen parsing error
-                response_data["detail"] = "I could not parse that rss"
-                print(e)
-                return Response(response_data, 
-                    status=status.HTTP_400_BAD_REQUEST)
-            
-            try:
-                # We already have this object
-                existing_podcast = Podcast.objects.get(rss_feed = cleaned_data[1])
-            except Podcast.DoesNotExist as e:
-                # Good!
-                pass
+            # TODO:
+            if existing_podcast.inReview:
+                response_data["detail"] = "This podcast is currently in review! Come back in a few hours and try again!"
             else:
-                # TODO:
-                if existing_podcast.inReview:
-                    response_data["detail"] = "This podcast is currently in review! Come back in a few hours and try again!"
-                else:
-                    response_data["detail"] = "We already have this! Here's the link: /podcast/{}".format(existing_podcast.pk)
-                return Response(response_data, 
-                    status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                response_data["detail"] = "We already have this! Here's the link: /podcast/{}".format(existing_podcast.pk)
+            return Response(response_data, 
+                status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-            response_data["title"] = cleaned_data[0]
-            response_data["url"] = cleaned_data[1]
-            response_data["image"] = cleaned_data[2]
-            response_data["descr"] = cleaned_data[3]
+        response_data["title"] = cleaned_data[0]
+        response_data["url"] = cleaned_data[1]
+        response_data["image"] = cleaned_data[2]
+        response_data["descr"] = cleaned_data[3]
 
-            return Response(response_data, status=status.HTTP_200_OK)
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 class RSSFormSubmit(APIView, XMLHandler):

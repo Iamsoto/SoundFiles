@@ -245,7 +245,7 @@ export default function PodcastView(props) {
 
         <Grid container className={classes.container}>
           <Grid item xs={12} pr={4} pl={4}>
-            {activeGrid === 0 ? <Episodes image_url = {podcast.image_url}/> : <h1> Testing </h1>}
+            {activeGrid === 0 ? <Episodes image_url = {podcast.image_url}/> : <h1> In development! </h1>}
           </Grid>
         </Grid>
       

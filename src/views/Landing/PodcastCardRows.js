@@ -79,7 +79,7 @@ export default function PodcastCardRows({url, name, display_title}){
         }
 
         else{
-            return (<Grid container><Grid item xs={4}></Grid><CircularProgress color="primary"/></Grid>)
+            return (<></>)
         }
     }
     return (

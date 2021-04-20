@@ -59,7 +59,7 @@ export default function SecondaryForm(props) {
           var obj = response.data;
           if(obj.success){
             console.log(obj)
-            localStorage.setItem("success", "Successfully created a new Soundhub!");
+            localStorage.setItem("success", "Podcast Request submitted successfully. Please wait a few hours for updates");
             localStorage.setItem("seen", false);
             setSoundHub(obj.pk);
             history.push('/podcast/'.concat(obj.pk))
@@ -115,7 +115,7 @@ export default function SecondaryForm(props) {
 
           <CardFooter className={classes.cardFooter}> 
               {loading ? <CircularProgress color="primary"/>     
-               : <Button color="primary" size="lg" onClick={onSubmit}> Create New Soundhub ! </Button>
+               : <Button color="primary" size="lg" onClick={onSubmit}> Request this Podcast </Button>
               }
           </CardFooter>
 

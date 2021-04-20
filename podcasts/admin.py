@@ -4,6 +4,7 @@ from podcasts.models import Podcast, Episode, Category
 class PodcastAdmin(admin.ModelAdmin):
     list_per_page = 100
     search_fields = ["pk","name"]
+    filter_fields = ["inReview"]
     readonly_fields=["pk"]
 
 class CategoryAdmin(admin.ModelAdmin):
