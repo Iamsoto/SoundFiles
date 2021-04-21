@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
+from django.utils import timezone
+
 
 from CustomPermissions import ValidEmail
 from users.models import SoundFileUser
@@ -107,6 +109,7 @@ class EpisodePlaylist(APIView):
             epl = EPL(playlist=playlist, episode=episode)
             epl.save()
             playlist.episodes.add(epl)
+            playlist.update_time = timezone.now()
             playlist.save()
         except Exception as e:
             #print(e)

@@ -8,8 +8,9 @@ import { LandingContext } from 'views/Landing/LandingContext.js';
 import Genres from 'views/Landing/Genres.js';
 import Continue from 'views/Landing/Continue.js';
 import CreateSoundhub from 'views/CreateSoundhub/CreateSoundhub.js';
-import PodcastCardRows from 'views/Landing/PodcastCardRows.js'
-import SearchBar from 'components/Landing/SearchBar.js';
+import PodcastCardRows from 'components/Content/PodcastCardRows.js'
+
+import SearchBar from 'views/Landing/SearchBar.js';
 import SearchView from 'views/Landing/SearchView.js';
 
 import StyledTabs from 'components/StyledTabs/StyledTabs.js';

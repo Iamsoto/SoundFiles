@@ -20,5 +20,6 @@ urlpatterns = [
    path('episode_comment_notifications', views.EpisodeCommentNotifications.as_view(), name="episode-comment-notifications"),
    path('episode_comment_notifications_unseen', views.UnseenNotifications.as_view(), name="episode-comment-notifications-unseen"),
    path('user_profile', views.UserProfileView.as_view(), name="user-profile"),
-   path('subscribe', views.SubscribeView.as_view(), name="subscribe")
+   path('subscribe', views.SubmitSubscribe.as_view(), name="subscribe"),
+   path('subscription', views.SubscribeView.as_view(), name="subscription")
 ]   

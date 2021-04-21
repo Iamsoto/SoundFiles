@@ -324,6 +324,7 @@ class Command(BaseCommand):
                     modified = True
 
                 if modified:
+                    podcast.update_time = timezone.now()
                     object_update_create_que.put(podcast, block =True)
 
 

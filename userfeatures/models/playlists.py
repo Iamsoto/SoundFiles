@@ -10,6 +10,7 @@ class Playlist(models.Model):
         blank=False, null=False)
     name = models.CharField(max_length=125)
     public = models.BooleanField(default=False)
+    update_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints =[

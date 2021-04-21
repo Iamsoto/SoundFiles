@@ -1,6 +1,6 @@
 import React  from 'react';
 
-import PodcastCard from 'components/Landing/PodcastCard.js'
+import PodcastCard from 'components/Content/PodcastCard.js'
 
 // All items component
 // Important! add unique key

@@ -22,7 +22,7 @@ class Category(models.Model):
 
 class Podcast(models.Model):
     """
-
+        Le pod-cast
     """
     name = models.CharField(max_length=50, blank = True, null=True)
     author = models.CharField(max_length=50, blank=True, null=True)
@@ -34,6 +34,7 @@ class Podcast(models.Model):
     
     etag=models.CharField(max_length=254, default="N/A")
     last_modified=models.CharField(max_length=254, default="N/A")
+    update_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     inReview=models.BooleanField(default=False)
 
@@ -51,7 +52,7 @@ class PodcastCategory(models.Model):
 
 class Episode(models.Model):
     """
-
+        La Episode
     """
     name = models.CharField(max_length=50, blank=True, null=True)
     podcast = models.ForeignKey(Podcast, 

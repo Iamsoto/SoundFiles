@@ -17,7 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from "@material-ui/core/Button";
 
 import axios from "axios";
-import PodcastCardRows from "views/Landing/PodcastCardRows.js";
+import PodcastCardRows from "components/Content/PodcastCardRows.js";
 
 import "assets/css/Landing.css"
 const drawerWidth = 140;

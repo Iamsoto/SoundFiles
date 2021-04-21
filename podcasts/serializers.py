@@ -28,7 +28,7 @@ class PodcastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Podcast
         fields = ['name', 'rss_feed', 'image_url', 'description', 
-        'author', 'num_likes', 
+        'author', 'num_likes', 'update_time',
         'cur_user_liked', 'cur_user_flagged', 'pk', 'cur_user_sub', 'num_subs']
 
     def calculate_num_subs(self, instance):
@@ -104,7 +104,7 @@ class PodcastSerializerSmall(serializers.ModelSerializer):
         model = Podcast
 
         fields = ['name', 'image_url', 'rss_feed', 'pk', 'description', 
-        'author', 'num_likes', 'num_subs']
+        'author', 'num_likes', 'num_subs', 'update_time']
     
     
     def calculate_num_subs(self, instance):
@@ -132,7 +132,7 @@ class PodcastSerializerTiny(serializers.ModelSerializer):
     """
     class Meta:
         model = Podcast
-        fields = ['name', 'image_url', 'pk']
+        fields = ['name', 'image_url', 'pk', 'update_time']
 
 
 class EpisodeSerializerList(serializers.ModelSerializer):

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import { LandingContext } from "views/Landing/LandingContext.js";
 
-import PodcastCardRows from "views/Landing/PodcastCardRows.js";
+import PodcastCardRows from "components/Content/PodcastCardRows.js";
 
 import "assets/css/SearchView.css"
 

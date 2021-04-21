@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import Alert from '@material-ui/lab/Alert';
+import EpisodeCards from 'components/Content/EpisodeCards.js';
 
-import Base from 'views/Landing/Base.js';
 import GetValidToken from 'auth/GetValidToken.js';
 import GetAuthHeader from 'auth/GetAuthHeader.js';
 
@@ -45,7 +45,6 @@ export default function Continue({}){
           
             }).catch(error => {
 
-                console.log(error)
                 setError("Something went wrong, please try again")
             })            
         }).catch(msg =>{
@@ -64,7 +63,10 @@ export default function Continue({}){
             <div className="landing-row">
                 <div className="landing-title">Continue Listening...</div>
             </div>                          
-            <Base rows={episodes} name="Continue Listening..." episode={true} />
+            <EpisodeCards
+                items={episodes}
+                row_name={"Continue Listening..."}
+                load_amount={6}/>
           </div>
             
         </>

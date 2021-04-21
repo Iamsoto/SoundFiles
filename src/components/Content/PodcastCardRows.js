@@ -3,9 +3,9 @@ import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Base from "views/Landing/Base.js"
 import Button from "@material-ui/core/Button";
 
+import PodcastCards from 'components/Content/PodcastCards.js';
 import axios from 'axios'
 import "assets/css/SearchView.css"
 
@@ -65,7 +65,10 @@ export default function PodcastCardRows({url, name, display_title}){
         if(error === '' && rows.length >0){
             return (
                 <>
-                    <Base rows={rows} name={name} load_amount={loadAmount}/>
+                    <PodcastCards 
+                        items={rows}
+                        row_name={name}
+                        load_amount={loadAmount}/>
                     <div className ="landing-row">
                     {seeMore ? <p><Button style = {{background:"transparent", color:"#999", fontSize:"12px"}} 
                                     onClick={onSeeMore}>See More...</Button>

@@ -4,19 +4,34 @@ from CustomPermissions import ValidEmail
 from users.models import SoundFileUser
 from podcasts.models import Podcast
 from userfeatures.models import Playlist, Subscription, EpisodeCommentNotification
+from userfeatures.serializers import SubSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status, throttling
 
+
+
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.utils import timezone
+
 
 class SubThrottle(throttling.UserRateThrottle):
     rate ='2/minute'
 
 
 class SubscribeView(APIView):
+    """
+        Return list of podcast user is subscribed to
+        Along with a notifier to notify if the podcast has been updated since the user last viewed
+    """
+    permission_classes = [permissions.IsAuthenticated, ValidEmail]
+    def get(self, request, format=None):  
+        subs = SubSerializer(query, many=True)
+        return Response(subs.data, status=status.HTTP_200_OK)
+
+
+class SubmitSubscribe(APIView):
     """
         
     """
@@ -25,6 +40,7 @@ class SubscribeView(APIView):
 
     def post(self, request, format=None):
         """
+            Add new subscription
             Payload: 
                 {pk: <int>
                 type: 'playlist' or 'podcast',

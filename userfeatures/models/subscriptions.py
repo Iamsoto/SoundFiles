@@ -11,7 +11,7 @@ class Subscription(models.Model):
     user = models.ForeignKey(SoundFileUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     count = models.IntegerField(default=0)
-    update_time= models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-update_time']

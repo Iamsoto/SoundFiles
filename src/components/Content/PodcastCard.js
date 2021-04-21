@@ -1,14 +1,11 @@
 import React, { useState ,useEffect }  from 'react';
 import Button from '@material-ui/core/Button';
 
-import { convertSeconds } from 'utils/Utils.js';
 
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-
-import EpisodeLandingFeature from 'components/Landing/EpisodeLandingFeature.js'
+import PodcastLandingFeature from 'components/Content/PodcastLandingFeature.js';
 
 import "assets/css/Landing.css"
-export default function EpisodeCard({episode}){
+export default function PodcastCard({podcast}){
     /**
         Inspired by: 
             https://github.com/karlhadwen/netflix/blob/master/src/components/card/index.js
@@ -58,11 +55,11 @@ export default function EpisodeCard({episode}){
                         >
                         <img 
                             src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
-                            alt={episode.name}
+                            alt={podcast.name}
                             className="landing-img"
                         />
                         {(!onMobile) || showFeature
-                            ? <EpisodeLandingFeature title ={episode.name} time={convertSeconds(episode.time)}  pk={episode.pk}/>
+                            ? <PodcastLandingFeature title ={podcast.name} num_likes={podcast.num_likes} author={podcast.author} pk={podcast.pk}/>
                             : null
                         }
                     </div>
@@ -73,16 +70,19 @@ export default function EpisodeCard({episode}){
                         onClick={e => setShowFeature(!showFeature)}
                         >
                             <img 
-                                src={episode.podcast.image_url}
-                                alt={episode.title}
+                                src={podcast.image_url}
+                                alt={podcast.name}
                                 className="landing-img"
                                 onLoad={handleImageLoaded}
                             />
                         {!onMobile || showFeature
-                            ? <EpisodeLandingFeature 
-                                title ={episode.name}
-                                time={convertSeconds(episode.time)}
-                                pk={episode.pk}/>
+                            ? <PodcastLandingFeature 
+                                title ={podcast.name}
+                                num_likes={podcast.num_likes}
+                                author={podcast.author}
+                                pk={podcast.pk}
+                                num_subs={podcast.num_subs}
+                                />
                             : null
                         }
                     </div>
