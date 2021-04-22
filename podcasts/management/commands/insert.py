@@ -31,7 +31,7 @@ class CSVLines:
 
 
 class Command(BaseCommand):
-
+    help = 'Read in temp file from S3 temp/temp.txt. Insert or update items into database'
     def popScore(self):
         # Update just the popularity score on existing objects
         updatedObjects = []

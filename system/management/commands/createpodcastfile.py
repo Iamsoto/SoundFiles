@@ -5,9 +5,9 @@ from sqlite3 import Error
 
 class Command(BaseCommand):
     """
-    
+        createpodcastfile
     """
-    help = 'Please run this on your local machine, with the podcastindex db in the same directory as system'
+    help = 'Please run this on your local machine, with the podcastindex db in the same directory as system\ncreatepodcastfile spits out a file in the main path'
 
     def create_connection(self, db_file):
         """ create a database connection to the SQLite database
