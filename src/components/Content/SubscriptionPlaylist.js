@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import SubscriptionFeature from "components/Content/SubscriptionPlaylist.js";
+import SubscriptionFeature from "components/Content/SubscriptionFeature.js";
 
 import "assets/css/Landing.css"
 export default function SubscriptionPlaylist({playlist}){
@@ -35,10 +35,9 @@ export default function SubscriptionPlaylist({playlist}){
 
 
     useEffect(()=>{
+        console.log(playlistState)
         if(playlist != undefined){
             setPlaylistState(playlist)
-        }else{
-            setPlaylistState({name:null, user:{}, pk:{}, update_time:{}})
         }
         
     },[playlist])
@@ -52,12 +51,14 @@ export default function SubscriptionPlaylist({playlist}){
                         className="landing-img"
                     />
                     {(!onMobile) || showFeature
-                        ? <SubscriptionFeature
-                            title ={playlistState.name}
-                            author={playlistState.user.username}
-                            pk={playlistState.pk}
-                            last_updated={playlistState.update_time}
-                            type="playlist"/>
+                        ?
+                            <SubscriptionFeature
+                                title ={playlistState.name}
+                                author={playlistState.user.username}
+                                pk={playlistState.pk}
+                                last_updated={playlistState.update_time}
+                                type="playlist"/>
+                            
                         : null
                     }
                 </div>

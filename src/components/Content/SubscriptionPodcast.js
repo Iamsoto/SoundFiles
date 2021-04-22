@@ -6,7 +6,7 @@ export default function SubscriptionPodcast({podcast}){
     const [loaded, setLoaded] = useState(false)
     const [showFeature, setShowFeature] = useState(false)
     const [onMobile, setOnMobile] = useState(false)
-    const [podcastState, setPodcastState] = useState({})
+    const [podcastState, setPodcastState] = useState(podcast)
 
     const mobileSetter = () => {
       /* For this component, onMobile = tablet or not */

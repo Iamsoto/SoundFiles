@@ -39,9 +39,14 @@ export default function SubscriptionCard({subscription}){
 
     return (
             <>
-               {subscription.sub_type === "podcast" 
+               {(subscription.sub_type === "podcast") && (subscription.podcast != undefined)
                 ? <SubscriptionPodcast podcast={subscription.podcast}/> 
-                : <SubscriptionPlaylist playlist={subscription.playlist}/>
+                : null
+               }
+
+               {(subscription.sub_type === "playlist") && (subscription.playlist != undefined)
+                ?<SubscriptionPlaylist playlist={subscription.playlist}/>
+                :null
                }
 
             </>
