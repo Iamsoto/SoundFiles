@@ -134,6 +134,10 @@
    display:flex;
  }
 
+  .landing-item:hover > .landing-feature-subscribe { /* Note this is the only difference between landing-item and landing-item-mobile*/
+   display:flex;
+ }
+
 .landing-item-mobile:hover {
     transform: scale(1.3);
     z-index: 3;
@@ -169,6 +173,19 @@
   background-color: rgba(0,0,0,0.5);
 }
 
+.landing-feature-subscribe {
+  display:none;
+  flex-direction: row;
+  flex-wrap:wrap;
+  position: absolute;
+  min-height: 100%;
+  width:100%;
+  padding:3px;
+  transition: transform 0.2s;
+  background-color: rgba(245,171,53,0.5);
+}
+
+
 .landing-feature-go {
   font-size:12px;
   position:absolute;
@@ -185,6 +202,18 @@
   border-radius: 25px;
   transition: transform 0.2s;
   background-color: rgba(0,0,0,.8);
+}
+
+.landing-feature-mobile-subscribe {
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  position: absolute;
+  max-width:100%;
+  padding:3px;
+  border-radius: 25px;
+  transition: transform 0.2s;
+  background-color: rgba(245,171,53,0.5);
 }
 
 .landing-feature-row {

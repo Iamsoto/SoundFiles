@@ -42,11 +42,17 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
         }
     }
 
+
+    useEffect(()=>{
+        
+        console.log(title)
+        
+    })
     return(
-        <div className={onMobile ? 'landing-feature-mobile' : 'landing-feature'}>
+        <div className={onMobile ? 'landing-feature-mobile-subscribe' : 'landing-feature-subscribe'}>
             <div className="landing-feature-row">
                 <div className={ onMobile ? "landing-feature-title-mobile" : "landing-feature-title"}>
-                  <>{type === "playlist" ? Playlist : null}</> 
+                  <>{type === "playlist" ? "Playlist-" : null}</> 
                   <> {title}</> 
                 </div>
             </div>

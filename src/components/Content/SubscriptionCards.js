@@ -9,7 +9,7 @@ const SubscriptionCards = ({items, row_name, load_amount}) =>
             var card_key = row_name.concat("_"+ card_item.pk);
             return (<React.Fragment key={card_key}>
                     <SubscriptionCard 
-                        episode={card_item}
+                        subscription={card_item}
                     />
                 </React.Fragment>);
         }

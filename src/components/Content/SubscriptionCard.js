@@ -1,11 +1,11 @@
 import React, { useState ,useEffect }  from 'react';
 import Button from '@material-ui/core/Button';
 
-
-import SubscriptionFeature from 'components/Content/PodcastLandingFeature.js';
+import SubscriptionPodcast from "components/Content/SubscriptionPodcast.js";
+import SubscriptionPlaylist from "components/Content/SubscriptionPlaylist.js";
 
 import "assets/css/Landing.css"
-export default function SubscriptionCard({podcast}){
+export default function SubscriptionCard({subscription}){
 
     const [loaded, setLoaded] = useState(false)
     const [showFeature, setShowFeature] = useState(false)
@@ -37,50 +37,12 @@ export default function SubscriptionCard({podcast}){
     },[window.innerWidth])
 
 
-    const handleImageLoaded = ()=> {
-        setLoaded(true)
-    }
-
     return (
             <>
-                <div className={loaded ? 'landing-hidden': 'landing-show'}>
-                    <div className={onMobile ? 'landing-item-mobile' : 'landing-item'}
-                        onClick={e => setShowFeature(!showFeature)}
-                        >
-                        <img 
-                            src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
-                            alt={podcast.name}
-                            className="landing-img"
-                        />
-                        {(!onMobile) || showFeature
-                            ? <PodcastLandingFeature title ={podcast.name} num_likes={podcast.num_likes} author={podcast.author} pk={podcast.pk}/>
-                            : null
-                        }
-                    </div>
-                </div>
-
-                <div className={loaded ? 'landing-show': 'landing-hidden'}>
-                    <div className={onMobile ? 'landing-item-mobile' : 'landing-item'}
-                        onClick={e => setShowFeature(!showFeature)}
-                        >
-                            <img 
-                                src={podcast.image_url}
-                                alt={podcast.name}
-                                className="landing-img"
-                                onLoad={handleImageLoaded}
-                            />
-                        {!onMobile || showFeature
-                            ? <PodcastLandingFeature 
-                                title ={podcast.name}
-                                num_likes={podcast.num_likes}
-                                author={podcast.author}
-                                pk={podcast.pk}
-                                num_subs={podcast.num_subs}
-                                />
-                            : null
-                        }
-                    </div>
-                </div>
+               {subscription.sub_type === "podcast" 
+                ? <SubscriptionPodcast podcast={subscription.podcast}/> 
+                : <SubscriptionPlaylist playlist={subscription.playlist}/>
+               }
 
             </>
         );

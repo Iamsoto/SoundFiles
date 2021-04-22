@@ -25,6 +25,7 @@ class EpisodePlaylistSerializer(serializers.ModelSerializer):
             return save.time
 
 class PlaylistSerializerSmall(serializers.ModelSerializer):
+    user = UserSerializerTokenized()
     class Meta:
         model = Playlist
         fields= ['name', 'pk', 'user', 'update_time']
