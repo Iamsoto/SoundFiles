@@ -50,16 +50,12 @@ export default function LoginPage(props) {
 
   const classes = useStyles();
   const { ...rest } = props;
-  
+
   useEffect(()=>{
-    var mounted = true;
-    if(mounted){
-      if(localStorage.getItem("verify_email") != null){
-        setVerifyEmail(true)
-      }
+    if(loggedIn){
+      setRedirect(true);
     }
-    return () => mounted = false;
-  },[])
+  },[loggedIn])
 
   const goLogin = () => {
     Login(email, password).then((response) =>{

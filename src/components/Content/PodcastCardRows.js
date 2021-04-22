@@ -6,8 +6,9 @@ import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 
 import PodcastCards from 'components/Content/PodcastCards.js';
-import axios from 'axios'
+import axios from 'axios';
 import "assets/css/SearchView.css"
+import "assets/css/Landing.css"
 
 export default function PodcastCardRows({url, name, display_title}){  
     const [error, setError] = useState('');
@@ -46,7 +47,6 @@ export default function PodcastCardRows({url, name, display_title}){
             setRows(data.results);
             
         }).catch((error) => {
-            console.log(error);
             setError("Something bad happened here. Please come back later");
         });
         return() => {mounted = false;}

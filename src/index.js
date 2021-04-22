@@ -17,7 +17,8 @@ import RegisterPage from "views/RegisterPage/RegisterPage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 import PodcastView from "views/Podcast/PodcastView.js";
 import Landing from "views/Landing/Landing.js";
-import PlaylistPage from "views/PlaylistPage/PlaylistPage.js"
+import PlaylistPage from "views/PlaylistPage/PlaylistPage.js";
+import SubscriptionPage from "views/SubscriptionPage/SubscriptionPage.js";
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -148,6 +149,7 @@ const App = () => {
             }
             <Switch>
               <Route path="/social/" children={<SocialPage />} />
+              <Route path="/Subscription/" children={<SubscriptionPage />} />
               <Route path="/episode-comment/:pk" children={<CommentView />} />
               <Route path="/podcast/:pk" children={<PodcastView />} />
               <Route path="/playlist/:pk" children={<PlaylistPage />} />

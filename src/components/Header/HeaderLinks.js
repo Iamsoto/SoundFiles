@@ -73,6 +73,11 @@ export default function HeaderLinks({playlists, onClose, notificationCount}) {
     history.push("/playlist/".concat(pk))
   }
 
+  const goSubscription = (e) => {
+    e.preventDefault()
+    history.push("/subscription")
+  }
+
   const userLinks = () => {
     return (
       <>
@@ -80,7 +85,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount}) {
         <Button
           href=""
           color="transparent"
-          target="_blank"
+          onClick={goSubscription}
           className={classes.navLink}
         >
           <SubscriptionsIcon className={classes.icons} /> Subscriptions

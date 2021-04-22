@@ -12,7 +12,7 @@ class SubSerializer(serializers.ModelSerializer):
     no_see = serializers.SerializerMethodField(method_name='calculate_no_see')
     class Meta:
         model = Subscription
-        fields=['podcast','playlist','user','sub_type','update_time']
+        fields=['podcast','playlist','user','sub_type','update_time', 'no_see', 'pk']
 
     def calculate_no_see(self, instance):
         if instance.sub_type == "playlist":

@@ -132,7 +132,7 @@ class PodcastSerializerTiny(serializers.ModelSerializer):
     """
     class Meta:
         model = Podcast
-        fields = ['name', 'image_url', 'pk', 'update_time']
+        fields = ['name', 'image_url', 'pk', 'update_time', 'author']
 
 
 class EpisodeSerializerList(serializers.ModelSerializer):

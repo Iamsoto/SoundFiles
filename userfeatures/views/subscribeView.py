@@ -26,7 +26,9 @@ class SubscribeView(APIView):
         Along with a notifier to notify if the podcast has been updated since the user last viewed
     """
     permission_classes = [permissions.IsAuthenticated, ValidEmail]
-    def get(self, request, format=None):  
+    def get(self, request, format=None):
+        num = int(request.query_params.get("num", 6))
+        query = Subscription.objects.filter(user = request.user)[:num]
         subs = SubSerializer(query, many=True)
         return Response(subs.data, status=status.HTTP_200_OK)
 
