@@ -46,9 +46,11 @@ export default function Continue({}){
             }).catch(error => {
 
                 setError("Something went wrong, please try again")
+                setDontRender(true)
             })            
         }).catch(msg =>{
             setError("Please log in again...")
+            setDontRender(true)
         })
 
     },[])

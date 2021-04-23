@@ -40,7 +40,6 @@ export default function LoginPage(props) {
 
   const [serverError, setServerError] = useState("");
   const [redirect, setRedirect] = useState(false)
-  const [verifyEmail, setVerifyEmail] = useState(false);
   
   const { loggedIn, setLoggedIn } = useContext(LoginContext); 
 
@@ -96,14 +95,12 @@ export default function LoginPage(props) {
       TODO: Ideally this should redirect to
         last page in history
     */
-    
     return <Redirect to={props.redirectURL}/>
   }
 
   return (
     <div>
         <div className={classes.container}>
-        {verifyEmail ? <Alert severity="info"> Please verify your email! </Alert>: null}
          { serverError !== "" ? <Alert severity="error">{serverError}</Alert> : null}
           <Grid container justify="center">
             <Grid item xs={12} sm={12} md={4}>

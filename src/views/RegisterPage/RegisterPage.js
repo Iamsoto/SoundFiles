@@ -112,26 +112,9 @@ export default function LoginPage(props) {
       temp_errors.password1 = "Required";
     }
 
-    if(email === ""){
-      temp_errors.email = "Required";
-
-    }else {
-      let lastAtPos = email.lastIndexOf('@');
-      let lastDotPos = email.lastIndexOf('.');
-       
-       if (!(lastAtPos < lastDotPos 
-        && lastAtPos > 0 
-        && email.indexOf('@@') == -1 
-        && lastDotPos > 2 
-        && (email.length - lastDotPos) > 2)) {
-           temp_errors.email = "Invalid Email";
-        }
-    }
-
     if(username === ""){
       temp_errors.username = "required";
     }
-
 
     if(terms === false){
       temp_errors.terms = "Please accept the terms and conditions";
@@ -151,14 +134,43 @@ export default function LoginPage(props) {
     return ()=> {setServerErrors({}); setBigError("")};
   }
 
+  const setEmailWrapper = (e) =>{
+    e.preventDefault()
+    let temp_errors = {...frontErrors}
+    temp_errors.email = ""
+    let temp_email = e.target.value
+
+
+    if(temp_email === ""){
+      temp_errors.email = "Required";
+
+    }else {
+      let lastAtPos = temp_email.lastIndexOf('@');
+      let lastDotPos = temp_email.lastIndexOf('.');
+       
+       if (!(lastAtPos < lastDotPos 
+        && lastAtPos > 0 
+        && temp_email.indexOf('@@') == -1 
+        && lastDotPos > 2 
+        && (temp_email.length - lastDotPos) > 2)) {
+           temp_errors.email = "Invalid Email";
+        }
+    }
+    
+    setFrontErrors(temp_errors)
+    
+
+    setEmail(e.target.value);
+  }
+
   const setUsernameWrapper = (e) => {
     e.preventDefault();
-    let temp_errors = {...default_errors}
+    let temp_errors = {...frontErrors}
 
-    if(username.length < 5){
+    if(e.target.value.length < 5){
       temp_errors.username = "Please make your username > 5 characters";
       setFrontErrors(temp_errors);
-    }else if(username.length > 18){
+    }else if(e.target.value.length > 18){
       temp_errors.username = "Please make your username < 19 characters :)";
       setFrontErrors(temp_errors);
     }else{
@@ -166,8 +178,9 @@ export default function LoginPage(props) {
         temp_errors.username ="";
         setFrontErrors(temp_errors)        
       }
-      setUsername(e.target.value);
+      
     }
+    setUsername(e.target.value);
                         
   }
 
@@ -194,7 +207,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Username"
                       id="username"
-                      onChange={(e)=>setUsernameWrapper}
+                      onChange={setUsernameWrapper}
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -214,10 +227,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Email..."
                       id="email"
-                      onChange= {(e)=> {
-                        e.preventDefault();
-                        setEmail(e.target.value);
-                        }}
+                      onChange= {setEmailWrapper}
                       formControlProps={{
                         fullWidth: true
                       }}

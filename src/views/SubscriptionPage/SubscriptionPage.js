@@ -36,7 +36,12 @@ export default function SubscriptionPage(){
                     
                 }
             }).catch(error=>{
-                setError("Something bad happened here. Please try again later")
+                if(error.response.data && error.response.data.detail){
+                    setError(error.response.data.detail)
+                }else{
+                    setError("Something bad happened here. Please try again later")
+                }
+                
             })
         }).catch(msg =>{
             setError("Please login again.")

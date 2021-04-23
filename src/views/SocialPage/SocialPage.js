@@ -42,10 +42,15 @@ export default function SocialPage(){
                     setECNotifications(response.data.results)
                     setTotalPages(response.data.total_pages)
                 }else{
+
                     setError("Something went wrong. Please try again later")
                 }
             }).catch(error => {
-                setError("Something bad happened. Please try again later")
+                if(error.response && error.response.data && error.response.data.detail){
+                    setError(error.response.data.detail)
+                }else{
+                    setError("Something bad happened. Please try again later")
+                }
             })
     }).catch(msg =>{
         // Authentication error
