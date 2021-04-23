@@ -15,7 +15,6 @@ from django.utils import timezone
 
 # Number of parallel threads
 num_concurrent = 20
-total_limit = 10000
 
 DB_BUF_SIZE = 5000
 requests_done = False

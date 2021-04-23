@@ -41,6 +41,8 @@ class UnseenNotifications(APIView):
         """
         response_data = {}
         sponge=forms.CharField(required=False)
+        ec_notification = None
+        
         if 'ecNotification_pk' not in request.data:
             response_data["detail"] = "malformed payload"
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
@@ -56,7 +58,14 @@ class UnseenNotifications(APIView):
             response_data["detail"] = "Something went kinda wrong"
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)                
 
-
+        if ec_notification.user_notified != request.user:
+            """
+                XSS attack
+            """
+            response_data["detail"] = "No means no!"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)             
+             
+        
         ec_notification.seen=True
 
         try:

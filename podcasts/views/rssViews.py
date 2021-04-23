@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.http import Http404
 from django.core.exceptions import ValidationError
-from rest_framework import permissions, status
+from rest_framework import permissions, status, throttling
 from rest_framework.views import APIView
 from CustomPermissions import ValidEmail
 from rest_framework.response import Response
@@ -17,6 +17,8 @@ from RSSManager import RSSParser
 import requests
 import json
 
+class RSSThrottle(throttling.UserRateThrottle):
+    rate ='2/minute'
 
 class XMLHandler:
     """
@@ -94,6 +96,7 @@ class XMLHandler:
             image = charSponge.clean(parser.get_channel_image())
             #print("image: {}".format(image))
             descr = charSponge.clean(parser.get_channel_description())
+            author = charSponge.clean(parser.get_channel_description())
             #print()
 
             cleaned_data.append(title)
@@ -142,6 +145,7 @@ class RSSFormSubmit(APIView, XMLHandler):
     """
     parser_classes = [JSONParser]
     permission_classes = [IsAuthenticated, ValidEmail]
+    throttle_classes = [RSSThrottle]
 
     def add_episodes(self, podcast, url):
         """
@@ -225,6 +229,8 @@ class RSSFormSubmit(APIView, XMLHandler):
                 cleaned_data["image_url"] = sponge.clean(data["image_url"])
             if 'description' in data:
                 cleaned_data["description"] = sponge.clean(data["description"])
+            if 'author' in data:
+                cleaned_data["author"] = sponge.clean(data["author"])
 
         except ValidationError as e:
             response_data["detail"] = "Invalid"
@@ -244,7 +250,8 @@ class RSSFormSubmit(APIView, XMLHandler):
 
         pod = Podcast(
             name = cleaned_data.get("name", "N/A"), 
-            rss_feed = cleaned_data.get("rss_feed", "N/A"), 
+            rss_feed = cleaned_data.get("rss_feed", "N/A"),
+            author=cleaned_data.get("author","N/A"),
             image_url = cleaned_data.get("image_url","N/A"), 
             description = cleaned_data.get("description", "N/A"),
             inReview=True,
@@ -272,6 +279,7 @@ class InspectURL(APIView, XMLHandler):
     """
     parser_classes = [JSONParser]
     permission_classes = [IsAuthenticated, ValidEmail]
+    throttle_classes = [RSSThrottle]
 
     def handle_url(self, url):
         sponge =forms.CharField(required=False)

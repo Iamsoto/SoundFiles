@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import SubscriptionFeature from "components/Content/SubscriptionFeature.js";
 
 import "assets/css/Landing.css"
-export default function SubscriptionPodcast({podcast}){
+export default function SubscriptionPodcast({podcast, no_see, sub_pk}){
     const [loaded, setLoaded] = useState(false)
     const [showFeature, setShowFeature] = useState(false)
     const [onMobile, setOnMobile] = useState(false)
@@ -52,6 +52,10 @@ export default function SubscriptionPodcast({podcast}){
             <div className={onMobile ? 'landing-item-mobile' : 'landing-item'}
                 onClick={e => setShowFeature(!showFeature)}
                 >
+                    {no_see ?
+                        <div className="landing-no-see" ><div className="landing-no-see-text">New!</div></div>
+                        : null
+                    }
                 <img 
                     src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
                     alt={podcastState.name}
@@ -63,7 +67,9 @@ export default function SubscriptionPodcast({podcast}){
                         author={podcastState.author}
                         pk={podcastState.pk}
                         last_updated={podcastState.update_time}
-                        type="podcast"/>
+                        type="podcast"
+                        sub_pk={sub_pk}
+                        />
                     : null
                 }
             </div>
@@ -73,6 +79,10 @@ export default function SubscriptionPodcast({podcast}){
             <div className={onMobile ? 'landing-item-mobile' : 'landing-item'}
                 onClick={e => setShowFeature(!showFeature)}
                 >
+                {no_see ?
+                    <div className="landing-no-see" ><div className="landing-no-see-text">New!</div></div>
+                    : null
+                }
                     <img 
                         src={podcastState.image_url}
                         alt={podcastState.name}
@@ -86,6 +96,7 @@ export default function SubscriptionPodcast({podcast}){
                         pk={podcastState.pk}
                         last_updated={podcastState.update_time}
                         type="podcast"
+                        sub_pk={sub_pk}
                         />
                     : null
                 }

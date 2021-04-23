@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import SubscriptionFeature from "components/Content/SubscriptionFeature.js";
 
 import "assets/css/Landing.css"
-export default function SubscriptionPlaylist({playlist}){
+export default function SubscriptionPlaylist({playlist, no_see, sub_pk}){
     const [showFeature, setShowFeature] = useState(false)
     const [onMobile, setOnMobile] = useState(false)
     const [playlistState, setPlaylistState] = useState(playlist)    
@@ -35,7 +35,6 @@ export default function SubscriptionPlaylist({playlist}){
 
 
     useEffect(()=>{
-        console.log(playlistState)
         if(playlist != undefined){
             setPlaylistState(playlist)
         }
@@ -46,6 +45,10 @@ export default function SubscriptionPlaylist({playlist}){
     return (
             <div className='landing-show'>
                 <div className={onMobile ? 'landing-item-mobile' : 'landing-item'} onClick={e => setShowFeature(!showFeature)}>
+                {no_see ?
+                    <div className="landing-no-see" ><div className="landing-no-see-text">New!</div></div>
+                    : null
+                }                    
                     <img 
                         src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
                         className="landing-img"
@@ -56,6 +59,7 @@ export default function SubscriptionPlaylist({playlist}){
                                 title ={playlistState.name}
                                 author={playlistState.user.username}
                                 pk={playlistState.pk}
+                                sub_pk={sub_pk}
                                 last_updated={playlistState.update_time}
                                 type="playlist"/>
                             

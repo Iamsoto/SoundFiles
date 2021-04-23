@@ -35,6 +35,7 @@ export default function Header(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [notificationCount, setNotificationCount] = useState(0)
+  const [subCount, setSubCount] = useState(0)
   const [localPlaylists, setLocalPlaylists] = useState([])
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const {setGlobalPlaylists, globalPlaylists, 
@@ -44,6 +45,35 @@ export default function Header(props) {
   const playlist_url = localStorage.getItem("__APIROOT_URL__").concat('userfeatures/playlists');
   const username_url = localStorage.getItem("__APIROOT_URL__").concat('users/username');
   const ec_notifications_unseen_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/episode_comment_notifications_unseen");
+  const sub_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/subscribe_unseen");
+
+  const checkSubscriptions = () =>{
+    GetValidToken().then(response=>{
+      axios({
+        method:'get',
+        url:sub_url,
+        headers: {
+          'Content-Type':'application/json',
+          'Accept':'*/*',
+          'Authorization': GetAuthHeader()          
+        }
+      }).then(response =>{
+        if(response.data && response.data.count){
+
+          if(response.data.count != subCount){
+            setSubCount(response.data.count)
+          }
+
+        }
+
+      }).catch(error=>{
+
+      })
+
+    }).catch(msg=>{
+      // Athentication error. Pass
+    })
+  }
 
   const checkNotifications = () => {
     GetValidToken().then(response=>{
@@ -74,6 +104,10 @@ export default function Header(props) {
     /* 
       Every 3 minutes, check to see if we have new notifications
     */
+    if(!loggedIn){
+      return; // Don't do anything if not logged in
+    }
+
     checkNotifications()
 
     const interval = setInterval(() => {
@@ -83,7 +117,20 @@ export default function Header(props) {
 
     return () => clearInterval(interval);
 
-  },[])
+  },[loggedIn])
+
+  
+  useEffect(()=>{
+    /**
+        Check subscriptions once upon using the app
+    */
+    if(!loggedIn){
+      return;
+    }
+
+    checkSubscriptions()
+
+  },[loggedIn])
 
 
   useEffect(() => {
@@ -235,10 +282,10 @@ export default function Header(props) {
       Return header links
     */
     if(onClose) {
-      return (<><HeaderLinks onClose={onClose} playlists={localPlaylists} notificationCount = {notificationCount}/></>)
+      return (<><HeaderLinks onClose={onClose} playlists={localPlaylists} notificationCount = {notificationCount} subCount={subCount}/></>)
     }
 
-    return (<><HeaderLinks playlists={localPlaylists} notificationCount = {notificationCount}/></>)
+    return (<><HeaderLinks playlists={localPlaylists} notificationCount = {notificationCount} subCount={subCount}/></>)
   }
 
   const fakeClose = () => {

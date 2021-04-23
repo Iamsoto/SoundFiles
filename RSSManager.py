@@ -6,8 +6,6 @@ from dateutil import parser, tz
 
 import re
 
-
-
 class FakeEpisode:
     name=""
     url=""
@@ -110,10 +108,8 @@ class RSSParser:
                     self._image=channel.image.url.string
 
             # Get Channel URL
-            atom_links = channel.find_all(re.compile("atom"))
+            atom_links = channel.find_all(re.compile("link"))
             for link in atom_links:
-                # I thought I should be able to go if 'rel' in link...
-                # But that does not work...
                 if 'rel' in link.attrs:
                     if link['rel'] == "self":
                         self._url= link['href']

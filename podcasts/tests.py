@@ -67,9 +67,10 @@ class RSSParserTestCase(TestCase):
                 image = rssParser.get_channel_image()
                 descr = rssParser.get_channel_description()
                 url = rssParser.get_channel_url()
+                print(f"url:{url}")
                 episodes = rssParser.get_channel_episodes()
-                if(len(episodes) > 0):
-                    print(episodes[0].duration)
+                #if(len(episodes) > 0):
+                #    print(episodes[0].duration)
                 #for episode in episodes:
                 #    print(episode.pub_date)
                 #print(f"categories: {episodes.categories}")

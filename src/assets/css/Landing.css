@@ -2,6 +2,24 @@
     For reference: Karl Hadwen, 
         https://github.com/karlhadwen/netflix/blob/master/src/components/card/styles/card.js;
 */
+.landing-no-see {
+  background: red;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  position:absolute;
+  right:0;
+  top:0;
+  z-index:2;
+}
+
+.landing-no-see-text{
+  color:#FFF;
+  font-size:10px;
+  font-weight:bold;
+  margin:2px;  
+}
+
 .landing-show {
   display:block;
 }
@@ -199,6 +217,7 @@
   position: absolute;
   max-width:100%;
   padding:3px;
+  min-height: 100%;
   border-radius: 25px;
   transition: transform 0.2s;
   background-color: rgba(0,0,0,.8);
@@ -212,6 +231,7 @@
   max-width:100%;
   padding:3px;
   border-radius: 25px;
+  min-height: 100%;
   transition: transform 0.2s;
   background-color: rgba(245,171,53,0.8);
 }

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { convertDate } from 'utils/Utils.js';
+
+import GetValidToken from 'auth/GetValidToken.js';
+import GetAuthHeader from 'auth/GetAuthHeader.js';
 
 import "assets/css/Landing.css"
+import axios from "axios";
 
-export default function SubscriptionFeature( {title, author, pk, last_updated, type}){
+export default function SubscriptionFeature( {title, author, pk, last_updated, type, sub_pk}){
     const [onMobile, setOnMobile] = useState(true)
+    const subscription_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/subscription")
     let history = useHistory()
 
     const mobileSetter = () => {
@@ -33,8 +39,33 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
 
     },[window.innerWidth])
 
+
+    const seen = () =>{
+        GetValidToken().then((response) => {
+            axios({
+                method: 'delete',
+                url: subscription_url,
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accept':'*/*',
+                    'Authorization': GetAuthHeader()
+                },
+                data:{
+                    sub_pk:sub_pk
+                }
+            }).then(response => {
+
+            }).catch(error=>{
+                
+            })
+        }).catch(msg =>{
+            
+        })      
+    }
+
     const go = (e) => {
         e.preventDefault()
+
         if(type === "podcast"){
             history.push(`/podcast/${pk}`)
         }else if (type === "playlist"){
@@ -44,12 +75,14 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
 
 
     return(
+        <>      
         <div className={onMobile ? 'landing-feature-mobile-subscribe' : 'landing-feature-subscribe'}>
             <div className="landing-feature-row">
                 <div className={ onMobile ? "landing-feature-title-mobile" : "landing-feature-title"}>
                   <>{type === "playlist" ? "Playlist-" : null}</> 
                   <> {title}</> 
                 </div>
+
             </div>
             <div className="landing-feature-row">
                 <div className={onMobile ? "landing-feature-text-mobile" : "landing-feature-text"}>
@@ -58,7 +91,7 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
             </div>
             <div className="landing-feature-row">
                 <div className={onMobile ? "landing-feature-text-mobile" : "landing-feature-text"}>
-                    Updated On: {last_updated}
+                    Updated: {convertDate(last_updated)}
                 </div>
             </div>
             <div className="landing-feature-row">
@@ -71,6 +104,7 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
                     </Button>
                 </div>
             </div>
-        </div>  
+        </div>
+        </>
         )
 }

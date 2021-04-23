@@ -30,7 +30,7 @@ import Logout from "auth/Logout.js"
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks({playlists, onClose, notificationCount}) {
+export default function HeaderLinks({playlists, onClose, notificationCount, subCount}) {
   const classes = useStyles();
   let history = useHistory();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
@@ -88,7 +88,13 @@ export default function HeaderLinks({playlists, onClose, notificationCount}) {
           onClick={goSubscription}
           className={classes.navLink}
         >
-          <SubscriptionsIcon className={classes.icons} /> Subscriptions
+          <SubscriptionsIcon className={classes.icons} />
+          {subCount > 0
+          ?  <Badge badgeContent={subCount} color="secondary">
+              <>Subscriptions</>
+            </Badge>
+          : <>Subscriptions</>
+          }
         </Button>
       </ListItem>
 

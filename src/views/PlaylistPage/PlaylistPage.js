@@ -314,7 +314,7 @@ export default function PlaylistPage(){
           </Tooltip>
         </Grid>
         <Grid item xs={12} lg={4}>
-          {(!isOwner) && (playlistObj.public)
+          {(playlistObj.public)
             ? <div className="playlist-subscribe">                        
                 <SubscribeButton 
                   userSubbed={userSub}
@@ -322,6 +322,7 @@ export default function PlaylistPage(){
                   numSubs={numSubs}
                   pk={playlistObj.pk}
                   type='playlist'
+                  disabled={isOwner}
                 />
               </div>
             : null

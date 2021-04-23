@@ -9,7 +9,7 @@ import GetAuthHeader from "auth/GetAuthHeader.js";
 
 import "assets/css/PodcastStyle.css";
 
-export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk, type}){
+export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk, type, disabled=false}){
     const [error, setError] = useState("");
     
     const subscribe_url = localStorage.getItem("__APIROOT_URL__").concat(`userfeatures/subscribe`);
@@ -36,6 +36,8 @@ export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk,
             }).catch(error=>{
                 if(error.response.status === 429){
                     setError("Calm down on that Subscribe button there, buddy!")
+                }else if(error.response.data && error.response.data.detail){
+                    setError(error.response.data.detail)
                 }else{
                     setError("Something went wrong. Please try again later")
                 }
@@ -52,7 +54,10 @@ export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk,
        <> 
         <div className="podcast-row-slim">
             {error != "" ? <Alert severity="error">{error}</Alert>: null}
-            <Button onClick={Smashthatbutton} color={userSubbed ? "primary": null} variant="contained">
+            <Button 
+                onClick={Smashthatbutton}
+                disabled={disabled}
+                color={userSubbed ? "primary": null} variant="contained">
                 <>{userSubbed ? <>Subscribed</> : <>Subscribe!</>}</>
             </Button>
             <div className="podcast-sub-count">

@@ -20,6 +20,36 @@ class SubThrottle(throttling.UserRateThrottle):
     rate ='2/minute'
 
 
+class SubscribeUnseen(APIView):
+    """
+        View new subscribtions
+    """
+    permission_classes = [permissions.IsAuthenticated, ValidEmail]
+    def get(self, request, format=None):
+
+        response_data = {}
+        count = 0
+        query = Subscription.objects.filter(user = request.user)
+        for sub in query:
+            if sub.sub_type == "playlist":
+                if sub.playlist.update_time > sub.update_time:
+                    count +=1 # User hasn't seen this yet
+
+            elif sub.sub_type == "podcast":
+                if sub.podcast.update_time > sub.update_time:
+                    count +=1
+        
+        response_data["count"] = count
+
+        return Response(response_data, status=status.HTTP_200_OK)
+    
+    def post(self, request, format=None):
+        """
+            Set a subscription to seen
+        """
+        pass   
+
+
 class SubscribeView(APIView):
     """
         Return list of podcast user is subscribed to
@@ -27,10 +57,16 @@ class SubscribeView(APIView):
     """
     permission_classes = [permissions.IsAuthenticated, ValidEmail]
     def get(self, request, format=None):
+        """
+            Return the subscriptions for a given user
+        """
         num = int(request.query_params.get("num", 6))
         query = Subscription.objects.filter(user = request.user)[:num]
         subs = SubSerializer(query, many=True)
         return Response(subs.data, status=status.HTTP_200_OK)
+
+
+
 
 
 class SubmitSubscribe(APIView):
@@ -89,16 +125,18 @@ class SubmitSubscribe(APIView):
         
         try:
             if cleaned_type == 'podcast':
-                sub = Subscription.objects.get(podcast=obj, user=request.user)
+                sub = Subscription.objects.get(podcast=obj, user=request.user, sub_type="podcast")
             else:
-                sub = Subscription.objects.get(playlist=obj, user=request.user)
+                sub = Subscription.objects.get(playlist=obj, user=request.user, sub_type="playlist")
         except Subscription.DoesNotExist as e:
-            # New subscription
+            """
+               Create New subscription
+            """
 
             # For now, only allow for 5 subscriptions per user
             subscriptions = Subscription.objects.filter(user=request.user)
-            if len(subscriptions) > 5:
-                response_data["detail"] = "Only 5 allowed... for now"
+            if len(subscriptions) >= 6:
+                response_data["detail"] = "Only 6 Subscribes allowed... for now"
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
             if cleaned_type == 'podcast':
