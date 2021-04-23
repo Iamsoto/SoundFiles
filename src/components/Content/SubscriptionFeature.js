@@ -11,7 +11,7 @@ import axios from "axios";
 
 export default function SubscriptionFeature( {title, author, pk, last_updated, type, sub_pk}){
     const [onMobile, setOnMobile] = useState(true)
-    const subscription_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/subscription")
+    const sub_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/subscribe_unseen");
     let history = useHistory()
 
     const mobileSetter = () => {
@@ -43,8 +43,8 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
     const seen = () =>{
         GetValidToken().then((response) => {
             axios({
-                method: 'delete',
-                url: subscription_url,
+                method: 'post',
+                url: sub_url,
                 headers: {
                     'Content-Type':'application/json',
                     'Accept':'*/*',
@@ -54,9 +54,9 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
                     sub_pk:sub_pk
                 }
             }).then(response => {
-
+                console.log(response.data)
             }).catch(error=>{
-                
+                console.log(error.respose)                
             })
         }).catch(msg =>{
             
@@ -65,7 +65,7 @@ export default function SubscriptionFeature( {title, author, pk, last_updated, t
 
     const go = (e) => {
         e.preventDefault()
-
+        seen()
         if(type === "podcast"){
             history.push(`/podcast/${pk}`)
         }else if (type === "playlist"){

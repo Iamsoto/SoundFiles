@@ -9,7 +9,7 @@ from userfeatures.serializers import SubSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status, throttling
-
+from django.utils import timezone
 
 
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
@@ -47,7 +47,44 @@ class SubscribeUnseen(APIView):
         """
             Set a subscription to seen
         """
-        pass   
+        response_data = {}
+        sponge=forms.CharField(required=False)
+        sub = None
+        
+        if 'sub_pk' not in request.data:
+            response_data["detail"] = "malformed payload"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Get Subscription
+            sub = Subscription.objects.get(pk=sponge.clean(request.data.get("sub_pk")))
+        except Subscription.DoesNotExist as e:
+            response_data["detail"] = "Could not find Subscription"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            #print(e)
+            response_data["detail"] = "Something went kinda wrong"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)                
+
+        if sub.user != request.user:
+            """
+                XSS attack
+            """
+            response_data["detail"] = "No means no!"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)             
+             
+        
+        sub.update_time=timezone.now()
+
+        try:
+            sub.save()
+        except Exception as e:
+            response_data["detail"] = "Something went really wrong"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+        response_data["success"] = "true"
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 class SubscribeView(APIView):
@@ -64,8 +101,6 @@ class SubscribeView(APIView):
         query = Subscription.objects.filter(user = request.user)[:num]
         subs = SubSerializer(query, many=True)
         return Response(subs.data, status=status.HTTP_200_OK)
-
-
 
 
 
