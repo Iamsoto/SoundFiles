@@ -9,7 +9,7 @@ import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
+import Footer from "components/Footer/Footer.js";
 import SocialPage from "views/SocialPage/SocialPage.js"
 import CommentView from "views/CommentView/CommentView.js";
 import GoodbyePage from "views/GoodbyePage/GoodbyePage.js";
@@ -171,12 +171,12 @@ const App = () => {
                   }
               </Grid>
             </Grid>
-
+            
         </PlaylistContext.Provider>
       </AudioPlayerContext.Provider>
     </AudioContext.Provider>
   </LoginContext.Provider>
-
+<Footer />
   </Router>
   )
 }
