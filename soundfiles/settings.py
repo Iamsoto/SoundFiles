@@ -142,10 +142,9 @@ AUTH_USER_MODEL = 'users.SoundFileUser'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-
-    }
+    'default' : dj_database_url.config(conn_max_age=500)
 }
+
 set_default_db(DATABASES)
 
 
