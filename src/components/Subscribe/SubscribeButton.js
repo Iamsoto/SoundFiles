@@ -57,6 +57,7 @@ export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk,
             <Button 
                 onClick={Smashthatbutton}
                 disabled={disabled}
+                style={{zIndex:"5"}}
                 color={userSubbed ? "primary": null} variant="contained">
                 <>{userSubbed ? <>Subscribed</> : <>Subscribe!</>}</>
             </Button>
