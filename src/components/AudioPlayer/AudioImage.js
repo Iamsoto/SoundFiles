@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import 'assets/css/AudioPlayer.css';
+import loadingImg from 'assets/img/img_not_available.png';
 
 export default function AudioImage({image}){
     const [onMobile, setOnMobile] = useState(false)
@@ -40,10 +41,10 @@ export default function AudioImage({image}){
           {onMobile 
             ? <img
             className="audio-image-small"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
             : <img
             className="audio-image"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
           }            
         </div>
 

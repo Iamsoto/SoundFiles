@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import SubscriptionFeature from "components/Content/SubscriptionFeature.js";
-
+import loadingImg from 'assets/img/img_not_available.png';
 import "assets/css/Landing.css"
 export default function SubscriptionPodcast({podcast, no_see, sub_pk}){
     const [loaded, setLoaded] = useState(false)
@@ -57,7 +57,7 @@ export default function SubscriptionPodcast({podcast, no_see, sub_pk}){
                         : null
                     }
                 <img 
-                    src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
+                    src={loadingImg}
                     alt={podcastState.name}
                     className="landing-img"
                 />

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import SubscriptionFeature from "components/Content/SubscriptionFeature.js";
 
+import playlistImg from 'assets/img/playlist.png';
 import "assets/css/Landing.css"
 export default function SubscriptionPlaylist({playlist, no_see, sub_pk}){
     const [showFeature, setShowFeature] = useState(false)
@@ -50,7 +51,7 @@ export default function SubscriptionPlaylist({playlist, no_see, sub_pk}){
                     : null
                 }                    
                     <img 
-                        src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
+                        src={playlistImg}
                         className="landing-img"
                     />
                     {(!onMobile) || showFeature

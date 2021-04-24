@@ -24,8 +24,8 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Small from "components/Typography/Small.js"
 
-import { LoginContext } from 'auth/LoginContext.js'
-import image from "assets/img/bg7.jpg";
+import { LoginContext } from 'auth/LoginContext.js';
+
 import { Redirect, Link, useHistory } from "react-router-dom";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";

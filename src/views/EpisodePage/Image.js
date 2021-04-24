@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import loadingImg from 'assets/img/img_not_available.png';
 import "assets/css/EpisodePage.css";
 
 export default function AudioImage({image}){
@@ -41,10 +41,10 @@ export default function AudioImage({image}){
           {onMobile 
             ? <img
             className="episode-page-image-small"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
             : <img
             className="episode-page-image"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
           }            
         </div>
 

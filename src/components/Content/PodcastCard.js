@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 
 
 import PodcastLandingFeature from 'components/Content/PodcastLandingFeature.js';
-
+import loadingImg from 'assets/img/img_not_available.png';
 import "assets/css/Landing.css"
 export default function PodcastCard({podcast}){
     /**
@@ -54,7 +54,7 @@ export default function PodcastCard({podcast}){
                         onClick={e => setShowFeature(!showFeature)}
                         >
                         <img 
-                            src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
+                            src={loadingImg}
                             alt={podcast.name}
                             className="landing-img"
                         />

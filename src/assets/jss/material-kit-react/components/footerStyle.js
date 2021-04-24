@@ -27,7 +27,7 @@ const footerStyle = {
     display: "flex",
     zIndex: "2",
     position: "relative",
-    marginTop:"35vh",
+    marginTop:"60vh",
   },
   a: {
     color: primaryColor,

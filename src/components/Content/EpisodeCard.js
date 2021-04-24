@@ -5,6 +5,7 @@ import { convertSeconds } from 'utils/Utils.js';
 
 import EpisodeLandingFeature from 'components/Content/EpisodeLandingFeature.js'
 
+import loadingImg from 'assets/img/img_not_available.png';
 import "assets/css/Landing.css"
 export default function EpisodeCard({episode}){
     /**
@@ -55,7 +56,7 @@ export default function EpisodeCard({episode}){
                         onClick={e => setShowFeature(!showFeature)}
                         >
                         <img 
-                            src={process.env.PUBLIC_URL + '/sound_files_loading.png'}
+                            src={loadingImg}
                             alt={episode.name}
                             className="landing-img"
                         />

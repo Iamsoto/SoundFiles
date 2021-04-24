@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import loadingImg from 'assets/img/img_not_available.png';
 import 'assets/css/PlaylistsPage.css';
 
 export default function Image({image}){
@@ -40,10 +40,10 @@ export default function Image({image}){
           {onMobile 
             ? <img
             className="playlist-image-small"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
             : <img
             className="playlist-image"
-            src={process.env.PUBLIC_URL + '/sound_files_loading.png'} />
+            src={loadingImg} />
           }            
         </div>
 
