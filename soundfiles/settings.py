@@ -6,8 +6,11 @@ import dj_database_url
 # deployment sensetive material 
 #############################################
 # un-comment this if serving on a local box
-from set_environ import set_environ 
-set_environ()
+
+if 'DATABASE_URL' not in os.environ: 
+
+    from set_environ import set_environ 
+    set_environ()
 
 ############################################
 # Debug
