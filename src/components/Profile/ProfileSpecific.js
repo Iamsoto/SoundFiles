@@ -72,7 +72,7 @@ export default function ProfileSpecific({user}){
             </div>
 
             <div className="notifications-score">
-                {score}
+                {score > 9000 ? <>>9000</>: score}
             </div>
 
             <div className="notifications-row">

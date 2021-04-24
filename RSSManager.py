@@ -52,6 +52,7 @@ class RSSParser:
     _url=""
     _episodes=[]
     _category=""
+    _author=""
 
     # Referenced from here: 
     # #https://stackoverflow.com/questions/9662346/python-code-to-remove-html-tags-from-a-string
@@ -83,29 +84,38 @@ class RSSParser:
             Universal parse function, obtain all attributes... 
 
         """
+        # Note: please don't use lxml
+        # see: https://groups.google.com/g/beautifulsoup/c/2yMjUYTIaiQ
         feed = bs.BeautifulSoup(self.xml, 'xml')
         channel = feed.channel
         episodes = []
         guid = None
-
         if channel is not None:
-            import re
 
             # Title
             if channel.title is not None:
                 if channel.title.string is not None:
                     # Clean any HTML tags
                     self._title = re.sub(self.cleanr, '', channel.title.string)
+                else:
+                    self._title = re.sub(self.cleanr, '',channel.title.getText())
 
             # Description
             if channel.description is not None:
                 if channel.description.string is not None:
-                    self._description = re.sub(self.cleanr, '', channel.description.string) 
+                    self._description = re.sub(self.cleanr, '', channel.description.string)
+                else:
+                    self._description = re.sub(self.cleanr, '', channel.description.getText())
 
             # Image...
             for image in channel.find_all(re.compile("image")):
                 if image.url is not None:
                     self._image=channel.image.url.string
+                    break
+                else:
+                    if "href" in image.attrs:
+                        self._image= image["href"]
+                        break
 
             # Get Channel URL
             atom_links = channel.find_all(re.compile("link"))
@@ -114,6 +124,10 @@ class RSSParser:
                     if link['rel'] == "self":
                         self._url= link['href']
                         break
+
+            author = channel.find_all(re.compile("author"))
+            if len(author) > 0:
+                self._author = author[0].getText()
 
             # Get category
             categories = channel.find_all("category")
@@ -124,11 +138,16 @@ class RSSParser:
             # Find all episodes
             items = channel.find_all("item")
             for item in items:
-                title = re.sub(self.cleanr, '', item.title.string)
+                if item.title:
+                    if item.title.string:
+                        title = re.sub(self.cleanr, '', item.title.string)
+                    else:
+                        title= re.sub(self.cleanr, '', item.title.getText())
+
                 enclosure = item.enclosure
                 url = ''
                 description = ""
-                pubDate = datetime.now(timezone.utc)
+                pub_date = datetime.now(timezone.utc)
 
                 if enclosure is not None:
                     url = enclosure.get('url')
@@ -142,7 +161,13 @@ class RSSParser:
                     guid = url
 
                 if item.description is not None:
-                    description = re.sub(self.cleanr, '', item.description.string)
+                    if item.description.string:
+                        description = re.sub(self.cleanr, '', item.description.string)
+                    else:
+                        description = re.sub(self.cleanr, '', item.description.getText())
+                else:
+                    # Does it have a summary attribute instead?
+                    description = re.sub(self.cleanr, '', item.summary.getText())
 
                 if item.pubDate is not None:
                     pub_date = parser.parse(item.pubDate.string,  ignoretz=True)
@@ -176,6 +201,11 @@ class RSSParser:
         """
         return self._category
 
+    
+    def get_author(self):
+        return self._author
+
+    
     def get_channel_episodes(self):
         """
         TODO: Check

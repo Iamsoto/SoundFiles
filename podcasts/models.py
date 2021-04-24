@@ -28,7 +28,7 @@ class Podcast(models.Model):
     author = models.CharField(max_length=50, blank=True, null=True)
     sfPopularityScore = models.IntegerField(default=0)
     indexPopularityScore = models.IntegerField(blank=True, null=True)
-    image_url = models.URLField(max_length=200, null=True, blank =True)
+    image_url = models.URLField(max_length=300, null=True, blank =True)
     description = models.TextField(null=True, blank=True)
     rss_feed=models.TextField(blank=False, null=False, unique = True)
     

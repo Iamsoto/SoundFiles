@@ -19,6 +19,7 @@ import { AudioPlayerContext } from "components/AudioPlayer/AudioPlayerContext.js
 import Badge from '@material-ui/core/Badge';
 import PlaylistLike from "components/Likes/PlaylistLike.js";
 import Button from '@material-ui/core/Button';
+
 import Menu from '@material-ui/core/Menu';
 
 import SubscribeButton from 'components/Subscribe/SubscribeButton.js'
@@ -26,6 +27,7 @@ import { convertSeconds } from 'utils/Utils.js';
 import Image from "views/PlaylistPage/Image.js";
 import Share from 'components/Share/Share.js'
 import axios from "axios"
+import Username from 'components/Profile/Username.js';
 
 import { useParams } from "react-router";
 import { Redirect } from "react-router-dom";
@@ -332,7 +334,7 @@ export default function PlaylistPage(){
           <div className="playlist-container-row">
             <div className="playlist-row-item">
               {!isOwner
-                ? <p>By: {playlistObj.user.username ? <>{playlistObj.user.username}</> : <>???</>}</p>
+                ? <p>By: {playlistObj.user.username ? <Username text ={playlistObj.user.username} pk ={playlistObj.user.pk}/> : <>???</>}</p>
                 : null
               }
             </div>

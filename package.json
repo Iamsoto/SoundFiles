@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "heroku-postbuild": "npm run build; python manage.py fixpaths --deploy"
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [

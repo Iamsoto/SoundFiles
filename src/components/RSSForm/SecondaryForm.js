@@ -50,7 +50,8 @@ export default function SecondaryForm(props) {
             'rss_feed': props.url,
             'name': props.name,
             'image_url':props.image,
-            'description':props.descr
+            'description':props.descr,
+            'author':props.author
         })
         }).then((response) => {
           /**

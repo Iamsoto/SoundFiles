@@ -17,7 +17,7 @@ urlpatterns = [
     path('podcasts/', include('podcasts.urls')),
     path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('admin/', admin.site.urls),
+    path('django_rheinhardt/path/to_/admin/', admin.site.urls),
     re_path('.*', TemplateView.as_view(template_name='index.html', extra_context=context))
 
 ]

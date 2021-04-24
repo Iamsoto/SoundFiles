@@ -58,7 +58,7 @@ class RSSParserTestCase(TestCase):
     def test_rss_parser(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         start_time = time.time()
-        #print("starting")
+
         for file in os.listdir(os.path.join(dir_path, 'xml_files/')):
             with open(os.path.join(dir_path, 'xml_files/', file), "r" ) as f:
                 content = f.read()
@@ -67,14 +67,38 @@ class RSSParserTestCase(TestCase):
                 image = rssParser.get_channel_image()
                 descr = rssParser.get_channel_description()
                 url = rssParser.get_channel_url()
+                author = rssParser.get_author()
+                print(f"title:{title}")
+                print(f"author:{author}")
+                print(f"description:{descr}")
                 print(f"url:{url}")
+                print(f"image:{image}")
                 episodes = rssParser.get_channel_episodes()
-                #if(len(episodes) > 0):
-                #    print(episodes[0].duration)
-                #for episode in episodes:
-                #    print(episode.pub_date)
-                #print(f"categories: {episodes.categories}")
+                print(f"episodes:{len(episodes)}")
+                print("\n\n")
         end_time = time.time()
         print(f"{end_time - start_time} seconds to parse 3 files")
+
+    def no_test_rss_parser_2(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        start_time = time.time()
+        #print("starting")
+
+        with open(os.path.join(dir_path, 'xml_files/spanish'), "r" ) as f:
+            content = f.read()
+            rssParser = RSSParser(content)
+            title = rssParser.get_channel_title()
+            image = rssParser.get_channel_image()
+            descr = rssParser.get_channel_description()
+            url = rssParser.get_channel_url()
+            #print(f"title:{title}")
+            #print(f"description:{descr}")
+            #print(f"url:{url}")
+            #print(f"image:{image}")
+            episodes = rssParser.get_channel_episodes()
+            #print(f"episodes:{len(episodes)}")
+
+        end_time = time.time()
+        print(f"{end_time - start_time} seconds to parse 1 files")
 
 

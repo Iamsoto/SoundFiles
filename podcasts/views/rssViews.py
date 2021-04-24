@@ -85,8 +85,6 @@ class XMLHandler:
         cleaned_data = []
         charSponge = forms.CharField(required=False)
 
-
-        # Parse says xml is valid
         try:
             
             title = charSponge.clean(parser.get_channel_title())
@@ -96,13 +94,14 @@ class XMLHandler:
             image = charSponge.clean(parser.get_channel_image())
             #print("image: {}".format(image))
             descr = charSponge.clean(parser.get_channel_description())
-            author = charSponge.clean(parser.get_channel_description())
+            author = charSponge.clean(parser.get_author())
             #print()
 
             cleaned_data.append(title)
             cleaned_data.append(url)
             cleaned_data.append(image)
             cleaned_data.append(descr)
+            cleaned_data.append(author)
         
         except ValidationError as e:
             response_data["detail"] = "Invalid!"
@@ -135,6 +134,7 @@ class XMLHandler:
         response_data["url"] = cleaned_data[1]
         response_data["image"] = cleaned_data[2]
         response_data["descr"] = cleaned_data[3]
+        response_data["author"] = cleaned_data[4]
 
         return Response(response_data, status=status.HTTP_200_OK)
 

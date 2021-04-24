@@ -21,6 +21,7 @@ export default function RSSForm(props) {
     const [podcastURL, setPodcastURL] = useState('');
     const [podcastImage, setPodcastImage] = useState('');
     const [podcastDescr, setPodcastDescr] = useState('');
+    const [author, setAuthor] = useState('');
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const xml_post_url = localStorage.getItem("__APIROOT_URL__") + 'podcasts/inspect_xml';
@@ -44,6 +45,7 @@ export default function RSSForm(props) {
               setPodcastImage(obj.image);
               setPodcastURL(obj.url);
               setPodcastDescr(obj.descr);
+              setAuthor(obj.author);
               setVisible(true);
               setLoading(false);
             }).catch((error) => {
@@ -139,6 +141,7 @@ export default function RSSForm(props) {
         url = {podcastURL}
         image = {podcastImage}
         descr = {podcastDescr}
+        author = {author}
       /> : null}
       </div>
     );
