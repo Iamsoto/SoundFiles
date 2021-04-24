@@ -46,9 +46,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Database
 ##################
 def set_default_db(DATABASES):
-    if 'DATABASE_URL' in os.environ:
+    if 'heroku' in os.environ:
         prod_db  =  dj_database_url.config(conn_max_age=500)
         DATABASES['default'].update(prod_db)
+    else:
+        tiny_db = {'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
+        DATABASES['default'].update(tiny_db)
 
 
 ##################
@@ -68,7 +72,7 @@ def set_staticfiles_dirs(STATICFILES_DIRS):
 # CORS
 ##################
 def set_cors(CORS):
-    if 'DATABASE_URL' in os.environ:
+    if 'heroku' in os.environ:
         # If on heroku, do nothing
         return
     else:
@@ -139,8 +143,7 @@ AUTH_USER_MODEL = 'users.SoundFileUser'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 set_default_db(DATABASES)
