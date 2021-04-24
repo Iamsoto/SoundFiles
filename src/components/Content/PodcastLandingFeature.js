@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Button from '@material-ui/core/Button';
+import Button from 'components/CustomButtons/Button.js';
 import { useHistory } from 'react-router-dom'
 
 import "assets/css/Landing.css"
@@ -61,14 +61,13 @@ export default function PodcastLandingFeature({title, num_likes, author, num_sub
                 </div>
             </div>
             <div className="landing-feature-row">
-                <div className="landing-feature-go">
-                    <Button 
-                        variant="outlined"
-                        size="small"
-                        style={{backgroundColor:"#FFF"}}
-                        onClick={goPodcast}>Go
-                    </Button>
-                </div>
+                
+                <Button 
+                    color="primary"
+                    style={{width:"100%", height:"100%"}}
+                    onClick={goPodcast}>Go
+                </Button>
+                
             </div>
         </div>  
         )

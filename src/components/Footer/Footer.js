@@ -57,7 +57,7 @@ export default function Footer(props) {
             </ListItem>
           </List>
         </div>
-        <div aclassName={classes.right}>
+        <div className={classes.right}>
           &copy; {1900 + new Date().getYear()}
           
           

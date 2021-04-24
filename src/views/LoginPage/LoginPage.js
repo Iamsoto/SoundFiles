@@ -80,7 +80,8 @@ export default function LoginPage(props) {
 
       if(error.response !== undefined && error.response.data !== undefined){
         if(error.response.data.detail !== undefined){
-          setServerError(error.response.data.detail);
+          //console.log(error.response)
+          setServerError("Email or password incorrect");
         }else{
           setServerError("There was a problem logging in")
         }

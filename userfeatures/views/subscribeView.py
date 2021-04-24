@@ -17,7 +17,7 @@ from django.utils import timezone
 
 
 class SubThrottle(throttling.UserRateThrottle):
-    rate ='2/minute'
+    rate ='3/minute'
 
 
 class SubscribeUnseen(APIView):
