@@ -75,7 +75,7 @@ export default function Landing(props) {
 
     return (
         <div>
-            <div className="landing-subtitle-italics">A Web based podcast player with a focus on community</div>
+            <div className="landing-subtitle-italics">A Web-based podcast player with a focus on community</div>
            { /* <Parallax filter small style={{maxHeight:"150px"}} image={require("assets/img/bg7.jpg")}/> */}
             
             

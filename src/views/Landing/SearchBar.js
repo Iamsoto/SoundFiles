@@ -88,7 +88,7 @@ export default function CustomizedInputBase({setSearchContent, searchByValue, se
       </Menu>
       <TextField
         className={classes.input}
-        placeholder="Search"
+        placeholder="Search Podcasts..."
         inputProps={{ 'aria-label': 'Search SoundFiles!' }}
         onChange={(event)=>{setSearchContent(event.target.value) }}
       />

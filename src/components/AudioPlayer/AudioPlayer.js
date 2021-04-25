@@ -331,9 +331,10 @@ export default function AudioPlayer({close}){
           </IconButton>
         </div>
         
-
-        <InfoPopup
+        {audioRef.current != null
+        ? <InfoPopup
           anchorEl={popup}
+          src={audioRef.current.currentSrc}
           msg={title}
           episode_pk={pk}
           playlist_pk={playlist_pk}
@@ -346,6 +347,7 @@ export default function AudioPlayer({close}){
               : "00:00:00" }
           cur_time={secondsToTime(trackProgress)}
         />
+        :null}
 
         
        {(!onMobile && playlist_pk != null) 

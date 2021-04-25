@@ -5,10 +5,11 @@ import Typography from '@material-ui/core/Typography';
 
 const StyledTab = withStyles((theme) => ({
   root: {
-    color: '#999',
+    color: '#000',
     fontWeight: theme.typography.fontWeightRegular,
     fontSize: theme.typography.pxToRem(15),
-    marginRight: theme.spacing(1),
+    fontWeight:'bold',
+    border:"1px",
     '&:focus': {
       opacity: 1,
     },

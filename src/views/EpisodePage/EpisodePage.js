@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
+import Button from 'components/CustomButtons/Button.js';
 import SurroundSoundIcon from '@material-ui/icons/SurroundSound';
 
 import EpisodeLike from 'components/Likes/EpisodeLike.js';
@@ -22,6 +22,7 @@ import CreateEpisodeComment from "components/Comments/EpisodeComments/CreateEpis
 import RootCommentList from "components/Comments/EpisodeComments/RootCommentList.js";
 import Fuego from "components/Fuego/Fuego.js";
 import Image from "views/EpisodePage/Image.js";
+import Download from "components/Download/Download.js";
 
 import axios from "axios";
 import ShowMoreText from 'react-show-more-text';
@@ -263,13 +264,19 @@ export default function EpisodePage(){
                         style={{maxWidth:"100%"}}                      
                         >
                         <div className="episode-page-container">
-                            <Button
-                                variant="outlined"
-                                onClick={goPodcast}
-                                color="primary"
-                                >
-                                To Podcast
-                            </Button>
+                            <div className="episode-page-columne">
+                              <Button
+                                  variant="outlined"
+                                  onClick={goPodcast}
+                                  color="primary"
+                                  >
+                                  To Podcast
+                              </Button>
+                            
+                            <div className="episode-page-row">
+                              <Download src={episode.media_url} />
+                            </div>
+                          </div>
                         </div>
                     </Menu>
                 </div>

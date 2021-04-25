@@ -58,7 +58,7 @@ export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk,
                 onClick={Smashthatbutton}
                 disabled={disabled}
                 style={{zIndex:"5"}}
-                color={userSubbed ? "primary": null} variant="contained">
+                color={userSubbed ? "rose": null} variant="contained">
                 <>{userSubbed ? <>Subscribed</> : <>Subscribe!</>}</>
             </Button>
             <div className="podcast-sub-count">

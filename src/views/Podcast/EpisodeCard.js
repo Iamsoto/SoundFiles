@@ -11,10 +11,11 @@ import SurroundSoundIcon from '@material-ui/icons/SurroundSound';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+
+
+import Download from 'components/Download/Download.js';
+import Button from 'components/CustomButtons/Button.js';
 import EpisodeLike from 'components/Likes/EpisodeLike.js';
-
-
 import { AudioPlayerContext } from 'components/AudioPlayer/AudioPlayerContext.js';
 import { convertDate } from "utils/Utils.js";
 import { convertSeconds } from "utils/Utils.js"
@@ -163,22 +164,26 @@ export default function EpisodeCard({episode, image_url, podcast_pk}) {
 
         <div className="episode-row">
             <Button 
-                variant="outlined"
-                color="secondary"
+                color="rose"
                 value={episode.media_url}
                 onClick={e => handlePlay(e, episode.name, episode.pk)}
                 >Play
                 </Button>
                 <div className="episode-discussion-button">
                 <Button 
-                    variant="outlined"
                     color="primary"
                     onClick={(e)=> clickViewDiscussion(e, episode.pk)}
                     >
                     Go to Discussion
                 </Button>
             </div>
+            <div className="episode-right">
+                <Download src ={episode.media_url} name={episode.name}/>
+            </div>
         </div>
+
+
+
     </div>
 </Paper>
         )

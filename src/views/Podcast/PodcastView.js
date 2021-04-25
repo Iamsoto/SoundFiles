@@ -36,7 +36,9 @@ export default function PodcastView(props) {
     const classes = useStyle();
     
     const imageClasses = classNames(
-      classes.imgFluid
+      classes.imgFluid,
+      classes.imgRaised,
+      classes.imgRounded
     );
     
     const { pk } = useParams();

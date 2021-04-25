@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Button from 'components/CustomButtons/Button.js';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import IconButton from '@material-ui/core/IconButton';
 import {useHistory} from 'react-router-dom';
+import Download from 'components/Download/Download.js';
 
 import 'assets/css/AudioPlayer.css';
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function InfoPopup({
         anchorEl, 
         msg,
+        src,
         playlist_pk,
         episode_pk,
         podcast_pk,
@@ -57,12 +59,8 @@ export default function InfoPopup({
                         <div className="audio-sub-title">{cur_time}/{duration}</div>
                     </Grid>
                     <Grid item xs={12}>
-                        <div className="audio-sub-title">Blank</div>
+                        <Download src ={src}/>
                     </Grid>
-                    <Grid item xs={12}>
-                        <div className="audio-sub-title">Blank</div>
-                    </Grid>
-
                     <Button size="small" variant="outlined" color="primary" onClick={(e)=>{e.preventDefault();history.push(`/episode/${episode_pk}`)}}>
                         Go to Episode Discussion
                     </Button>

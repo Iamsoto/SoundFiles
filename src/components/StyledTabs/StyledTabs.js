@@ -13,7 +13,7 @@ const StyledTabs = withStyles({
   indicator: {
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#000099',
+    backgroundColor: '#090099',
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
