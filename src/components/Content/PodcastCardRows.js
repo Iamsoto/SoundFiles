@@ -81,8 +81,8 @@ export default function PodcastCardRows({url, name, display_title}){
             return (<Alert severity="error"> {error} </Alert>)
         }
 
-        else{
-            return (<></>)
+        else{// Rows.length == 0
+            return (<h6>Nothing here...</h6>)
         }
     }
     return (

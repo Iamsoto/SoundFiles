@@ -31,7 +31,7 @@ export default function SearchView({input, searchBy}){
             <PodcastCardRows 
                 url={finalURL} 
                 name="search_results"
-                display_title={searchBy === 'title' ? `Titles like: ${input}` : `Authors like: ${input}`}/>
+                display_title={searchBy === 'title' ? `Titles that match: ${input}` : `Authors that match: ${input}`}/>
             <div className="searchview-button">
                <p> Didn't find what you were looking for?
                <Button size="small" onClick={goPodcast}> Request it!</Button></p>

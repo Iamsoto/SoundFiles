@@ -60,11 +60,11 @@ export default function Landing(props) {
             )
         }
         
-        else if (page ===1){
+        else if (page === 1){
             return (<div className="landing-wrapper"><Genres /></div>)
         }
 
-        else if(page===2){
+        else if(page=== 2){
             return (<CreateSoundhub/>)
         }
 
@@ -75,10 +75,13 @@ export default function Landing(props) {
 
     return (
         <div>
+            <div className="landing-subtitle-italics">A Web based podcast player with a focus on community</div>
            { /* <Parallax filter small style={{maxHeight:"150px"}} image={require("assets/img/bg7.jpg")}/> */}
-            <Box m={12} />{/*  Adjust this if parallax present */}
+            
+            
             <Grid container>
-                <Grid item xs={12} md={8}> 
+                <Grid item xs={12} md={8} xl={10}>
+                    
                     <StyledTabs 
                         variant="scrollable"
                         scrollButtons='on'
@@ -91,7 +94,7 @@ export default function Landing(props) {
                     </StyledTabs>  
                 </Grid>
                 
-                <Grid item md={4} mt={12}>
+                <Grid item md={4} xl={2} mt={12}>
                     <SearchBar 
                         setSearchContent={setSearchContentWrapper}
                         searchByValue={searchByValue}

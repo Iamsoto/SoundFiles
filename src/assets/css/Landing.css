@@ -2,6 +2,14 @@
     For reference: Karl Hadwen, 
         https://github.com/karlhadwen/netflix/blob/master/src/components/card/styles/card.js;
 */
+ .landing-subtitle-italics {
+  color:#999;
+  font-style:italic;
+  font-size:12px;
+  margin:5px;
+  font-weight:bold;
+ }
+
 .landing-no-see {
   background: red;
   border-radius: 50%;

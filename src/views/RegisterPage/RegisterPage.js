@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useContext } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -21,10 +21,10 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { LoginContext } from 'auth/LoginContext.js';
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 //import image from "assets/img/bg7.jpg";
 import axios from "axios";
 
@@ -39,7 +39,7 @@ export default function LoginPage(props) {
     password2:"",
     terms:"",
   }
-
+  let history = useHistory()
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [username, setUsername] = useState("");
   const [email, setEmail] =useState("");
@@ -51,6 +51,9 @@ export default function LoginPage(props) {
   const [frontErrors, setFrontErrors] = useState(default_errors);
   const [serverErrors, setServerErrors] = useState({});
   const [bigError, setBigError] = useState("");
+  const [goHome, setGoHome] = useState("");
+
+  const { loggedIn, setLoggedIn } = useContext(LoginContext); 
 
   setTimeout(function() {
     setCardAnimation("");
@@ -59,6 +62,7 @@ export default function LoginPage(props) {
   const { ...rest } = props;
 
   const submit_form_url = localStorage.getItem("__APIROOT_URL__") + 'users/create';
+
 
   const toTerms = (event) =>{
     alert("You did it!");
@@ -184,14 +188,25 @@ export default function LoginPage(props) {
                         
   }
 
-  const goSuccess = () => {
-    localStorage.setItem("verify_email",true)
-    return(<Redirect to="/login"/>);
+  useEffect(()=>{
+
+    if(loggedIn){
+      setGoHome(true)
+    }
+
+  },[loggedIn])
+
+  if(goHome){
+    return(<Redirect to="/" />);
+  }
+
+  if(success){
+    history.push("/login")
+    return(<></>)
   }
 
   return (
     <div>
-      {success ? <> {goSuccess()} </>: null}
         <div className={classes.container}> 
           {bigError !== "" ? <Alert severity="error">{bigError} </Alert> : null}
           <Grid container justify="center">

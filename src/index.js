@@ -145,7 +145,7 @@ const App = () => {
 
             {height >= 700
             ?<Box m={9}/>
-            :<Box m={11 + (height - 700)/100}/>
+            :<Box m={10 + (height - 700)/80}/>
             }
             <Switch>
               <Route path="/social/" children={<SocialPage />} />
