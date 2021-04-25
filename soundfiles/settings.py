@@ -47,7 +47,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ##################
 def set_default_db(DATABASES):
     if 'heroku' in os.environ:
-        prod_db  =  dj_database_url.config(conn_max_age=500)
+        prod_db  =  dj_database_url.config()
         DATABASES['default'].update(prod_db)
     else:
         tiny_db = {'ENGINE': 'django.db.backends.sqlite3',
