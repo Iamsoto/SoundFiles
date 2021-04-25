@@ -24,8 +24,8 @@ class Podcast(models.Model):
     """
         Le pod-cast
     """
-    name = models.CharField(max_length=50, blank = True, null=True)
-    author = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=255, blank = True, null=True)
+    author = models.CharField(max_length=255, blank=True, null=True)
     sfPopularityScore = models.IntegerField(default=0)
     indexPopularityScore = models.IntegerField(blank=True, null=True)
     image_url = models.URLField(max_length=300, null=True, blank =True)

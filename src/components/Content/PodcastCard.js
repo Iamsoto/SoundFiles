@@ -59,7 +59,13 @@ export default function PodcastCard({podcast}){
                             className="landing-img"
                         />
                         {(!onMobile) || showFeature
-                            ? <PodcastLandingFeature title ={podcast.name} num_likes={podcast.num_likes} author={podcast.author} pk={podcast.pk}/>
+                            ? <PodcastLandingFeature 
+                                title ={podcast.name}
+                                num_likes={podcast.num_likes}
+                                author={podcast.author}
+                                pk={podcast.pk}
+                                num_subs={podcast.num_subs}
+                                />
                             : null
                         }
                     </div>
