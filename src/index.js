@@ -171,12 +171,14 @@ const App = () => {
                   }
               </Grid>
             </Grid>
-            
+
+
+            <Footer />
         </PlaylistContext.Provider>
       </AudioPlayerContext.Provider>
     </AudioContext.Provider>
   </LoginContext.Provider>
-<Footer />
+
   </Router>
   )
 }
