@@ -124,7 +124,7 @@ class PopularPodcasts(generics.ListAPIView):
         elif query_string == 'global':
            return  Podcast.objects.filter(inReview=False).order_by('-indexPopularityScore')[:load_amount]
 
-        return Podcast.objects.filter(inReview=False)[:18]
+        return Podcast.objects.filter(inReview=False)[:load_amount]
 
 
 
