@@ -24,16 +24,16 @@ class Podcast(models.Model):
     """
         Le pod-cast
     """
-    name = models.CharField(max_length=255, blank = True, null=True)
-    author = models.CharField(max_length=255, blank=True, null=True)
+    name = models.TextField(blank = True, null=True)
+    author = models.TextField( blank=True, null=True)
     sfPopularityScore = models.IntegerField(default=0)
     indexPopularityScore = models.IntegerField(blank=True, null=True)
-    image_url = models.URLField(max_length=300, null=True, blank =True)
+    image_url = models.URLField(null=True, blank =True)
     description = models.TextField(null=True, blank=True)
     rss_feed=models.TextField(blank=False, null=False, unique = True)
     
-    etag=models.CharField(max_length=254, default="N/A")
-    last_modified=models.CharField(max_length=254, default="N/A")
+    etag=models.TextField(default="N/A")
+    last_modified=models.TextField(default="N/A")
     update_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     inReview=models.BooleanField(default=False)
@@ -54,12 +54,12 @@ class Episode(models.Model):
     """
         La Episode
     """
-    name = models.CharField(max_length=50, blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
     podcast = models.ForeignKey(Podcast, 
         on_delete=models.CASCADE, blank=False, null=False)
     media_url = models.URLField()
     # Can the Guid ever be null? 
-    guid = models.CharField(unique=True, max_length=254)
+    guid = models.TextField(unique=True)
 
     description = models.TextField(null=True, blank=True)
     pub_date = models.DateField(blank=True, null=True)
