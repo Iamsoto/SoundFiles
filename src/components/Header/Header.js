@@ -312,12 +312,14 @@ export default function Header(props) {
         {loggedIn 
           ? <Button onClick={goHome} className={classes.title}>Welcome, {shortenUsername(username)}</Button>
           : <>{brandComponent}</>
-        } 
+        }
+      </Toolbar>
 
+      <div className={classes.customNavClass}>
         <Hidden smDown implementation="css">
           {getHeaderLinks(()=>{})}
         </Hidden>
-
+      </div>
         <Hidden mdUp>
           <IconButton
             color="inherit"
@@ -328,7 +330,6 @@ export default function Header(props) {
           
           </IconButton>
         </Hidden>
-      </Toolbar>
       
       <Hidden mdUp implementation="js">
         <Drawer

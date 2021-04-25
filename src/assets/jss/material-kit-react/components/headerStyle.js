@@ -32,6 +32,9 @@ const headerStyle = {
     zIndex: "unset",
     maxHeight:"70px",
   },
+  customNavClass: {
+    marginRight:"20vh",
+  },
   absolute: {
     position: "absolute",
     zIndex: "1100"
