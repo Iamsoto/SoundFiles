@@ -222,25 +222,6 @@ export default function PodcastView(props) {
                   
               </ShowMoreText>
           </Grid>
-
-          <Grid item xs={12} md={12}>
-            <NavPills
-              color="primary"
-              customChangeHandler={toggleGridList}
-              tabs={[
-                {
-                  tabButton: "Episodes",
-                  tabIcon: MovieFilterIcon,
-
-                },
-                {
-                  tabButton: "Posts",
-                  tabIcon: ChatIcon,
-
-                },
-              ]}
-            />
-          </Grid>
         </Grid>
 
         <hr/>
