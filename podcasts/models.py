@@ -28,7 +28,7 @@ class Podcast(models.Model):
     author = models.TextField( blank=True, null=True)
     sfPopularityScore = models.IntegerField(default=0)
     indexPopularityScore = models.IntegerField(blank=True, null=True)
-    image_url = models.URLField(null=True, blank =True)
+    image_url = models.URLField(max_length=1024, null=True, blank =True)
     description = models.TextField(null=True, blank=True)
     rss_feed=models.TextField(blank=False, null=False, unique = True)
     
@@ -57,7 +57,7 @@ class Episode(models.Model):
     name = models.TextField(blank=True, null=True)
     podcast = models.ForeignKey(Podcast, 
         on_delete=models.CASCADE, blank=False, null=False)
-    media_url = models.URLField()
+    media_url = models.URLField(max_length=1024)
     # Can the Guid ever be null? 
     guid = models.TextField(unique=True)
 
