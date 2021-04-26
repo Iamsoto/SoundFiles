@@ -1,7 +1,26 @@
 /*
     For reference: Karl Hadwen, 
         https://github.com/karlhadwen/netflix/blob/master/src/components/card/styles/card.js;
+
+    For scrollbar: 
+      https://dev.to/xtrp/how-to-create-a-beautiful-custom-scrollbar-for-your-site-in-plain-css-1mjg;
 */
+::-webkit-scrollbar {
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
  .landing-subtitle-italics {
   color:#999;
   font-style:italic;

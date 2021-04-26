@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   textPrimary: {
     width:'100%',
     fontSize:"12px",
-    color:"#999"
+    color:"#808080"
   },
   drawer: {
     width: drawerWidth,
@@ -146,7 +146,7 @@ export default function Genres({}){
             <Grid container>    
             
             <Slide direction="right" in={showList} mountOnEnter unmountOnExit>
-            <Grid item xs={5} md={2} lg={1} style={{minHeight: "90vh", overflowY: 'auto', overflowX:'hidden'}}>
+            <Grid item xs={5} md={2} lg={1} style={{minHeight: "70vh", overflowY: 'auto', overflowX:'hidden'}}>
                 
                 <List component="nav" className={classes.drawer} aria-label="category-select">
                     {genres.map((genre, i)=>(
