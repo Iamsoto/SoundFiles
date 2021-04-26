@@ -5,6 +5,7 @@ from userfeatures import views
 app_name = 'userfeatures'
 urlpatterns = [
    path('playlists', views.Playlists.as_view(), name="list-playlists"),
+   path('playlists_popular', views.PlaylistsPopular.as_view(), name="list-playlists-popular"),
    path('playlist_detail/<int:pk>', views.PlaylistDetail.as_view(), name="detail-playlist"),
    path('episode_playlists', views.EpisodePlaylist.as_view(), name="create-episode-playlist"),
    path('episode_comments_root_list/<int:pk>', views.EpisodeCommentRootList.as_view(), name="episode-comments-root-list"),
@@ -22,5 +23,6 @@ urlpatterns = [
    path('user_profile', views.UserProfileView.as_view(), name="user-profile"),
    path('subscribe', views.SubmitSubscribe.as_view(), name="subscribe"),
    path('subscription', views.SubscribeView.as_view(), name="subscription"),
-   path('subscribe_unseen', views.SubscribeUnseen.as_view(), name="subscription-unseen")
+   path('subscribe_unseen', views.SubscribeUnseen.as_view(), name="subscription-unseen"),
+
 ]   

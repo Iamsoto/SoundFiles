@@ -63,7 +63,7 @@ export default function PodcastCard({podcast}){
                                 title ={podcast.name}
                                 num_likes={podcast.num_likes}
                                 author={podcast.author}
-                                pk={podcast.pk}
+                                url={`/podcast/${podcast.pk}`}
                                 num_subs={podcast.num_subs}
                                 />
                             : null

@@ -23,7 +23,7 @@ export default function SearchView({input, searchBy}){
     
     const goPodcast = (e) => {
         setSearchContent("");
-        setPage(2);
+        setPage(3);
     }
 
     return (

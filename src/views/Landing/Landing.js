@@ -10,6 +10,7 @@ import Continue from 'views/Landing/Continue.js';
 import CreateSoundhub from 'views/CreateSoundhub/CreateSoundhub.js';
 import PodcastCardRows from 'components/Content/PodcastCardRows.js'
 
+import Playlists from 'views/Landing/Playlists.js';
 import SearchBar from 'views/Landing/SearchBar.js';
 import SearchView from 'views/Landing/SearchView.js';
 
@@ -63,11 +64,12 @@ export default function Landing(props) {
         else if (page === 1){
             return (<div className="landing-wrapper"><Genres /></div>)
         }
-
-        else if(page=== 2){
+        else if (page === 2){
+            return(<div className="landing-wrapper"><Playlists /></div>)
+        }
+        else if(page === 3){
             return (<CreateSoundhub/>)
         }
-
         else{
             return (<></>);
         }
@@ -90,6 +92,7 @@ export default function Landing(props) {
                         aria-label="styled tabs">
                       <StyledTab label="Main" />
                       <StyledTab label="Genres" />
+                      <StyledTab label="Playlists" />
                       <StyledTab label="Request a Podcast" />
                     </StyledTabs>  
                 </Grid>

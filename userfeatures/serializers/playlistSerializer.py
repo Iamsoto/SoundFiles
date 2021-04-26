@@ -30,6 +30,30 @@ class PlaylistSerializerSmall(serializers.ModelSerializer):
         model = Playlist
         fields= ['name', 'pk', 'user', 'update_time']
 
+class PlaylistSerializerPopular(serializers.ModelSerializer):
+    episodes = EpisodePlaylistSerializer(many=True)
+    user = UserSerializerTokenized()
+    num_likes = serializers.SerializerMethodField(method_name='calculate_num_likes')    
+    num_subs = serializers.SerializerMethodField(method_name='calculate_num_subs')
+    
+    class Meta:
+        model = Playlist
+        fields = ['name', 'user', 'pk', 
+        'episodes', 'public', 'num_likes', 'num_subs', 'update_time']
+
+    def calculate_num_subs(self, instance):
+        if not instance.public:
+            return 0
+        return Subscription.objects.filter(playlist__pk=instance.pk).count()
+
+    def calculate_num_likes(self, instance):
+        """
+            Calculate the number of likes for this given comment
+        """
+        if not instance.public:
+            return 0
+        return PlaylistLike.objects.filter(playlist__pk = instance.pk).count()
+
 
 class PlaylistSerializer(serializers.ModelSerializer):
     episodes = EpisodePlaylistSerializer(many=True)
@@ -49,7 +73,6 @@ class PlaylistSerializer(serializers.ModelSerializer):
         if not instance.public:
             return 0
         return Subscription.objects.filter(playlist__pk=instance.pk).count()
-    
 
     def calculate_cur_user_sub(self, instance):
         """
@@ -69,8 +92,6 @@ class PlaylistSerializer(serializers.ModelSerializer):
             return True
         else:
             return False
-
-
 
     def calculate_num_likes(self, instance):
         """

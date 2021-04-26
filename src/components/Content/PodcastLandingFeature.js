@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import "assets/css/Landing.css"
 
-export default function PodcastLandingFeature({title, num_likes, author, num_subs, pk}){
+export default function PodcastLandingFeature({title, num_likes, author, num_subs, url}){
     const [onMobile, setOnMobile] = useState(true)
     let history = useHistory()
 
@@ -35,7 +35,7 @@ export default function PodcastLandingFeature({title, num_likes, author, num_sub
 
     const goPodcast = (e) => {
         e.preventDefault()
-        history.push(`/podcast/${pk}`)
+        history.push(url)
     }
 
     return(

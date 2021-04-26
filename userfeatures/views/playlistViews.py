@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import permissions, status
 from django.utils import timezone
 
-
+from django.db.models import Count
 from CustomPermissions import ValidEmail
 from users.models import SoundFileUser
 from userfeatures.models import Playlist, EpisodePlaylist as EPL
@@ -15,7 +15,8 @@ from podcasts.models import Episode
 
 from userfeatures.serializers import (
     PlaylistSerializer,
-    EpisodePlaylistSerializer
+    EpisodePlaylistSerializer,
+    PlaylistSerializerPopular
 )
 
 class PlaylistDetail(APIView):
@@ -186,6 +187,43 @@ class EpisodePlaylist(APIView):
     def get(self, request, format=None):
         # need user, playlist, or user, podcast
         pass
+
+class PlaylistsPopular(APIView):
+    """
+        No permissions needed
+    """
+    def get(self, request, format=None):
+        response_data = {}
+        load_amount = int(self.request.query_params.get('num', 6))
+        searchBy = (self.request.query_params.get('search_by', 'name'))
+        query = self.request.query_params.get('q', None)
+
+        if load_amount > 50:
+            load_amount = 50
+        if load_amount < 6:
+            load_amount = 6
+
+        playlists = None
+        if searchBy == 'id':
+            if query is not None:
+                playlists = Playlist.objects.filter(pk__icontains=query, public=True).annotate(num_likes=Count('likes')).order_by('-num_likes')[:load_amount]
+            else:
+                playlists = Playlist.objects.filter(public=True).annotate(num_likes=Count('likes')).order_by('-num_likes')[:load_amount]
+
+        elif searchBy == 'name':
+            if query is not None:
+                playlists = Playlist.objects.filter(name__icontains=query, public=True).annotate(num_likes=Count('likes')).order_by('-num_likes')[:load_amount]
+            else:
+                playlists = Playlist.objects.filter(public=True).annotate(num_likes=Count('likes')).order_by('-num_likes')[:load_amount]
+        else:
+            playlists =  Playlist.objects.filter(public=True).annotate(num_likes=Count('likes')).order_by('-num_likes')[:load_amount]
+
+        playlists_serial = PlaylistSerializerPopular(playlists, many=True)
+
+        return Response(playlists_serial.data, status=status.HTTP_200_OK)
+
+
+                     
 
 
 class Playlists(APIView):
