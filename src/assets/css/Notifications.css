@@ -11,6 +11,10 @@
     transition: transform 0.2s;
 }
 
+.notifications-no-nots {
+  margin:10px;
+}
+
 .notifications-wrapper {
   word-break:break-word;
 }

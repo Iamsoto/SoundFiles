@@ -79,7 +79,7 @@ export default function SubscriptionPage(){
         }
 
         else{
-            return (<></>)
+            return (<h3>No Subscriptions to display!</h3>)
         }
     }
 

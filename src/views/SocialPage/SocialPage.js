@@ -74,7 +74,7 @@ export default function SocialPage(){
                 <div className="notifications-title-main">
                     Notifications
                 </div>
-                {ECNotifications.length === 0 ? <h6>No notifications yet!</h6>: null}
+                {ECNotifications.length === 0 ? <div className="notifications-no-nots"><h3>No notifications to display</h3></div>: null}
                 
                 {ECNotifications.map((notification, i)=>(
                     <React.Fragment key={`episode-comment-notification-${notification.pk}`}>
