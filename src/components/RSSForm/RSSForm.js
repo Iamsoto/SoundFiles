@@ -154,7 +154,7 @@ export default function RSSForm(props) {
                 onClose={handleClose}
               >
                 <div className="rss-text-help">
-                  If you have an RSS feed to a podcast that's meant to be public, post it here and I'll take a look at it!
+                  If you have an RSS feed to a podcast that's meant to be public, post it here and we'll take a look at it!
                   Don't have an RSS feed? Ask the content creator
                 </div>
               </Menu>        
