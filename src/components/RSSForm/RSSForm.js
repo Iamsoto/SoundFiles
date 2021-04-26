@@ -3,20 +3,24 @@ import { makeStyles } from "@material-ui/core/styles";
 import GetValidToken from 'auth/GetValidToken.js';
 import GetAuthHeader from "auth/GetAuthHeader.js"
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Alert from '@material-ui/lab/Alert';
 import Danger from 'components/Typography/Danger.js';
 import CustomInput from "components/CustomInput/CustomInput.js";
-import SecondaryForm from "components/RSSForm/SecondaryForm.js"
-
+import SecondaryForm from "components/RSSForm/SecondaryForm.js";
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
 import styles from "assets/jss/RSSFormStyle.js";
 import axios from 'axios';
+import 'assets/css/RssForm.css';
 
 const useStyles = makeStyles(styles);
+
 
 export default function RSSForm(props) {
     const classes = useStyles();
     const [errorMsg, setErrorMsg] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
     const [podcastName, setPodcastName] = useState('');
     const [podcastURL, setPodcastURL] = useState('');
     const [podcastImage, setPodcastImage] = useState('');
@@ -26,8 +30,6 @@ export default function RSSForm(props) {
     const [loading, setLoading] = useState(false);
     const xml_post_url = localStorage.getItem("__APIROOT_URL__") + 'podcasts/inspect_xml';
     const url_post_url = localStorage.getItem("__APIROOT_URL__") + 'podcasts/inspect_url';
-
-
 
     const handlePOSTRequest = (input, url, headers) => {
       /**
@@ -110,8 +112,19 @@ export default function RSSForm(props) {
         callAPI(input)
     }
 
+    const helpButtonClick = (e) => {
+      e.preventDefault()
+      setAnchorEl(e.currentTarget)
+    }
+
+    const handleClose = (e) => {
+      e.preventDefault()
+      setAnchorEl(null)
+    }
+
     return (
           <div>
+        
             <form className={classes.form} onSubmit={e => { e.preventDefault(); }}>
               <CustomInput
                 labelText="Enter RSS Feed or RSS URI"
@@ -132,7 +145,19 @@ export default function RSSForm(props) {
           {errorMsg !== '' 
           ? <Alert severity="error">{errorMsg}</Alert> 
           : null }
-        
+            <IconButton onClick={helpButtonClick}><HelpOutlineIcon/></IconButton>
+              <Menu
+                id="rss-help-text"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <div className="rss-text-help">
+                  If you have an RSS feed to a podcast that's meant to be public, post it here and I'll take a look at it!
+                  Don't have an RSS feed? Ask the content creator
+                </div>
+              </Menu>        
           {loading ? <div style={{justify:"center"}}><CircularProgress color="primary"/></div> : null}
 
         {visible 

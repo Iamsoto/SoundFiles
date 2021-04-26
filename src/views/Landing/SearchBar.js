@@ -79,7 +79,6 @@ export default function CustomizedInputBase({setSearchContent, searchByValue, se
           onClose={handleClose}
       >
         <FormControl component="fieldset" style={{margin:"10px"}}>
-          <FormLabel component="legend">Search By:</FormLabel>
           <RadioGroup aria-label="search by" name="search by form" value={searchByValue} onChange={handleSearchByChange}>
             <FormControlLabel value="title" control={<Radio />} label="Title" />
             <FormControlLabel value="author" control={<Radio />} label="Author" />
@@ -88,7 +87,7 @@ export default function CustomizedInputBase({setSearchContent, searchByValue, se
       </Menu>
       <TextField
         className={classes.input}
-        placeholder="Search Podcasts..."
+        placeholder={`Search Podcasts! (By ${searchByValue == 'title' ? 'Title' : 'Author'})`}
         inputProps={{ 'aria-label': 'Search SoundFiles!' }}
         onChange={(event)=>{setSearchContent(event.target.value) }}
       />

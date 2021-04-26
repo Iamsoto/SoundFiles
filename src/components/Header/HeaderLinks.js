@@ -175,7 +175,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
           className={classes.navLink}
           onClick={goSingup}
         >
-          Signup
+          Signup (For Free!)
           
         </Button>
       </ListItem>

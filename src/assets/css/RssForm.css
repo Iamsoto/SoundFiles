@@ -1,0 +1,7 @@
+.rss-text-help {
+	display:flex;
+	flex-direction:row;
+	margin:10px;
+	font-style:Arial;
+	font-size:14px;
+}

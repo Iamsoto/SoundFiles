@@ -214,7 +214,7 @@ export default function LoginPage(props) {
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>SIGNUP!</h4>
+                    <h4>Signup For Free!</h4>
                   </CardHeader>
                   <CardBody>
                     {serverErrors.username !== undefined ? <div className={classes.labelRootError}> {serverErrors.username[0]}</div>: null}
