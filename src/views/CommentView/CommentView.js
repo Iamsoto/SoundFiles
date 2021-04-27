@@ -107,6 +107,7 @@ useEffect(()=>{
             }
             <RootComment 
                 username={comment.user.username}
+                user_pk={comment.user.pk}
                 postDate={comment.post_date}
                 timeStamp={comment.time_stamp}
                 text={comment.text}
