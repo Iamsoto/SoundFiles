@@ -315,9 +315,9 @@ class Command(BaseCommand):
                 modified = False
                 if 'ETag' in r.headers:
                     if podcast.etag != r.headers['ETag']:
-
                         podcast.etag = r.headers['ETag']
                         modified = True
+
                 if 'Last-Modified' in r.headers:
                     if podcast.last_modified != r.headers['Last-Modified']:
                         podcast.last_modified = r.headers['last_modified']

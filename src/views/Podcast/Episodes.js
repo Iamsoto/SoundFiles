@@ -179,7 +179,7 @@ export default function Episodes({image_url}){
             Handle ascending page
         */
         var params = {...queryParams};
-        params.asc = !params.asc
+        params.asc = event.target.value;
         setQueryParams(params);
     }
 
@@ -190,7 +190,7 @@ export default function Episodes({image_url}){
                 <Grid item xs={12} md={8}>
                 {error !== '' ? <Alert severity = "error"> {error} </Alert> : null}
                     <FormControl className={classes.soundFilesformControl}>
-                        <FormLabel>Find Your Favorite Episodes</FormLabel>
+                        <FormLabel>Filter Episodes</FormLabel>
                         <FormGroup row= {true}>
                             <FormControlLabel 
                                 value="OrderBy" 
@@ -209,14 +209,19 @@ export default function Episodes({image_url}){
                                 
                             <FormControlLabel 
                                 value="ascending" 
-                                label="ascending"
-                                labelPlacement="end"
+                                labelPlacement="bottom"
                                 className={classes.colorPrimary}
-                                control={<Checkbox
-                                checked={queryParams.asc}
-                                onChange={handleAscending}
-                                color="primary"
-                                ></Checkbox>}>
+                                control={
+                                    <Select
+                                          className={classes.colorPrimary}
+                                          id="episode-ascending"
+                                          value={queryParams.asc}
+                                          onChange={handleAscending}
+                                          >
+                                        <MenuItem value="true">Ascending</MenuItem>
+                                        <MenuItem value="false">Descending</MenuItem>
+                                    </Select>
+                                }>
                             </FormControlLabel>
    
                         </FormGroup> 
