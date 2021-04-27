@@ -38,13 +38,14 @@ class EpisodeCommentNotification(models.Model):
         """
             Naieve way of doing this
         """
+        if self.seen == False:
 
-        self.user_notified.score += random.randint(1, 4)
+            self.user_notified.score += random.randint(1, 2)
 
-        try:
-            self.user_notified.save()
-        except Exception as e:
-            pass
+            try:
+                self.user_notified.save()
+            except Exception as e:
+                pass
         
         super(EpisodeCommentNotification, self).save(*args, **kwargs)
 

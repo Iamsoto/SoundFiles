@@ -31,15 +31,13 @@ class PlaylistSerializerSmall(serializers.ModelSerializer):
         fields= ['name', 'pk', 'user', 'update_time']
 
 class PlaylistSerializerPopular(serializers.ModelSerializer):
-    episodes = EpisodePlaylistSerializer(many=True)
     user = UserSerializerTokenized()
     num_likes = serializers.SerializerMethodField(method_name='calculate_num_likes')    
     num_subs = serializers.SerializerMethodField(method_name='calculate_num_subs')
     
     class Meta:
         model = Playlist
-        fields = ['name', 'user', 'pk', 
-        'episodes', 'public', 'num_likes', 'num_subs', 'update_time']
+        fields = ['name', 'user', 'pk', 'public', 'num_likes', 'num_subs', 'update_time']
 
     def calculate_num_subs(self, instance):
         if not instance.public:
