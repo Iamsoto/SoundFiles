@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px 10px',
     display: 'flex',
     boxShadow:'None',
-    overflow: 'hidden',
     [theme.breakpoints.down('md')]: {
       maxWidth: "100%",
       background:"transparent"
