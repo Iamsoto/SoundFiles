@@ -185,8 +185,6 @@ export default function PodcastView(props) {
                           type='podcast'
                         />
                     </div>
-                    
-
                 <div className="podcast-row">
                   <div className={classes.title}>
                     <h3>{podcast.name}</h3>
@@ -206,11 +204,8 @@ export default function PodcastView(props) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </Slide>
-          </Grid>
 
-          <Grid item xs={12} md={8}> 
+              <div className="podcast-row">
               <ShowMoreText
                   /* Default options */
                   lines={2}
@@ -222,15 +217,22 @@ export default function PodcastView(props) {
                 {podcast.description}
                   
               </ShowMoreText>
+
+              </div>
+              </div>
+            </Slide>
+
           </Grid>
         </Grid>
 
         <hr/>
 
         <Grid container className={classes.container}>
-          <Grid item xs={12} pr={4} pl={4}>
+          <Grid item xs={false} md={1} xl={2}/>
+          <Grid item xs={12} md={10} xl={8} pr={4} pl={4}>
             {activeGrid === 0 ? <Episodes image_url = {podcast.image_url}/> : <h1> In development! </h1>}
           </Grid>
+          <Grid item xs={false} md={1} xl={2}/>
         </Grid>
       
     </div>
