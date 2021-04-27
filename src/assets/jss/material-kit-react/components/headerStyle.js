@@ -160,7 +160,12 @@ const headerStyle = {
     paddingRight: "0px",
     paddingLeft: "0",
     ...transition
+  },
+  right: {
+    position:"absolute",
+    right:"0px",
   }
+
 };
 
 export default headerStyle;

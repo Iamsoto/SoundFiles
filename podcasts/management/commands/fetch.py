@@ -311,16 +311,17 @@ class Command(BaseCommand):
                 self.update_podcast_channel(podcast, parser)
                 self.update_episodes(podcast, parser)
                 
-                # TODO: This doesn't work. Make sure it works
-                # Before production!!!
 
                 modified = False
                 if 'ETag' in r.headers:
-                    podcast.etag = r.headers['ETag']
-                    modified = True
+                    if podcast.etag != r.headers['ETag']:
+
+                        podcast.etag = r.headers['ETag']
+                        modified = True
                 if 'Last-Modified' in r.headers:
-                    podcast.last_modified = r.headers['Last-Modified']
-                    modified = True
+                    if podcast.last_modified != r.headers['Last-Modified']:
+                        podcast.last_modified = r.headers['last_modified']
+                        modified = True
 
                 if modified:
                     podcast.update_time = timezone.now()
