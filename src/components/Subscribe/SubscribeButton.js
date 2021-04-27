@@ -34,7 +34,7 @@ export default function SubscribeButton({userSubbed, setUserSubbed, numSubs, pk,
                 setError("")
                 setUserSubbed(!userSubbed)
             }).catch(error=>{
-                if(error.response.status === 429){
+                if(error.response && error.response.status === 429){
                     setError("Calm down on that Subscribe button there, buddy!")
                 }else if(error.response.data && error.response.data.detail){
                     setError(error.response.data.detail)
