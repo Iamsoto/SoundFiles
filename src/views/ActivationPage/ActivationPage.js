@@ -26,7 +26,7 @@ export default function ActivationPage({}){
                     'Authorization': GetAuthHeader()
                 }
             }).then(response =>{
-                setSuccess("Successfully verfieid email! Thank you!")
+                setSuccess("Successfully verified email! Thank you!")
                 setSeeResend(false)
             }).catch(error =>{
                 if(error.response.status === 429){

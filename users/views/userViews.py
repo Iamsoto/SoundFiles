@@ -74,6 +74,15 @@ class Activate(APIView):
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
             if user.activation_code == code:
+                user.valid_email = True
+                
+                try:
+                    user.save()
+                except Exception as e:
+                    print(f"Problem verifying user {e}")
+                    response_data["detail"] = "Something happened"
+                    return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
                 response_data["success"] = "Email Verified!! Enjoy the site!!!"
                 return Response(response_data, status=status.HTTP_200_OK)
             else:
