@@ -41,6 +41,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # variables
 #############################################
 
+#################################
+# De mail
+#################################
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'donotreply@soundfiles.fm'
+SERVER_EMAIL = 'donotreply@soundfiles.fm'
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "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"
+
 
 ##################
 # Database

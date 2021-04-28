@@ -184,8 +184,25 @@ export default function LoginPage(props) {
       }
       
     }
-    setUsername(e.target.value);
-                        
+    setUsername(e.target.value);                  
+  }
+
+  const setPassword2Wrapper = (e) =>{
+    e.preventDefault()
+    let temp_errors = {...frontErrors}
+
+    if(e.target.value != password1){
+      temp_errors.password2 = "Passwords must match!"
+      setFrontErrors(temp_errors)
+    }else{
+      if(temp_errors.password2 !== ""){
+        temp_errors.password2 = ""
+        setFrontErrors(temp_errors)
+        
+      }
+    }
+    setPassword2(e.target.value)
+
   }
 
   useEffect(()=>{
@@ -285,10 +302,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Password Again"
                       id="password2"
-                      onChange={(e)=> {
-                        e.preventDefault();
-                        setPassword2(e.target.value)
-                        }}
+                      onChange={setPassword2Wrapper}
                       formControlProps={{
                         fullWidth: true
                       }}

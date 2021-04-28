@@ -4,17 +4,22 @@ from django.http import Http404
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions, status
-
+from rest_framework import permissions, status, throttling
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from CustomPermissions import ValidEmail
 from users.models import SoundFileUser
 from podcasts.models import Episode
+import random
+import string
 
 from users.serializers import (
     CreateUserSerializer,
     ListUsersSerializer
 )
 
+class ActivateThrottle(throttling.UserRateThrottle):
+    rate ='2/minute'
 
 class Username(APIView):
     """
@@ -28,6 +33,54 @@ class Username(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
+class ReSend(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, format=None):
+        response_data = {}
+        user = request.user
+        letters = string.ascii_lowercase
+        code =  ''.join(random.choice(letters) for i in range(28))
+        user.activation_code = code
+        try:
+            host = settings.__APIROOT_URL__
+            url = f"{host}activate/{code}"
+            html_message = render_to_string('validate_email.html', {'url': url})
+            t = send_mail("Verify your email for soundfiles",
+                f"Please follow the link to verify your email for soundfiles: {url}",
+                "donotreply@soundfiles.fm", [user.email], html_message=html_message, fail_silently=False)       
+        except Exception as e:
+            print(f"Error sending email: {e}")
+            response_data["detail"] = "Please try again later"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+        response_data["success"] = "Another email sent"
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
+class Activate(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    throttle_classes = [ActivateThrottle]
+    def get(self, request, code=-1, format=None):
+        response_data = {}
+        
+
+        if code == -1:
+            response_data["detail"] = "not found"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            user = request.user
+            if user.valid_email == True:
+                response_data["detail"] = "user already verified"
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+            if user.activation_code == code:
+                response_data["success"] = "Email Verified!! Enjoy the site!!!"
+                return Response(response_data, status=status.HTTP_200_OK)
+            else:
+                response_data["detail"] = "Please try again or request another verification email"
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CreateNewUser(APIView):
     
     def post(self, request, format=None):
@@ -36,8 +89,24 @@ class CreateNewUser(APIView):
         """
         serializer = CreateUserSerializer(data=request.data)
         if serializer.is_valid():
-
+            # send deh email          
             serializer.save()
+            try:
+                host = settings.__APIROOT_URL__
+                
+                user = SoundFileUser.objects.filter(email=serializer.data["email"]).first()
+                if user is None:
+                    raise Exception
+
+                code = user.activation_code
+                url = f"{host}activate/{code}"
+                html_message = render_to_string('validate_email.html', {'url': url})
+                send_mail("Verify your email for soundfiles", 
+                    f"Please follow the link to verify your email for soundfiles: {url}",
+                    "donotreply@soundfiles.fm", [user.email], html_message=html_message)
+            except Exception as e:
+                print(f"Error sending email! {e}")
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         #print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

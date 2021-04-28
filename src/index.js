@@ -9,6 +9,7 @@ import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import ActivationPage from "views/ActivationPage/ActivationPage.js";
 import Footer from "components/Footer/Footer.js";
 import SocialPage from "views/SocialPage/SocialPage.js"
 import CommentView from "views/CommentView/CommentView.js";
@@ -149,6 +150,7 @@ const App = () => {
             }
             <Switch>
               <Route path="/social/" children={<SocialPage />} />
+              <Route path="/activate/:code" children={<ActivationPage />}/>
               <Route path="/Subscription/" children={<SubscriptionPage />} />
               <Route path="/episode-comment/:pk" children={<CommentView />} />
               <Route path="/podcast/:pk" children={<PodcastView />} />

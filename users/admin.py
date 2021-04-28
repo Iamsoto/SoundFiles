@@ -15,7 +15,7 @@ class SoundFileUserAdmin(BaseUserAdmin):
     list_display = ('email', 'is_admin')
     list_filter = ('email', 'is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password')}),
+        (None, {'fields': ('email', 'username', 'password','activation_code')}),
         ('Permissions', {'fields': ('is_admin','valid_email')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin

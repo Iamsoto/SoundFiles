@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.conf import settings
 from users.models import SoundFileUser
 
+import random
+import string
 
 class UserSerializerTokenized(serializers.HyperlinkedModelSerializer):
     """
@@ -38,6 +40,7 @@ class CreateUserSerializer(serializers.HyperlinkedModelSerializer):
     """
     password1 = serializers.CharField(max_length=254, write_only=True)
     password2 = serializers.CharField(max_length=254, write_only=True)
+    
     class Meta:
         """ 
 
@@ -61,5 +64,10 @@ class CreateUserSerializer(serializers.HyperlinkedModelSerializer):
             username=validated_data['username'],
         )
         user.set_password(validated_data['password1'])
+        # Generate code
+        letters = string.ascii_lowercase
+        code =  ''.join(random.choice(letters) for i in range(28)) 
+
+        user.activation_code = code
         user.save()
         return user        
