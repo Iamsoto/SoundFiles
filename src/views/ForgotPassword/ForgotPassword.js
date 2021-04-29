@@ -38,8 +38,9 @@ export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [success, setSuccess] = useState("")
   const [serverError, setServerError] = useState("");
+  const [emailError, setEmailError] = useState("")
   const [redirect, setRedirect] = useState(false)
   
   const { loggedIn, setLoggedIn } = useContext(LoginContext); 
@@ -57,64 +58,73 @@ export default function LoginPage(props) {
     }
   },[loggedIn])
 
-  const goLogin = () => {
-    Login(email, password).then((response) =>{
-      /**
-        Successfully logged into the server
-      */
-      Logout(() => {}, () => {}); // Clean up left behinds
-      SetLocalStorage(response);
+  const setEmailWrapper = (e) =>{
+    e.preventDefault()
+    let temp_email = e.target.value
 
-      if(props.successFunc){
-        props.successFunc()
-      }
 
-      setLoggedIn(true);
+    if(temp_email === ""){
+      setEmailError("required");
 
-      if(!props.redirectURL){
-        history.goBack()
-      }else{
-        setRedirect(true);
-      }     
-      
-    }).catch((error) => {
-
-      if(error.response !== undefined && error.response.data !== undefined){
-        if(error.response.data.detail !== undefined){
-          //console.log(error.response)
-          setServerError("Email or password incorrect");
+    }else {
+      let lastAtPos = temp_email.lastIndexOf('@');
+      let lastDotPos = temp_email.lastIndexOf('.');
+       
+       if (!(lastAtPos < lastDotPos 
+        && lastAtPos > 0 
+        && temp_email.indexOf('@@') == -1 
+        && lastDotPos > 2 
+        && (temp_email.length - lastDotPos) > 2)) {
+           setEmailError("invalid email")
         }else{
-          setServerError("There was a problem logging in")
+          setEmailError("")
         }
-      }else{
-        setServerError("There was a problem logging in...")
-      }
-    })
+    }
+    
+    setEmail(e.target.value);
+  }
+
+  const requestNew = (e) => {
+     e.preventDefault()
+     if(emailError === ""){
+      setError("")
+      setSuccess("An email with information has been sent. Please check spam if you don't see it")
+    }else{
+      setError("Please correct the error(s) above")
+    }
+     
   }
 
   if(redirect) {
-    return <Redirect to={props.redirectURL}/>
+
+    return <Redirect to="/" />
   }
 
   return (
     <div>
         <div className={classes.container}>
          { serverError !== "" ? <Alert severity="error">{serverError}</Alert> : null}
+         {success !== "" ? <Alert severity="info"> {success} </Alert> : null}
           <Grid container justify="center">
             <Grid item xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   
-                  <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
+                  <CardHeader color="danger" className={classes.cardHeader}>
+                    <h4>Forgot Password</h4>
                     <div className={classes.socialLine}/>
                   </CardHeader>
-                  
+
+                  {emailError != null
+                    ? <div className="login-error"> {emailError} </div>
+                    : null
+                  }
+
                   <CardBody>
                     <CustomInput
                       labelText="Email..."
                       id="email"
-                      onChange={(event) => { event.preventDefault(); setEmail(event.target.value)}}
+                      onChange={setEmailWrapper}
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -127,37 +137,11 @@ export default function LoginPage(props) {
                         )
                       }}
                     />
-                    <CustomInput
-                      labelText="Password"
-                      id="pass"
-                      onChange={(event) => {event.preventDefault(); setPassword(event.target.value)}}
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "password",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off"
-                      }}
-                    />
-                    <div className = "login-bottom-link">
-                      Need an account?<Link to="/register"> <span style={{color:"#3e248f"}}>Sign up for Free!</span></Link>
-                    </div>
-                    <div className="login-bottom-link">
-                      <Link to="/forgot-password"> <span style={{color:"#3e248f"}}></span>Forgot password?</Link>
-                    </div>
                   </CardBody>
 
-
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple onClick={goLogin} color="primary" size="lg">
-                      Login
+                    <Button simple onClick={requestNew} color="google" size="lg">
+                      Request New Password
                     </Button>
                   </CardFooter>
 

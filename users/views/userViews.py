@@ -45,8 +45,8 @@ class ReSend(APIView):
             host = settings.__APIROOT_URL__
             url = f"{host}activate/{code}"
             html_message = render_to_string('validate_email.html', {'url': url})
-            t = send_mail("Verify your email for soundfiles",
-                f"Please follow the link to verify your email for soundfiles: {url}",
+            t = send_mail("Verify your email for SoundFiles.fm",
+                f"Please follow the link to verify your email for SoundFiles.fm: {url}",
                 "donotreply@soundfiles.fm", [user.email], html_message=html_message, fail_silently=False)       
         except Exception as e:
             print(f"Error sending email: {e}")
@@ -110,8 +110,8 @@ class CreateNewUser(APIView):
                 code = user.activation_code
                 url = f"{host}activate/{code}"
                 html_message = render_to_string('validate_email.html', {'url': url})
-                send_mail("Verify your email for soundfiles", 
-                    f"Please follow the link to verify your email for soundfiles: {url}",
+                send_mail("Verify your email for SoundFiles.fm", 
+                    f"Please follow the link to verify your email for SoundFiles.fm: {url}",
                     "donotreply@soundfiles.fm", [user.email], html_message=html_message)
             except Exception as e:
                 print(f"Error sending email! {e}")

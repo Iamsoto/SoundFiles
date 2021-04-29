@@ -1,0 +1,8 @@
+.login-bottom-link {
+	width: 100%
+}
+.login-error {
+	font-size:12px;
+	color:red;
+	margin-left:15px;
+}

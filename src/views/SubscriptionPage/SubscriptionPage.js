@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Alert from '@material-ui/lab/Alert';
 
 import SubscriptionCards from "components/Content/SubscriptionCards.js";
 import GetValidToken from "auth/GetValidToken.js";
 import GetAuthHeader from "auth/GetAuthHeader.js";
 import Button from "@material-ui/core/Button";
-
+import { LoginContext } from 'auth/LoginContext.js';
 import axios from "axios";
+
+import { Redirect } from 'react-router-dom';
 
 import "assets/css/Landing.css"
 export default function SubscriptionPage(){
@@ -15,6 +17,8 @@ export default function SubscriptionPage(){
     const [loadAmount, setLoadAmount] = useState(7)
     const [seeMore, setSeeMore] = useState(true);
     const [rows, setRows] = useState([])
+    const [redirect, setRedirect] = useState(false);
+    const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
     useEffect(()=>{
 
@@ -44,9 +48,10 @@ export default function SubscriptionPage(){
                 
             })
         }).catch(msg =>{
+            setRedirect(true)
             setError("Please login again.")
         })
-    },[loadAmount])
+    },[loadAmount, loggedIn])
 
 
     const numPerRow = () =>{
@@ -81,6 +86,10 @@ export default function SubscriptionPage(){
         else{
             return (<h3>No Subscriptions to display!</h3>)
         }
+    }
+
+    if(redirect){
+        return(<Redirect to ="/" />)
     }
 
     return (

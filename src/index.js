@@ -9,6 +9,7 @@ import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import ForgotPassword from "views/ForgotPassword/ForgotPassword.js";
 import ActivationPage from "views/ActivationPage/ActivationPage.js";
 import Footer from "components/Footer/Footer.js";
 import SocialPage from "views/SocialPage/SocialPage.js"
@@ -20,6 +21,7 @@ import PodcastView from "views/Podcast/PodcastView.js";
 import Landing from "views/Landing/Landing.js";
 import PlaylistPage from "views/PlaylistPage/PlaylistPage.js";
 import SubscriptionPage from "views/SubscriptionPage/SubscriptionPage.js";
+import AccountPage from "views/AccountPage/AccountPage.js";
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -149,9 +151,11 @@ const App = () => {
             :<Box m={10 + (height - 700)/80}/>
             }
             <Switch>
-              <Route path="/social/" children={<SocialPage />} />
+              <Route path="/forgot-password" children={<ForgotPassword /> } />
+              <Route path="/account" children={<AccountPage />} />
+              <Route path="/social" children={<SocialPage />} />
               <Route path="/activate/:code" children={<ActivationPage />}/>
-              <Route path="/Subscription/" children={<SubscriptionPage />} />
+              <Route path="/subscription" children={<SubscriptionPage />} />
               <Route path="/episode-comment/:pk" children={<CommentView />} />
               <Route path="/podcast/:pk" children={<PodcastView />} />
               <Route path="/playlist/:pk" children={<PlaylistPage />} />
