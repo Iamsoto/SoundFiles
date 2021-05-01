@@ -8,6 +8,8 @@ import classNames from "classnames";
 import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { Link } from 'react-router-dom';
+
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
@@ -32,34 +34,24 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-              >
+              <Link to="/about" style={{ textDecoration: 'none'}} className={classes.block}>
                 About
-              </a>
+              </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-              >
+              <Link to="/contact" style={{ textDecoration: 'none'}} className={classes.block}>
                 Contact
-              </a>
+              </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-              >
-                Terms & Conditions
-              </a>
+              <Link to="/privacy-policy" style={{ textDecoration: 'none'}} className={classes.block}>
+                Privacy Policy
+              </Link>
             </ListItem>
           </List>
         </div>
         <div className={classes.right}>
           &copy; {1900 + new Date().getYear()}
-          
           
             The Intro Code {" "}
             <Favorite className={classes.icon} />

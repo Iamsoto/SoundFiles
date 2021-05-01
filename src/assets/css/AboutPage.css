@@ -1,0 +1,35 @@
+.about-title{
+    color:#999;
+    font-size:20px;
+    font-weight:bold;
+    font-family:Arial;
+    margin:10px;
+}
+
+.about-sub-title{
+    color:#999;
+    font-size:18;
+    font-weight:bold;
+}
+
+.about-container{
+    background-color:#FFF;
+    padding:15px;
+    margin-left:25px;
+    margin-right:25px;
+    border-radius: 25px;
+    transition: transform 0.6s;
+}
+
+.about-wrapper{
+    display:block;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+}
+
+.about-row{
+    width:100%;
+    font-family:Arial;
+    font-size:14;
+
+}

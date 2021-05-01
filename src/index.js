@@ -9,6 +9,9 @@ import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import PrivacyPolicy from "views/PrivacyPolicy/PrivacyPolicyPage.js";
+import ContactPage from "views/ContactPage/ContactPage.js";
+import AboutPage from "views/About/AboutPage.js";
 import ForgotPassword from "views/ForgotPassword/ForgotPassword.js";
 import ActivationPage from "views/ActivationPage/ActivationPage.js";
 import Footer from "components/Footer/Footer.js";
@@ -151,6 +154,9 @@ const App = () => {
             :<Box m={10 + (height - 700)/80}/>
             }
             <Switch>
+              <Route path="/privacy-policy" children= { <PrivacyPolicy /> } />
+              <Route path="/about" children={<AboutPage /> } />
+              <Route path="/contact" children={<ContactPage />} />
               <Route path="/forgot-password" children={<ForgotPassword /> } />
               <Route path="/account" children={<AccountPage />} />
               <Route path="/social" children={<SocialPage />} />

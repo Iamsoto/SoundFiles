@@ -41,6 +41,7 @@ export default function LoginPage(props) {
   const [success, setSuccess] = useState("")
   const [serverError, setServerError] = useState("");
   const [emailError, setEmailError] = useState("")
+  const [error, setError] = useState("")
   const [redirect, setRedirect] = useState(false)
   
   const { loggedIn, setLoggedIn } = useContext(LoginContext); 

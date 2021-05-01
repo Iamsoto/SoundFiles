@@ -122,7 +122,7 @@ class PopularPodcasts(generics.ListAPIView):
             # For now, just return all time popular podcasts...
             return Podcast.objects.filter(inReview=False).annotate(num_likes=Count('likes')).order_by('-num_likes', '-indexPopularityScore')[:load_amount]
         elif query_string == 'global':
-           return  Podcast.objects.filter(inReview=False).order_by('-indexPopularityScore')[:load_amount]
+           return  Podcast.objects.filter(inReview=False, indexPopularityScore=1)[:load_amount]
 
         return Podcast.objects.filter(inReview=False)[:load_amount]
 
