@@ -48,6 +48,11 @@ export default function Footer(props) {
                 Privacy Policy
               </Link>
             </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <Link to="/terms-of-service" style={{ textDecoration: 'none'}} className={classes.block}>
+                Terms of Service
+              </Link>
+            </ListItem>
           </List>
         </div>
         <div className={classes.right}>

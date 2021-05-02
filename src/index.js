@@ -9,6 +9,7 @@ import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import TermsofService from "views/TermsofService/TermsofService.js";
 import PrivacyPolicy from "views/PrivacyPolicy/PrivacyPolicyPage.js";
 import ContactPage from "views/ContactPage/ContactPage.js";
 import AboutPage from "views/About/AboutPage.js";
@@ -154,6 +155,7 @@ const App = () => {
             :<Box m={10 + (height - 700)/80}/>
             }
             <Switch>
+              <Route path="/terms-of-service" children ={<TermsofService />} />
               <Route path="/privacy-policy" children= { <PrivacyPolicy /> } />
               <Route path="/about" children={<AboutPage /> } />
               <Route path="/contact" children={<ContactPage />} />

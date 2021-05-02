@@ -339,7 +339,9 @@ Our Service may contain links to other sites that are not operated by us. If you
 We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
 
 <b>
+<p>
 Children's Privacy
+</p>
 </b>
 
 Our Services are not intended for use by children under the age of 18 (“Child” or “Children”). 

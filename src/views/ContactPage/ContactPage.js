@@ -5,7 +5,7 @@ export default function ContactPage({}){
     return(
         <>
             <div className="about-title">
-                About SoundFiles.fm
+                Contact
             </div>
             <Slide direction="up" in={true} style={{ transitionDelay:'800ms'}}>
                 <div className="about-container">
