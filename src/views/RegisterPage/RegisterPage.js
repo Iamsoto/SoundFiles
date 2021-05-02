@@ -65,7 +65,11 @@ export default function LoginPage(props) {
 
 
   const toTerms = (event) =>{
-    alert("You did it!");
+    history.push("/terms-of-service")
+  }
+
+  const toPrivacy = (event) => {
+    history.push("/privacy-policy")
   }
 
   const submit = () =>{
@@ -329,7 +333,17 @@ export default function LoginPage(props) {
 
                         <FormControlLabel 
                             value="News Letter" 
-                            label={<div className={classes.labelRoot}> <span>I accept the </span> <span style={{color:"blue"}} onClick={toTerms}>terms of use</span></div>}
+                            label={
+                              <div className={classes.labelRoot}>
+                                <span>I accept the</span>
+                                <span style={{color:"blue"}} onClick={toTerms}>
+                                  Terms of Service
+                                </span>
+                                <span>And have read and agree to the</span>
+                                <span style={{color:"blue"}} onClick={toPrivacy}>
+                                  Privacy Policy
+                                </span>
+                              </div>}
                             labelPlacement="end"
                             control={<Checkbox
                             checked={terms}
