@@ -28,6 +28,8 @@ import GetAuthHeader from "auth/GetAuthHeader.js";
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
 import axios from "axios";
 
+import logo from "assets/img/logo-nobackground-200.png";
+
 const useStyles = makeStyles(styles);
 
 export default function Header(props) {
@@ -292,7 +294,7 @@ export default function Header(props) {
 
   }
 
-  const home = <IconButton onClick={goHome}><HomeIcon>Home</HomeIcon></IconButton>;
+  const home = <HomeIcon />
 
   const shortenUsername = (name) =>{
     if(name.length > 16){
@@ -306,7 +308,7 @@ export default function Header(props) {
     <AppBar className={appBarClasses}>     
       <Toolbar className={classes.container}>
         {loggedIn 
-          ? <Button onClick={goHome} className={classes.title}><>{home} Welcome, {shortenUsername(username)}</></Button>
+          ? <Button onClick={goHome} className={classes.title}><>{home}Welcome, {shortenUsername(username)}</></Button>
           : <Button onClick={goHome} className={classes.title}>{home}SoundFiles.fm</Button>
         }
 

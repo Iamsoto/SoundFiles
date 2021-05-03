@@ -19,6 +19,9 @@ import StyledTab from 'components/StyledTabs/StyledTab.js';
 
 import "assets/css/Landing.css"
 
+import logo from "assets/img/logo-nobackground-200.png";
+
+
 export default function Landing(props) {
 
     const [page, setPage] = useState(0);
@@ -79,13 +82,12 @@ export default function Landing(props) {
         <div>
            <Parallax small filter image={require("assets/img/soundfiles_pink.jpg")}>
                <div className="landing-big-title">
-                    SoundFiles.fm
+                    SoundFiles.fm 
                </div>
                <div className="landing-big-title-2">
                     A podcast player with community 
                </div>
            </Parallax>
-            
             
             <Grid container>
                 <Grid item xs={12} md={8} xl={10}>

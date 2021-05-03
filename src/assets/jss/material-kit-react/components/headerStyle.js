@@ -164,6 +164,12 @@ const headerStyle = {
   right: {
     position:"absolute",
     right:"0px",
+  },
+
+  logo: {
+    maxWidth:"50px",
+    maxHeight:"50px",
+    height:"auto",
   }
 
 };
