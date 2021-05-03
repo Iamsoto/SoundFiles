@@ -292,7 +292,6 @@ export default function Header(props) {
 
   }
 
-  const brandComponent = <Button onClick={goHome} className={classes.title}>{brand}</Button>;
   const home = <IconButton onClick={goHome}><HomeIcon>Home</HomeIcon></IconButton>;
 
   const shortenUsername = (name) =>{
@@ -304,14 +303,11 @@ export default function Header(props) {
   }
 
   return (
-    <AppBar className={appBarClasses}>
-        <div>
-          {home}
-        </div>      
+    <AppBar className={appBarClasses}>     
       <Toolbar className={classes.container}>
         {loggedIn 
-          ? <Button onClick={goHome} className={classes.title}>Welcome, {shortenUsername(username)}</Button>
-          : <>{brandComponent}</>
+          ? <Button onClick={goHome} className={classes.title}><>{home} Welcome, {shortenUsername(username)}</></Button>
+          : <Button onClick={goHome} className={classes.title}>{home}SoundFiles.fm</Button>
         }
 
       </Toolbar>

@@ -77,8 +77,14 @@ export default function Landing(props) {
 
     return (
         <div>
-            <div className="landing-subtitle-italics">A Web-based podcast player with a focus on community</div>
-           { /* <Parallax filter small style={{maxHeight:"150px"}} image={require("assets/img/bg7.jpg")}/> */}
+           <Parallax small filter image={require("assets/img/soundfiles_pink.jpg")}>
+               <div className="landing-big-title">
+                    SoundFiles.fm
+               </div>
+               <div className="landing-big-title-2">
+                    A podcast player with community 
+               </div>
+           </Parallax>
             
             
             <Grid container>
@@ -107,7 +113,9 @@ export default function Landing(props) {
             </Grid>
 
             <LandingContext.Provider value={{page, setPage, setSearchContent}}>
-                {getCurrentPage()}
+                <div className="landing-main-box">
+                    {getCurrentPage()}
+                </div>
             </LandingContext.Provider>
         </div>
     );

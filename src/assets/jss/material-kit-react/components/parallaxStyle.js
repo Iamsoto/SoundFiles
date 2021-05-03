@@ -2,15 +2,18 @@ const parallaxStyle = {
   parallax: {
     height: "90vh",
     maxHeight: "1000px",
-    overflow: "hidden",
+    maxWidth:"100%",
     position: "relative",
+    overflow:"hidden",
     backgroundPosition: "center center",
     backgroundSize: "cover",
-    margin: "0",
-    padding: "0",
+    marginBottom: "10px",
+    paddingBottom: "5px",
     border: "0",
     display: "flex",
     alignItems: "center",
+      boxShadow:
+        "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)"
 
   },
 

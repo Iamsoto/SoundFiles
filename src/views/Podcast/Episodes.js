@@ -189,7 +189,7 @@ export default function Episodes({image_url}){
             <Grid container m={2}>
                 <Grid item xs={12} md={8}>
                 {error !== '' ? <Alert severity = "error"> {error} </Alert> : null}
-                    <FormControl className={classes.soundFilesformControl}>
+                    <div className={classes.soundFilesformControl}>
                         <FormLabel>Filter Episodes</FormLabel>
                         <FormGroup row= {true}>
                             <FormControlLabel 
@@ -225,7 +225,7 @@ export default function Episodes({image_url}){
                             </FormControlLabel>
    
                         </FormGroup> 
-                    </FormControl>
+                    </div>
                 </Grid>
             </Grid>
 
