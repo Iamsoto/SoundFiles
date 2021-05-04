@@ -22,7 +22,6 @@ export default function SubscriptionPage(){
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
     useEffect(()=>{
-
         GetValidToken().then((response) => {
             axios({
                 method: 'get',

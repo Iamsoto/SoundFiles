@@ -4,6 +4,7 @@ from userfeatures import views
 
 app_name = 'userfeatures'
 urlpatterns = [
+   path('account', views.Playlists.as_view(), name="account"),
    path('playlists', views.Playlists.as_view(), name="list-playlists"),
    path('playlists_popular', views.PlaylistsPopular.as_view(), name="list-playlists-popular"),
    path('playlist_detail/<int:pk>', views.PlaylistDetail.as_view(), name="detail-playlist"),

@@ -45,7 +45,7 @@ export default function PodcastView(props) {
     const [error, setError] = useState('');
     const [podcast, setPodcast] = useState({});
     const [userSubbed, setUserSubbed] = useState(false)
-
+    const [numSubs, setNumSubs] = useState(0)
     const [redirect, setRedirect] = useState(false);
     const [activeGrid, setActiveGrid] = useState(0);
     const [successOpen, setSuccessOpen] = useState(true);
@@ -89,6 +89,7 @@ export default function PodcastView(props) {
                 setUserLiked(response.data.cur_user_liked)
                 setUserFlagged(response.data.cur_user_flagged)
                 setUserSubbed(response.data.cur_user_sub)
+                setNumSubs(response.data.num_subs)
             }
 
         }).catch((error) => {
@@ -115,6 +116,7 @@ export default function PodcastView(props) {
             setUserLiked(response.data.cur_user_liked)
             setUserFlagged(response.data.cur_user_flagged)
             setUserSubbed(response.data.cur_user_sub)
+            setNumSubs(response.data.num_subs)
 
         }).catch((error) => {
             // Something happened...
@@ -180,7 +182,7 @@ export default function PodcastView(props) {
                         <SubscribeButton 
                           userSubbed={userSubbed}
                           setUserSubbed={setUserSubbed}
-                          numSubs={podcast.num_subs}
+                          numSubs={numSubs}
                           pk={pk}
                           type='podcast'
                         />

@@ -13,6 +13,7 @@
     font-size:15px;
     color:#999;
     margin:10px;
+    z-index:6;
 }
 
 
@@ -21,6 +22,8 @@
     flex-direction:row;
     position:relative;
 }
+
+
 .podcast-row-slim {
     width:100%
 }
