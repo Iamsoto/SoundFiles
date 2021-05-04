@@ -82,9 +82,11 @@ export default function Landing(props) {
     return (
         <div>
            <Parallax small filter image={require("assets/img/soundfiles_pink.jpg")}>
-               <div className="landing-big-title">
-                    SoundFiles.fm 
-               </div>
+               <Slide direction="up" in={true} timeout={1200}>
+                   <div className="landing-big-title">
+                        Welcome to SoundFiles.fm 
+                   </div>
+               </Slide>
                <Slide direction="right" in={true} timeout={1000}>
                    <div className="landing-big-title-2">
                         A podcast player with community
