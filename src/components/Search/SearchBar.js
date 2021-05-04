@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     width:'100%',
     boxShadow:'None',
+    marginTop: theme.spacing(3),
+    marginLeft:'auto',
     [theme.breakpoints.down('md')]: {
       maxWidth: "100%",
       background:"transparent"
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
   input: {
     marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(1),
+    
     marginRight: theme.spacing(1),
     width:'50vw',
     boxShadow:'None',

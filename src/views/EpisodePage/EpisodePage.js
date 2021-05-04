@@ -338,7 +338,7 @@ export default function EpisodePage(){
                       : <Button
                           size="small"
                           onClick={goLogin}
-                          color="inherit"
+                          color="primary"
                           >
                         Login to Comment!
                       </Button>

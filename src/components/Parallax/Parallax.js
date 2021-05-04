@@ -17,7 +17,7 @@ export default function Parallax(props) {
   require("assets/img/soundfiles_brown.jpg")]
   const words = ["A podcast player with community", 
   "A podcast player with community", "Subscribe to your favorite podcasts! Make playlists! join the conversation!",
-  "Subscribe to your favorite podcasts! Make playlists! join the conversation!", "Enjoy the fun!", "Enjoy the fun!"]
+  "Subscribe to your favorite podcasts! Make playlists! Join the conversation!", "Enjoy the fun!", "Enjoy the fun!"]
   const words2 = ["Welcome to SoundFiles.fm", "Version Alpha"]
   const [index, setIndex] = useState(0)
   const [wordIndex, setWordIndex] = useState(0)
