@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import TextsmsIcon from '@material-ui/icons/Textsms';
@@ -62,6 +62,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
   const logoutFunc = (e) =>{
     Logout(set_login_state, onClose)
     history.push("/goodbye")
+    onClose()
   }
 
   useEffect(()=>{
@@ -71,11 +72,19 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
   const clickPlaylist = (e, pk) => {
     e.preventDefault()
     history.push("/playlist/".concat(pk))
+    onClose()
+  }
+
+  const goAccount = (e) =>{
+    e.preventDefault()
+    history.push("/account")
+    onClose()
   }
 
   const goSubscription = (e) => {
     e.preventDefault()
     history.push("/subscription")
+    onClose()
   }
 
   const userLinks = () => {
@@ -138,6 +147,17 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
               </Badge>
             : <>Social</>
             }
+        </Button>
+      </ListItem>
+
+      <ListItem 
+        className={classes.listItem}>
+        <Button
+          color="transparent"
+          className={classes.navLink}
+          onClick={goAccount}
+        >
+          <AccountCircleIcon className={classes.icons} /> Account
         </Button>
       </ListItem>
 

@@ -16,9 +16,15 @@ import axios from "axios";
 import "assets/css/Landing.css"
 export default function SubscriptionPage(){
     const account_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/account")
+    const news_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/news_letter")
     const [error, setError] = useState("")
-    const [userObj, setUserObj] = useState([]);
     const [redirect, setRedirect] = useState("");
+    const [newsLetter, setNewsLetter] = useState(false);
+    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
+    const [membership, setMembership] = useState(0)
+    const [validEmail, setValidEmail] = useState(false)
+
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
     useEffect(()=>{
@@ -33,8 +39,10 @@ export default function SubscriptionPage(){
                 }
             }).then(response => {
                 if(response.data){
-                    setUserObj(response.data)
-                    
+                    setNewsLetter(response.data.news_letter)
+                    setUsername(response.data.username)
+                    setEmail(response.data.email)
+                    setValidEmail(response.data.valid_email)
                 }
             }).catch(error=>{
                 if(error.response.data && error.response.data.detail){
@@ -51,12 +59,39 @@ export default function SubscriptionPage(){
     },[loggedIn])
 
 
+
+    const changeNewsLetter = (e) => {
+        e.preventDefault()
+
+        GetValidToken().then((response) => {
+            axios({
+                method: 'post',
+                url: news_url,
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accept':'*/*',
+                    'Authorization': GetAuthHeader()
+                },
+                data:{
+
+                },
+            }).then(response=>{
+                setNewsLetter(!newsLetter)
+            }).catch(error=>{
+
+            })
+        }).catch(msg=>{
+
+        })        
+    }
+
     if(redirect){
         return(<Redirect to="/" />)
     }
 
     return (
-        <>  
+        <>
+        {error != "" ? <Alert severity = "error">{error}</Alert> : null}
         <div className="landing-container">
             <div className="landing-row">
                 <div className="landing-title">Account Info</div>
@@ -64,17 +99,19 @@ export default function SubscriptionPage(){
         </div>
         <div className="landing-container">
             <div className="landing-row">
-                <div className="landing-title-small">Username: </div>
+                <div className="landing-title-small">Username: {username}</div>
             </div>                         
         </div>
         <div className="landing-container">
             <div className="landing-row">
-                <div className="landing-title-small"> Email: </div>
+                <div className="landing-title-small"> Email: {email}</div>
+                    <div className="landing-title-small"><p>Validated: {validEmail ? "Yes": "No"}</p></div>
             </div>                         
         </div>
         <div className="landing-container">
             <div className="landing-row">
                 <div className="landing-title-small"> Password: ****** </div>
+                <Button color="rose" size="sm"> Change Password </Button>
             </div>                         
         </div>
         <div className="landing-container">
@@ -88,25 +125,32 @@ export default function SubscriptionPage(){
                               style={{paddingLeft:"10px"}}
                               control={
                                 <Checkbox 
-                                  checked={true}
+                                  checked={newsLetter}
+                                  onChange={changeNewsLetter}
                                   color="primary"/>}
-                                  value={"hello"}
+                                  value={newsLetter}
                                 />
                         </FormControl>
             </div>                         
         </div>
         <div className="landing-container">
             <div className="landing-row">
-                <div className="landing-title-small">Membership Status: 
-                <p>Right now, SoundFiles.fm is 100% free. However, there will be premium features in the near future, available through a monthly subscription. <br/>
+                <div className="landing-title-small"><b>Membership Status: <>{membership > 0 ? "Member" : "Not a member yet"}</></b></div>
+                <div className="landing-account-sub ">
+                <br />
+                {membership === 0 ?
+                <><p>Right now, SoundFiles.fm is 100% free. However, there will be premium features in the near future, available through a monthly subscription. <br/>
                     If you enjoy this product and want to see it grow, please consider purchasing an early membership, this will
-                    garuntee you access to future membership content, like unlimited playlists and subscriptions and more for just a one time payment!
+                    garuntee you access to future membership content, like unlimited playlists and subscriptions. This early membership is available through a one time payment!
                 </p>
-                <p>Also, please use the same email as on your soundfiles.fm account to make the payment!!</p>
+                <p>**Please use the same email as on your soundfiles.fm account to make the payment!!</p>
+                <p>**Updates to your membership status won't be reflected for at least a few hours. I need to manually update your status!</p>
+                </>
+                :<p>Thank you So much for supporting SoundFiles.fm!!!!!</p>}
                 </div>
 
             <script src="https://gumroad.com/js/gumroad.js"></script>
-                <a class="gumroad-button" href="https://gumroad.com/l/mbmGF?wanted=true" target="_blank" data-gumroad-single-product="true">
+                <a className="gumroad-button" href="https://gumroad.com/l/mbmGF?wanted=true" target="_blank" data-gumroad-single-product="true">
                     <Button color="primary">Purchase Early Membership</Button>
                 </a>               
             </div>                         

@@ -50,6 +50,7 @@ class SoundFileUser(AbstractBaseUser):
     news_letter = models.BooleanField(default=False)
     score = models.IntegerField(default =0)
     activation_code = models.CharField(max_length=255, null=True, blank=True)
+    membership = models.IntegerField(default=0)
 
     objects = SoundFileUserManager()
 

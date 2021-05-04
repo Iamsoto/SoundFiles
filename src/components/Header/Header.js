@@ -312,7 +312,7 @@ export default function Header(props) {
        
          
           {loggedIn 
-            ? <Button onClick={goHome} className={classes.title}><Hidden mdDown> {home}Welcome, {shortenUsername(username)}</Hidden></Button>
+            ? <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>Welcome, {shortenUsername(username)}</Hidden></Button>
             : <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>SoundFiles.fm</Hidden></Button>
           }
         

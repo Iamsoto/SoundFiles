@@ -146,6 +146,11 @@
 /**
 
 **/
+.landing-account-sub {
+  font-size:12px;
+  font-family:Arial;
+  color:#999
+}
 
 .subtitle {
   font-size: 12px;

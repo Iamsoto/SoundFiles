@@ -33,7 +33,7 @@ const headerStyle = {
     maxHeight:"70px",
   },
   customNavClass: {
-    marginRight:"20vh",
+    marginRight:"10px",
   },
   absolute: {
     position: "absolute",

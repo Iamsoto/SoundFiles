@@ -9,6 +9,37 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from users.models import SoundFileUser
 from django.utils import timezone
 
+class NewsLetter(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def post(self,request,format=None):
+        response_data={}
+        user = request.user
+        user.news_letter = not (user.news_letter)
+        try:
+            user.save()
+        except Exception as e:
+            response_data["detail"] = "something happened"
+            Response(response_data,status=status.HTTP_400_BAD_REQUEST)
+
+        response_data["success"] = True
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
+class UserAccountView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        user = request.user
+
+        response_data= {}
+        response_data["valid_email"] = user.valid_email
+        response_data["username"] = user.username
+        response_data["email"] = user.email
+        response_data["news_letter"] = user.news_letter
+        response_data["membership"] = user.membership
+        return Response(response_data,status=status.HTTP_200_OK)
+
 
 class UserProfileView(APIView):
     """
@@ -17,7 +48,7 @@ class UserProfileView(APIView):
 
     def get(self, request, format=None):
         """
-            Get individual episode timestamp. Or all timestamps for user
+            Get profile information of a user
         """
         response_data = {}
         user_pk = request.query_params.get('user_pk', None)

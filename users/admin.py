@@ -13,9 +13,9 @@ class SoundFileUserAdmin(BaseUserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('email', 'is_admin')
-    list_filter = ('email', 'is_admin',)
+    list_filter = ('email', 'is_admin','membership')
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password','activation_code')}),
+        (None, {'fields': ('email', 'username', 'password','activation_code','membership')}),
         ('Permissions', {'fields': ('is_admin','valid_email')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
