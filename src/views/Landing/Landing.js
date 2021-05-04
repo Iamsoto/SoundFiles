@@ -9,6 +9,7 @@ import Genres from 'views/Landing/Genres.js';
 import Continue from 'views/Landing/Continue.js';
 import CreateSoundhub from 'views/CreateSoundhub/CreateSoundhub.js';
 import PodcastCardRows from 'components/Content/PodcastCardRows.js'
+import Slide from '@material-ui/core/Slide';
 
 import Playlists from 'views/Landing/Playlists.js';
 import SearchBar from 'views/Landing/SearchBar.js';
@@ -84,9 +85,11 @@ export default function Landing(props) {
                <div className="landing-big-title">
                     SoundFiles.fm 
                </div>
-               <div className="landing-big-title-2">
-                    A podcast player with community 
-               </div>
+               <Slide direction="right" in={true} timeout={1000}>
+                   <div className="landing-big-title-2">
+                        A podcast player with community
+                   </div>
+               </Slide>
            </Parallax>
             
             <Grid container>
