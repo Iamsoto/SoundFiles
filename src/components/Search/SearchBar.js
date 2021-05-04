@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useLocation, useHistory } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -13,7 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import {SearchContext} from 'components/Search/SearchContext.js';
+import { SearchContext } from 'components/Search/SearchContext.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchBar() {
   const classes = useStyles();
+  const location = useLocation();
+  let history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const { searchContent, setSearchContent, searchByValue, setSearchByValue } = useContext(SearchContext)
   const [onMobile, setOnMobile] = useState(false)
@@ -94,6 +97,15 @@ export default function SearchBar() {
       setAnchorEl(event.currentTarget)
   }
 
+  const searchInputChange = (event) =>{
+    event.preventDefault()
+    console.log(location.pathname);
+    if(location.pathname != "/"){
+      history.push("/")
+    }
+    setSearchContent(event.target.value)
+  }
+
   const reset = (event) =>{
     event.preventDefault()
     setSearchContent("")
@@ -130,8 +142,8 @@ export default function SearchBar() {
         placeholder={getPlaceholder()}
         inputProps={{ 'aria-label': 'Search SoundFiles!' }}
         variant="outlined"
-        value={searchContent}
-        onChange={(event)=>{setSearchContent(event.target.value) }}
+        value={ searchContent }
+        onChange={searchInputChange}
       />
 
       {searchContent !== ""
