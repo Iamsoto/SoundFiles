@@ -45,10 +45,10 @@ export default function SubscriptionPage(){
                     setValidEmail(response.data.valid_email)
                 }
             }).catch(error=>{
-                if(error.response.data && error.response.data.detail){
+                if(error.response && error.response.data && error.response.data.detail){
                     setError(error.response.data.detail)
                 }else{
-                    setError("Something bad happened here. Please try again later")
+                    setError("Something happened. Please try again later")
                 }
                 
             })
