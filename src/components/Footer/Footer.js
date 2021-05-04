@@ -7,7 +7,7 @@ import classNames from "classnames";
 // material-ui core components
 import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Slide from '@material-ui/core/Slide';
 import { Link } from 'react-router-dom';
 
 import logo from "assets/img/logo-nobackground-200.png"
@@ -60,12 +60,10 @@ export default function Footer(props) {
 
             &copy; {1900 + new Date().getYear()}
           
-            The Intro Code {" "}
-            
-            <Favorite className={classes.icon} ></Favorite>
+            The Intro Code 
 
         </div>
-<img src={logo}/>        
+        <img src={logo}/>        
       </div>
     </footer>
   );
