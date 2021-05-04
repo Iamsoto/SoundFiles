@@ -42,12 +42,12 @@
  }
 
  .landing-big-title {
-  font-size:72px;
+  font-size:50px;
   font-family:Arial;
   font-weight:bold;
   color:#FFF;
   position:absolute;
-  bottom:50px;
+  bottom:20px;
   right:50px;
  }
 

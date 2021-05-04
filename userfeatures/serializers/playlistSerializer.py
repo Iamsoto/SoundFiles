@@ -18,6 +18,8 @@ class EpisodePlaylistSerializer(serializers.ModelSerializer):
     def calculate_time(self, instance):
         request = self.context.get('request')
         user = request.user
+        if isinstance(user, AnonymousUser):
+            return False; # No more work to do here.
         save = EpisodeSavePoint.objects.filter(user = user, episode=instance.episode).first()
         if save is None: 
             return 0
