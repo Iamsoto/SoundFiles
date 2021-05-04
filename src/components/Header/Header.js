@@ -17,6 +17,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Redirect, useHistory } from "react-router-dom";
 import { LoginContext } from "auth/LoginContext.js";
 import { PlaylistContext } from "views/PlaylistPage/PlaylistContext.js";
+import { SearchContext } from "components/Search/SearchContext.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import HomeIcon from '@material-ui/icons/Home';
 // @material-ui/icons
@@ -24,7 +25,7 @@ import Menu from "@material-ui/icons/Menu";
 // core components
 import GetValidToken from "auth/GetValidToken.js";
 import GetAuthHeader from "auth/GetAuthHeader.js";
-
+import SearchBar from 'components/Search/SearchBar.js';
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
 import axios from "axios";
 
@@ -40,6 +41,7 @@ export default function Header(props) {
   const [subCount, setSubCount] = useState(0)
   const [localPlaylists, setLocalPlaylists] = useState([])
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
+  const { searchContent, setSearchContent, searchByValue, setSearchByValue } = useContext(SearchContext)
   const {setGlobalPlaylists, globalPlaylists, 
     playlistRerender, setPlaylistRerender} = useContext(PlaylistContext);
   let history = useHistory();
@@ -276,6 +278,7 @@ export default function Header(props) {
   });
 
   const goHome = (event) =>{
+    setSearchContent("")
     history.push("/")
   }
 
@@ -305,14 +308,20 @@ export default function Header(props) {
   }
 
   return (
-    <AppBar className={appBarClasses}>     
-      <Toolbar className={classes.container}>
-        {loggedIn 
-          ? <Button onClick={goHome} className={classes.title}><>{home}Welcome, {shortenUsername(username)}</></Button>
-          : <Button onClick={goHome} className={classes.title}>{home}SoundFiles.fm</Button>
-        }
-
-      </Toolbar>
+    <AppBar className={appBarClasses}>
+       <Hidden mdDown>
+         <Toolbar className={classes.container}>
+          {loggedIn 
+            ? <Button onClick={goHome} className={classes.title}><>{home}Welcome, {shortenUsername(username)}</></Button>
+            : <Button onClick={goHome} className={classes.title}>{home}SoundFiles.fm</Button>
+          }
+        </Toolbar>
+      </Hidden>
+      
+  
+    <div >
+      <SearchBar />
+    </div>
 
       <div className={classes.customNavClass}>
         <Hidden smDown implementation="css">

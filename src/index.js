@@ -5,9 +5,11 @@ import { AudioContext } from "components/AudioPlayer/AudioContext.js"
 import { AudioPlayerContext } from "components/AudioPlayer/AudioPlayerContext.js";
 import { LoginContext } from "auth/LoginContext.js";
 import { PlaylistContext } from "views/PlaylistPage/PlaylistContext.js";
+import { SearchContext } from "components/Search/SearchContext.js"
 import EpisodePage from "views/EpisodePage/EpisodePage.js"
 import GetValidToken from "auth/GetValidToken.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 
 import TermsofService from "views/TermsofService/TermsofService.js";
 import PrivacyPolicy from "views/PrivacyPolicy/PrivacyPolicyPage.js";
@@ -41,6 +43,9 @@ import "assets/scss/material-kit-react.scss";
 const useStyles = makeStyles(GlobalStyles);
 
 const App = () => {
+  /*
+    Some global states
+  */
 
   const classes = useStyles();
 
@@ -55,6 +60,9 @@ const App = () => {
 
   const [onMobile, setOnMobile] = useState(false)
   const [height, setHeight] = useState(false);
+  const [searchContent, setSearchContent] = useState('');
+  const [searchByValue, setSearchByValue] = useState('title');
+
 
   const closePlayer = () => {
     /**
@@ -139,55 +147,56 @@ const App = () => {
       <AudioContext.Provider value={audioRef}>
         <AudioPlayerContext.Provider value={{ setCurPlaylist, curPlaylist, trackIndex, setTrackIndex }}>
           <PlaylistContext.Provider value={{setGlobalPlaylists, globalPlaylists, playlistRerender, setPlaylistRerender}}>
-            
-            <Header
-              brand="SoundFiles"
-              fixed
-              changeColorOnScroll
-              changeColorOnScroll={{
-                height: 200,
-                color: "white"
-            }}
-            />
+            <SearchContext.Provider value={{searchContent, setSearchContent, searchByValue, setSearchByValue}}>
+              <Header
+                brand="SoundFiles"
+                fixed
+                changeColorOnScroll
+                changeColorOnScroll={{
+                  height: 200,
+                  color: "white"
+              }}
+              />
 
-            {height >= 700
-            ?<Box m={9}/>
-            :<Box m={10 + (height - 700)/80}/>
-            }
-            <Switch>
-              <Route path="/terms-of-service" children ={<TermsofService />} />
-              <Route path="/privacy-policy" children= { <PrivacyPolicy /> } />
-              <Route path="/about" children={<AboutPage /> } />
-              <Route path="/contact" children={<ContactPage />} />
-              <Route path="/forgot-password" children={<ForgotPassword /> } />
-              <Route path="/account" children={<AccountPage />} />
-              <Route path="/social" children={<SocialPage />} />
-              <Route path="/activate/:code" children={<ActivationPage />}/>
-              <Route path="/subscription" children={<SubscriptionPage />} />
-              <Route path="/episode-comment/:pk" children={<CommentView />} />
-              <Route path="/podcast/:pk" children={<PodcastView />} />
-              <Route path="/playlist/:pk" children={<PlaylistPage />} />
-              <Route path="/episode/:pk" children={<EpisodePage />} />
-              <Route path="/login" component={LoginPage}/>
-              <Route path="/register" component={RegisterPage}/>
-              <Route path="/goodbye" component={GoodbyePage} />
-              <Route path="/" component={Landing} />
-              
-            </Switch>
+              {height >= 700
+              ?<Box m={9}/>
+              :<Box m={10 + (height - 700)/80}/>
+              }
+              <Switch>
+                <Route path="/terms-of-service" children ={<TermsofService />} />
+                <Route path="/privacy-policy" children= { <PrivacyPolicy /> } />
+                <Route path="/about" children={<AboutPage /> } />
+                <Route path="/contact" children={<ContactPage />} />
+                <Route path="/forgot-password" children={<ForgotPassword /> } />
+                <Route path="/account" children={<AccountPage />} />
+                <Route path="/social" children={<SocialPage />} />
+                <Route path="/activate/:code" children={<ActivationPage />}/>
+                <Route path="/subscription" children={<SubscriptionPage />} />
+                <Route path="/episode-comment/:pk" children={<CommentView />} />
+                <Route path="/podcast/:pk" children={<PodcastView />} />
+                <Route path="/playlist/:pk" children={<PlaylistPage />} />
+                <Route path="/episode/:pk" children={<EpisodePage />} />
+                <Route path="/login" component={LoginPage}/>
+                <Route path="/register" component={RegisterPage}/>
+                <Route path="/goodbye" component={GoodbyePage} />
+                <Route path="/" component={Landing} />
+                
+              </Switch>
           
             <Box m={14}></Box>
 
-            <Grid container className={classes.container}>
-              <Grid item xs={12}>
-                {curPlaylist.length > 0 
-                  ? <AudioPlayer  close={closePlayer}/> 
-                  : null
-                  }
+              <Grid container className={classes.container}>
+                <Grid item xs={12}>
+                  {curPlaylist.length > 0 
+                    ? <AudioPlayer  close={closePlayer}/> 
+                    : null
+                    }
+                </Grid>
               </Grid>
-            </Grid>
 
 
             <Footer />
+          </SearchContext.Provider>
         </PlaylistContext.Provider>
       </AudioPlayerContext.Provider>
     </AudioContext.Provider>

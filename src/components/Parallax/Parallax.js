@@ -18,6 +18,7 @@ export default function Parallax(props) {
   const words = ["A podcast player with community", 
   "A podcast player with community", "Subscribe to your favorite podcasts! Make playlists! join the conversation!",
   "Subscribe to your favorite podcasts! Make playlists! join the conversation!", "Enjoy the fun!", "Enjoy the fun!"]
+  const words2 = ["Welcome to SoundFiles.fm", "Version Alpha"]
   const [index, setIndex] = useState(0)
   const [wordIndex, setWordIndex] = useState(0)
   let windowScrollTop;
@@ -82,7 +83,7 @@ export default function Parallax(props) {
     >
        <Slide direction="up" in={true} timeout={1300}>
            <div className="landing-big-title">
-                Welcome to SoundFiles.fm 
+                {words2[index%words2.length]}
            </div>
        </Slide>
        <Slide direction={"right"} in={Boolean(wordIndex % 2 == 0)} timeout={1000}>

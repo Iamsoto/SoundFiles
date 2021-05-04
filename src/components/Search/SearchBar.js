@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import SearchIcon from '@material-ui/icons/Search';
+
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Radio from '@material-ui/core/Radio';
@@ -12,12 +13,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
+import {SearchContext} from 'components/Search/SearchContext.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '10px 10px',
-    marginTop:'15px',
     display: 'flex',
+    width:'100%',
     boxShadow:'None',
     [theme.breakpoints.down('md')]: {
       maxWidth: "100%",
@@ -34,9 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
   input: {
     marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
+    width:'50vw',
     boxShadow:'None',
-
 
   },
 
@@ -45,14 +48,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedInputBase({setSearchContent, searchByValue, setSearchByValue}) {
+export default function SearchBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  
+  const { searchContent, setSearchContent, searchByValue, setSearchByValue } = useContext(SearchContext)
+  const [onMobile, setOnMobile] = useState(false)
   const handleClose = (event) => {
     event.preventDefault();
     setAnchorEl(null)
   }
+  const mobileSetter = () => {
+
+      if(window.innerWidth <= 360){
+          if(!onMobile){
+              setOnMobile(true)
+          }
+                      
+      }else{
+          if(onMobile){
+              setOnMobile(false) 
+          }
+      }
+  }
+
+  useEffect(()=>{
+      /**
+          Hook to use on window inner width
+      */
+      mobileSetter()
+      window.addEventListener('resize', mobileSetter );
+
+      return () => window.removeEventListener('resize', mobileSetter);
+
+  }, [window.innerWidth, window.innerHeight])
 
   const handleSearchByChange = (event) => {
     setSearchByValue(event.target.value);
@@ -66,11 +94,22 @@ export default function CustomizedInputBase({setSearchContent, searchByValue, se
       setAnchorEl(event.currentTarget)
   }
 
+  const reset = (event) =>{
+    event.preventDefault()
+    setSearchContent("")
+  }
+
+  const getPlaceholder = () => {
+    if (onMobile){
+      return "Search Podcasts!"
+    }else{
+      return `Search Podcasts! (By ${searchByValue == 'title' ? 'Title' : 'Author'})`
+    }
+  }
   return (
     <form className={classes.root} onSubmit={e => { e.preventDefault(); }} noValidate autoComplete="off">
-
-      <IconButton className={classes.iconButton} aria-label="menu" onClick={setMenu}>
-        <MenuIcon />
+      <IconButton className={classes.iconButton} onClick={setMenu} aria-label="search">
+        <SearchIcon />
       </IconButton>
       <Menu
           id="searchbar-id"
@@ -88,11 +127,19 @@ export default function CustomizedInputBase({setSearchContent, searchByValue, se
       </Menu>
       <TextField
         className={classes.input}
-        placeholder={`Search Podcasts! (By ${searchByValue == 'title' ? 'Title' : 'Author'})`}
+        placeholder={getPlaceholder()}
         inputProps={{ 'aria-label': 'Search SoundFiles!' }}
         variant="outlined"
+        value={searchContent}
         onChange={(event)=>{setSearchContent(event.target.value) }}
       />
+
+      {searchContent !== ""
+        ?<IconButton className={classes.iconButton} onClick={reset} aria-label="reset">
+          <RotateLeftIcon/>
+         </IconButton>
+        :null
+      }
     </form>
   );
 }

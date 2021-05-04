@@ -5,14 +5,15 @@ import Box from '@material-ui/core/Box';
 
 import { LoginContext } from 'auth/LoginContext.js';
 import { LandingContext } from 'views/Landing/LandingContext.js';
+import { SearchContext } from 'components/Search/SearchContext.js';
 import Genres from 'views/Landing/Genres.js';
 import Continue from 'views/Landing/Continue.js';
 import CreateSoundhub from 'views/CreateSoundhub/CreateSoundhub.js';
 import PodcastCardRows from 'components/Content/PodcastCardRows.js'
-import Slide from '@material-ui/core/Slide';
+
 
 import Playlists from 'views/Landing/Playlists.js';
-import SearchBar from 'views/Landing/SearchBar.js';
+
 import SearchView from 'views/Landing/SearchView.js';
 
 import StyledTabs from 'components/StyledTabs/StyledTabs.js';
@@ -26,10 +27,8 @@ import logo from "assets/img/logo-nobackground-200.png";
 export default function Landing(props) {
 
     const [page, setPage] = useState(0);
-    const [searchContent, setSearchContent] = useState('');
-    const [searchByValue, setSearchByValue] = useState('title');
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
-
+    const { searchContent, setSearchContent, searchByValue, setSearchByValue } = useContext(SearchContext)
     
     const setSearchContentWrapper = (value) => {
         setSearchContent(value)
@@ -81,9 +80,13 @@ export default function Landing(props) {
 
     return (
         <div>
-           <Parallax small filter />
+            {searchContent === ""
+            ? <Parallax small filter />
+            : null
+            }
             
-            <Grid container>
+            {searchContent === ""
+            ? <Grid container>
                 <Grid item xs={12} md={8} xl={10}>
                     
                     <StyledTabs 
@@ -97,16 +100,10 @@ export default function Landing(props) {
                       <StyledTab label="Playlists" />
                       <StyledTab label="Request a Podcast" />
                     </StyledTabs>  
-                </Grid>
-                
-                <Grid item md={4} xl={2} mt={12}>
-                    <SearchBar 
-                        setSearchContent={setSearchContentWrapper}
-                        searchByValue={searchByValue}
-                        setSearchByValue={setSearchByValue}
-                    />
-                </Grid>         
+                </Grid>          
             </Grid>
+            : null
+            }
 
             <LandingContext.Provider value={{page, setPage, setSearchContent}}>
                 <div className="landing-main-box">
