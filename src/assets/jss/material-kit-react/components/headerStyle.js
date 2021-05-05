@@ -33,7 +33,8 @@ const headerStyle = {
     maxHeight:"70px",
   },
   customNavClass: {
-    marginRight:"10px",
+    width:"100%",
+    flexWrap:"nowrap",
   },
   absolute: {
     position: "absolute",
@@ -46,7 +47,6 @@ const headerStyle = {
   container: {
     ...container,
     minHeight: "50px",
-    flex: "1",
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",

@@ -89,7 +89,8 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
 
   const userLinks = () => {
     return (
-      <>
+      
+      <List className={classes.list}>
       <ListItem className={classes.listItem}>
         <Button
           href=""
@@ -97,7 +98,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
           onClick={goSubscription}
           className={classes.navLink}
         >
-          <SubscriptionsIcon className={classes.icons} />
+          <SubscriptionsIcon style={{margin:"0px", padding:"0px"}} className={classes.icons} />
           {subCount > 0
           ?  <Badge badgeContent={subCount} color="secondary">
               <>Subscriptions</>
@@ -140,7 +141,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
           onClick={goSocial}
           className={classes.navLink}
         >
-          <TextsmsIcon className={classes.icons} />
+          <TextsmsIcon className={classes.icons} style={{margin:"0px", padding:"0px"}}/>
             {notificationCount > 0  
             ? <Badge badgeContent={notificationCount} color="error"> 
                <> Social</>
@@ -157,7 +158,7 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
           className={classes.navLink}
           onClick={goAccount}
         >
-          <AccountCircleIcon className={classes.icons} /> Account
+          <AccountCircleIcon className={classes.icons} style={{margin:"0px", padding:"0px"}}/> Account
         </Button>
       </ListItem>
 
@@ -168,10 +169,10 @@ export default function HeaderLinks({playlists, onClose, notificationCount, subC
           className={classes.navLink}
           onClick={logoutFunc}
         >
-          <ExitToAppIcon className={classes.icons} /> Logout
+          <ExitToAppIcon className={classes.icons} style={{margin:"0px", padding:"0px"}}/> Logout
         </Button>
       </ListItem>
-      </>
+      </List>
       )
   }
 

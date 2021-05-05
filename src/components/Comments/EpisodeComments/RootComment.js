@@ -67,7 +67,6 @@ export default function RootComment({username, user_pk, postDate, timeStamp, tex
                 </div>
 
                 <div className="episode-comment-wrapper">
-                    <div className="episode-comment-time-stamp">Time Stamp: {timeStamp}</div>
                     
                     <div className="episode-comment-right">
                       <Flag 

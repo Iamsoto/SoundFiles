@@ -36,7 +36,7 @@ export default function AboutPage({}){
                         <div className="about-sub-title"> Going Forward... </div>
                         <p> 
                             If you like this service and want to see it grow, please consider
-                            giving support through Patreon (click on the 'membership' tab up top if you're logged in). There will likely 
+                            giving support through the "Early Membership" available on the account tab up top if you're logged in. There will likely 
                             be a premium tier in the near future where subscribers get greater access to features. If you donate now, I'll be sure 
                             to give your account some form of discount for these features. 
                         </p>

@@ -310,11 +310,13 @@ export default function Header(props) {
       <SearchBar />
     </div>
 
-    <div className={classes.customNavClass}>
+    
       <Hidden smDown implementation="css">
-        {getHeaderLinks(()=>{})}
+        <div className={classes.customNavClass}>
+          {getHeaderLinks(()=>{})}
+        </div>
       </Hidden>
-    </div>
+    
 
     <div className={classes.right}>
       <Hidden mdUp>
