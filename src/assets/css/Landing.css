@@ -43,6 +43,7 @@
 
  .landing-big-title {
   font-size:50px;
+  line-height: 40px;
   font-family:Arial;
   font-weight:bold;
   color:#fdf8f9;
@@ -54,6 +55,7 @@
 
  .landing-big-title-2 {
   font-size:35px;
+  line-height: 35px;
   font-family:Arial;
   font-weight:bold;
   color:#fdf8f9;

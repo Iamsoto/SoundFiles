@@ -12,19 +12,19 @@ import "assets/css/Landing.css"
 export default function UpdatePassword({close}){
     const [password, setPassword] = useState("")
     const [newPass1, setNewPass1] = useState("")
-    const [newPass2, setNewPass2] = useState("")	
-	const [error, setError] = useState("")
-	const change_pass_url = localStorage.getItem("__APIROOT_URL__").concat("users/change_password")
-	
-	const curPasswordChange = (e) =>{
-		e.preventDefault()
-		setPassword(e.target.value)
-		
-	}
+    const [newPass2, setNewPass2] = useState("")    
+    const [error, setError] = useState("")
+    const change_pass_url = localStorage.getItem("__APIROOT_URL__").concat("users/change_password")
+    
+    const curPasswordChange = (e) =>{
+        e.preventDefault()
+        setPassword(e.target.value)
+        
+    }
 
-	const submit = (e) => {
-		GetValidToken().then((response) => {
-			axios({
+    const submit = (e) => {
+        GetValidToken().then((response) => {
+            axios({
                 method: 'post',
                 url: change_pass_url,
                 headers: {
@@ -33,49 +33,48 @@ export default function UpdatePassword({close}){
                     'Authorization': GetAuthHeader()
                 },
                 data:{
-                	current_pass:password,
-                	new_pass_1:newPass1,
-                	new_pass_2:newPass2
+                    current_pass:password,
+                    new_pass_1:newPass1,
+                    new_pass_2:newPass2
                 }
             }).then(response => {
                 if(response.data ){
-                	setError("")
-                	setPassword("")
-                	setNewPass1("")
-                	setNewPass2("")
-                	close()
+                    setError("")
+                    setPassword("")
+                    setNewPass1("")
+                    setNewPass2("")
+                    close()
                 }
             }).catch(error=>{
-            	console.log(error)
                 if(error.response && error.response.data && error.response.data.detail){
                     setError(error.response.data.detail)
                 }else{
                     setError("Something happened. Please try again later")
                 }
                 
-            })			
+            })          
 
-		}).catch(msg => {
+        }).catch(msg => {
 
-		})	
-	}
+        })  
+    }
 
-	const newPassword1 = (e) =>{
-		e.preventDefault()
-		setNewPass1(e.target.value)
-	}
+    const newPassword1 = (e) =>{
+        e.preventDefault()
+        setNewPass1(e.target.value)
+    }
 
-	const newPassword2 = (e) => {
-		e.preventDefault()
-		setNewPass2(e.target.value)
-	}
+    const newPassword2 = (e) => {
+        e.preventDefault()
+        setNewPass2(e.target.value)
+    }
 
-	return (
-			<>
-			{error!=""
-				?<Alert severity="error">{error}</Alert>
-				:null
-			}
+    return (
+            <>
+            {error!=""
+                ?<Alert severity="error">{error}</Alert>
+                :null
+            }
             <CustomInput
               labelText="Current Password"
               id="account-pass-1"
@@ -109,5 +108,5 @@ export default function UpdatePassword({close}){
             <Button color="facebook" size="sm" onClick={submit}> Update Password </Button>
             
             </>
-		)
+        )
 }
