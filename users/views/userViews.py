@@ -57,13 +57,42 @@ class ReSend(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
+class ChangePassword(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self,request, format=None):
+        """
+            Hopefully self explanitory
+        """
+        response_data = {}
+        if ("current_pass" not in request.data) or ("new_pass_1" not in request.data) or ("new_pass_2" not in request.data):
+            response_data["detail"] = "Malformed payload"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            user =request.user
+            if not user.check_password(request.data["current_pass"]):
+                response_data["detail"] = "Incorrect current password" 
+                return Response(response_data, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            if request.data["new_pass_1"] != request.data["new_pass_2"]:
+                response_data["detail"] = "New Passwords don't match"
+                return Response(response_data,status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+            user.set_password(request.data["new_pass_1"])
+            try:
+                user.save()
+            except Exception as e:
+                response_data["detail"] = "Something happened"
+                return Response(response_data,status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+            response_data["success"] = True
+            return Response(response_data, status=status.HTTP_200_OK)
+
 class Activate(APIView):
     permission_classes = [permissions.IsAuthenticated]
     throttle_classes = [ActivateThrottle]
     def get(self, request, code=-1, format=None):
         response_data = {}
-        
-
+    
         if code == -1:
             response_data["detail"] = "not found"
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)

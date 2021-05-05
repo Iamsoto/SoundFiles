@@ -8,13 +8,11 @@ import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "auth/LoginContext.js";
 import { PlaylistContext } from "views/PlaylistPage/PlaylistContext.js";
 import { SearchContext } from "components/Search/SearchContext.js";
@@ -28,8 +26,6 @@ import GetAuthHeader from "auth/GetAuthHeader.js";
 import SearchBar from 'components/Search/SearchBar.js';
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
 import axios from "axios";
-
-import logo from "assets/img/logo-nobackground-200.png";
 
 const useStyles = makeStyles(styles);
 
@@ -269,7 +265,7 @@ export default function Header(props) {
     }
   };
 
-  const { color, rightLinks, leftLinks, brand, fixed, absolute, backHistory } = props;
+  const { color, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -293,10 +289,6 @@ export default function Header(props) {
     return (<><HeaderLinks playlists={localPlaylists} notificationCount = {notificationCount} subCount={subCount}/></>)
   }
 
-  const fakeClose = () => {
-
-  }
-
   const home = <HomeIcon />
 
   const shortenUsername = (name) =>{
@@ -309,54 +301,49 @@ export default function Header(props) {
 
   return (
     <AppBar className={appBarClasses}>
-       
-         
-          {loggedIn 
-            ? <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>Welcome, {shortenUsername(username)}</Hidden></Button>
-            : <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>SoundFiles.fm</Hidden></Button>
-          }
-        
-      
-      
-  
+      {loggedIn 
+        ? <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>Welcome, {shortenUsername(username)}</Hidden></Button>
+        : <Button onClick={goHome} className={classes.title}>{home}<Hidden mdDown>SoundFiles.fm</Hidden></Button>
+      }
+    
     <div >
       <SearchBar />
     </div>
 
-      <div className={classes.customNavClass}>
-        <Hidden smDown implementation="css">
-          {getHeaderLinks(()=>{})}
-        </Hidden>
-      </div>
-
-      <div className={classes.right}>
-        <Hidden mdUp>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
-          
-          </IconButton>
-        </Hidden>
-      </div>
-
-      <Hidden mdUp implementation="js">
-        <Drawer
-          variant="temporary"
-          anchor={"right"}
-          open={mobileOpen}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          onClose={handleDrawerToggle}
-        >
-          <div className={classes.appResponsive}>
-            {getHeaderLinks(handleDrawerToggle)}
-          </div>
-        </Drawer>
+    <div className={classes.customNavClass}>
+      <Hidden smDown implementation="css">
+        {getHeaderLinks(()=>{})}
       </Hidden>
+    </div>
+
+    <div className={classes.right}>
+      <Hidden mdUp>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerToggle}
+        >
+          <Menu />
+        
+        </IconButton>
+      </Hidden>
+    </div>
+
+    <Hidden mdUp implementation="js">
+      <Drawer
+        variant="temporary"
+        anchor={"right"}
+        open={mobileOpen}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+        onClose={handleDrawerToggle}
+      >
+        <div className={classes.appResponsive}>
+          {getHeaderLinks(handleDrawerToggle)}
+        </div>
+      </Drawer>
+    </Hidden>
       
     </AppBar>
   );

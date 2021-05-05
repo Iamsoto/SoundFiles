@@ -11,19 +11,26 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Badge from '@material-ui/core/Badge';
 import axios from "axios";
 
+import UpdatePassword from "views/AccountPage/UpdatePassword.js"
 import "assets/css/Landing.css"
+
 export default function SubscriptionPage(){
     const account_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/account")
     const news_url = localStorage.getItem("__APIROOT_URL__").concat("userfeatures/news_letter")
-    const [error, setError] = useState("")
+
+    const [error, setError] = useState("");
+    const [xpr, setXpr] = useState(false);
     const [redirect, setRedirect] = useState("");
     const [newsLetter, setNewsLetter] = useState(false);
     const [email, setEmail] = useState("")
     const [username, setUsername] = useState("")
     const [membership, setMembership] = useState(0)
     const [validEmail, setValidEmail] = useState(false)
+
+    const [success, setSuccess] = useState("")
 
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
@@ -85,6 +92,21 @@ export default function SubscriptionPage(){
         })        
     }
 
+    const clickChangePass = (e) =>{
+        e.preventDefault()
+        setXpr(true)
+    }
+
+    const close = (e) => {
+        setSuccess("Successfully updated password!")
+        setXpr(false)
+    }
+
+    const updatePass = (e) =>{
+        e.preventDefault()
+
+    }
+
     if(redirect){
         return(<Redirect to="/" />)
     }
@@ -92,6 +114,7 @@ export default function SubscriptionPage(){
     return (
         <>
         {error != "" ? <Alert severity = "error">{error}</Alert> : null}
+        {success != "" ? <Alert severity="success"> {success} </Alert> : null}
         <div className="landing-container">
             <div className="landing-row">
                 <div className="landing-title">Account Info</div>
@@ -111,7 +134,16 @@ export default function SubscriptionPage(){
         <div className="landing-container">
             <div className="landing-row">
                 <div className="landing-title-small"> Password: ****** </div>
-                <Button color="rose" size="sm"> Change Password </Button>
+                {xpr
+                    ?<UpdatePassword close={close}/>
+                    : null                  
+                }
+
+                {!xpr
+                    ? <Button color="rose" size="sm" onClick={clickChangePass}> Change Password </Button>
+                    : null
+                }
+
             </div>                         
         </div>
         <div className="landing-container">
@@ -135,7 +167,12 @@ export default function SubscriptionPage(){
         </div>
         <div className="landing-container">
             <div className="landing-row">
-                <div className="landing-title-small"><b>Membership Status: <>{membership > 0 ? "Member" : "Not a member yet"}</></b></div>
+                <div className="landing-title-small">Membership Status: 
+                    {membership > 0 
+                        ? <Badge badgeContent={"Beautiful"} color="secondary"> Member</Badge> 
+                        : <>Not a member yet</>
+                    }
+                </div>
                 <div className="landing-account-sub ">
                 <br />
                 {membership === 0 ?
