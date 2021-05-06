@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     width:'100%',
     boxShadow:'None',
     marginTop: theme.spacing(3),
-    marginLeft:'auto',
+    marginRight:'auto',
     [theme.breakpoints.down('md')]: {
       maxWidth: "100%",
       background:"transparent"
