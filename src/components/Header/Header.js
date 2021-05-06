@@ -293,7 +293,7 @@ export default function Header(props) {
 
   const shortenUsername = (name) =>{
     if(name.length > 16){
-      return name.substirng(0, 16)
+      return name.substring(0, 16)
     }else{
       return name
     }
@@ -311,9 +311,11 @@ export default function Header(props) {
     </div>
 
     
-      <Hidden smDown implementation="css">
-        <div className={classes.customNavClass}>
-          {getHeaderLinks(()=>{})}
+      <Hidden smDown>
+        <div className={classes.right}>
+          <div className={classes.customNavClass}>
+            {getHeaderLinks(()=>{})}
+          </div>
         </div>
       </Hidden>
     

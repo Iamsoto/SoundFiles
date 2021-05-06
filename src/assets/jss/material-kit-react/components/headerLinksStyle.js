@@ -5,13 +5,14 @@ import tooltip from "assets/jss/material-kit-react/tooltipsStyle.js";
 const headerLinksStyle = theme => ({
   list: {
     ...defaultFont,
-    fontSize: "14px",
+    fontSize: "10px",
     margin: 0,
     paddingLeft: "0",
     listStyle: "none",
     paddingTop: "0",
     paddingBottom: "0",
-    color: "inherit"
+    color: "inherit",
+    flexWrap:"nowrap",
   },
   listItem: {
     float: "left",

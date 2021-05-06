@@ -33,8 +33,7 @@ const headerStyle = {
     maxHeight:"70px",
   },
   customNavClass: {
-    width:"100%",
-    flexWrap:"nowrap",
+
   },
   absolute: {
     position: "absolute",
