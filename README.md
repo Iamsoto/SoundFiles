@@ -10,8 +10,10 @@
     A Podcast Player with an emphasis on community. 
     Create and share playlists! Subscribe to your favorite podcasts!
     Comment on your favorite episodes and much, much more!
-
+    <br />
+    <br />
     <a href="https://soundfiles.fm">View Live</a>
+    ·
   </p>
 </p>
 
